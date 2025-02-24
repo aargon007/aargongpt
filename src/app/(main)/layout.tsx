@@ -1,12 +1,10 @@
 import React from 'react';
 
-const MainLayout = ({ children }: Readonly<{ children: React.ReactNode; }>) => {
+const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     return (
         <>
             {/* <Header /> */}
-            <main className="min-h-screen">
-                {children}
-            </main>
+            <main className="min-h-screen">{children}</main>
             {/* <Footer /> */}
         </>
     );

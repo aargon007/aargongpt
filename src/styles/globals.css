@@ -2,69 +2,97 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
-  :root {
+    :root {
+        /* Noble Black */
+        --noble-100: #E8E9E9;
+        --noble-200: #CDCECF;
+        --noble-300: #9B9C9E;
+        --noble-400: #686B6E;
+        --noble-500: #363A3D;
+        --noble-600: #1A1D21;
+        --noble-700: #131619;
+        --noble-800: #0D0F10;
+        --noble-900: #060708;
 
-    --background: 0 0% 100%;
+        /* Day Blue */
+        --day-blue-100: #EBEDFC;
+        --day-blue-200: #D2D8F9;
+        --day-blue-300: #A6B0F2;
+        --day-blue-400: #7989EC;
+        --day-blue-500: #4D62E5;
+        --day-blue-600: #3045C9;
+        --day-blue-700: #243497;
+        --day-blue-800: #182364;
+        --day-blue-900: #0C1132;
 
-    --foreground: 0 0% 3.9%;
+        /* Stem Green */
+        --stem-green-100: #F7FDF4;
+        --stem-green-200: #EDFBE6;
+        --stem-green-300: #DBF7CD;
+        --stem-green-400: #C8F4B4;
+        --stem-green-500: #B6F09C;
+        --stem-green-600: #9AD37F;
+        --stem-green-700: #739F5F;
+        --stem-green-800: #4D6A3F;
+        --stem-green-900: #263520;
 
-    --card: 0 0% 100%;
+         /* Heisenberg Blue */
+        --heisenberg-blue-100: #F1FBFE;
+        --heisenberg-blue-200: #E0F6FD;
+        --heisenberg-blue-300: #C0EDFB;
+        --heisenberg-blue-400: #A1E4F9;
+        --heisenberg-blue-500: #82DBF7;
+        --heisenberg-blue-600: #65BEDA;
+        --heisenberg-blue-700: #4C8FA4;
+        --heisenberg-blue-800: #335F6D;
+        --heisenberg-blue-900: #193037;
 
-    --card-foreground: 0 0% 3.9%;
+        /* Purple Blue */
+        --purple-blue-100: #F0E8FD;
+        --purple-blue-200: #DECCFB;
+        --purple-blue-300: #BD9AF8;
+        --purple-blue-400: #9C67F4;
+        --purple-blue-500: #7C35F1;
+        --purple-blue-600: #5F18D4;
+        --purple-blue-700: #47129F;
+        --purple-blue-800: #300C6A;
+        --purple-blue-900: #180635;
 
-    --popover: 0 0% 100%;
+        /* Sunglow */
+        --sunglow-100: #FFFAEA;
+        --sunglow-200: #FFF3D1;
+        --sunglow-300: #FFE8A3;
+        --sunglow-400: #FFDC75;
+        --sunglow-500: #FFD147;
+        --sunglow-600: #E2B42B;
+        --sunglow-700: #AA8720;
+        --sunglow-800: #715A15;
+        --sunglow-900: #392D0B;
 
-    --popover-foreground: 0 0% 3.9%;
+        /* Happy Orange */
+        --happy-orange-100: #FFF2E9;
+        --happy-orange-600: #E26F20;
+        --happy-orange-900: #391C08;
 
-    --primary: 0 0% 9%;
+        /* Electric Green */
+        --electric-green-100: #122B1D;
+        --electric-green-400: #4AC97E;
+        --electric-green-900: #F3FBF7;
 
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 0 0% 96.1%;
-
-    --secondary-foreground: 0 0% 9%;
-
-    --muted: 0 0% 96.1%;
-
-    --muted-foreground: 0 0% 45.1%;
-
-    --accent: 0 0% 96.1%;
-
-    --accent-foreground: 0 0% 9%;
-
-    --destructive: 0 84.2% 60.2%;
-
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 89.8%;
-
-    --input: 0 0% 89.8%;
-
-    --ring: 0 0% 3.9%;
-
-    --chart-1: 12 76% 61%;
-
-    --chart-2: 173 58% 39%;
-
-    --chart-3: 197 37% 24%;
-
-    --chart-4: 43 74% 66%;
-
-    --chart-5: 27 87% 67%;
-
-    --radius: 0.5rem
-  }
+        /* Red Power */
+        --red-power-100: #FBECEC;
+        --red-power-600: #D0302F;
+        --red-power-900: #2F0F0E;
+    }
 }
 
 
-
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+    * {
+        @apply border-border outline-ring/50;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
 }
