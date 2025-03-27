@@ -10,45 +10,95 @@ export default {
     theme: {
         extend: {
             colors: {
-                background: 'hsl(var(--background))',
-                foreground: 'hsl(var(--foreground))',
-                card: {
-                    DEFAULT: 'hsl(var(--card))',
-                    foreground: 'hsl(var(--card-foreground))',
+                // Noble Black
+                noble: {
+                    100: "var(--noble-100)",
+                    200: "var(--noble-200)",
+                    300: "var(--noble-300)",
+                    400: "var(--noble-400)",
+                    500: "var(--noble-500)",
+                    600: "var(--noble-600)",
+                    700: "var(--noble-700)",
+                    800: "var(--noble-800)",
+                    900: "var(--noble-900)",
                 },
-                popover: {
-                    DEFAULT: 'hsl(var(--popover))',
-                    foreground: 'hsl(var(--popover-foreground))',
+                // Day Blue
+                "day-blue": {
+                    100:"var(--day-blue-100)",
+                    200:"var(--day-blue-200)",
+                    300:"var(--day-blue-300)",
+                    400:"var(--day-blue-400)",
+                    500:"var(--day-blue-500)",
+                    600:"var(--day-blue-600)",
+                    700:"var(--day-blue-700)",
+                    800:"var(--day-blue-800)",
+                    900:"var(--day-blue-900)",
                 },
-                primary: {
-                    DEFAULT: 'hsl(var(--primary))',
-                    foreground: 'hsl(var(--primary-foreground))',
+                // Stem Green
+                "stem-green": {
+                    100: "var(--stem-green-100)",
+                    200: "var(--stem-green-200)",
+                    300: "var(--stem-green-300)",
+                    400: "var(--stem-green-400)",
+                    500: "var(--stem-green-500)",
+                    600: "var(--stem-green-600)",
+                    700: "var(--stem-green-700)",
+                    800: "var(--stem-green-800)",
+                    900: "var(--stem-green-900)",
                 },
-                secondary: {
-                    DEFAULT: 'hsl(var(--secondary))',
-                    foreground: 'hsl(var(--secondary-foreground))',
+                // Heisenberg Blue
+                "heisenberg-blue": {
+                    100: "var(--heisenberg-blue-100)",
+                    200: "var(--heisenberg-blue-200)",
+                    300: "var(--heisenberg-blue-300)",
+                    400: "var(--heisenberg-blue-400)",
+                    500: "var(--heisenberg-blue-500)",
+                    600: "var(--heisenberg-blue-600)",
+                    700: "var(--heisenberg-blue-700)",
+                    800: "var(--heisenberg-blue-800)",
+                    900: "var(--heisenberg-blue-900)",
                 },
-                muted: {
-                    DEFAULT: 'hsl(var(--muted))',
-                    foreground: 'hsl(var(--muted-foreground))',
+                // Purple Blue
+                "purple-blue": {
+                    100: "var(--purple-blue-100)",
+                    200: "var(--purple-blue-200)",
+                    300: "var(--purple-blue-300)",
+                    400: "var(--purple-blue-400)",
+                    500: "var(--purple-blue-500)",
+                    600: "var(--purple-blue-600)",
+                    700: "var(--purple-blue-700)",
+                    800: "var(--purple-blue-800)",
+                    900: "var(--purple-blue-900)",
                 },
-                accent: {
-                    DEFAULT: 'hsl(var(--accent))',
-                    foreground: 'hsl(var(--accent-foreground))',
+                // Sunglow
+                sunglow: {
+                    100: "var(--sunglow-100)",
+                    200: "var(--sunglow-200)",
+                    300: "var(--sunglow-300)",
+                    400: "var(--sunglow-400)",
+                    500: "var(--sunglow-500)",
+                    600: "var(--sunglow-600)",
+                    700: "var(--sunglow-700)",
+                    800: "var(--sunglow-800)",
+                    900: "var(--sunglow-900)",
                 },
-                destructive: {
-                    DEFAULT: 'hsl(var(--destructive))',
-                    foreground: 'hsl(var(--destructive-foreground))',
+                // Happy Orange
+                "happy-orange": {
+                    100: "var(--happy-orange-100)",
+                    600: "var(--happy-orange-600)",
+                    900: "var(--happy-orange-900)",
                 },
-                border: 'hsl(var(--border))',
-                input: 'hsl(var(--input))',
-                ring: 'hsl(var(--ring))',
-                chart: {
-                    '1': 'hsl(var(--chart-1))',
-                    '2': 'hsl(var(--chart-2))',
-                    '3': 'hsl(var(--chart-3))',
-                    '4': 'hsl(var(--chart-4))',
-                    '5': 'hsl(var(--chart-5))',
+                // Electric Green
+                "electric-green": {
+                    100: "var(--electric-green-100)",
+                    400: "var(--electric-green-400)",
+                    900: "var(--electric-green-900)",
+                },
+                // Red Power
+                "red-power": {
+                    100: "var(--red-power-100)",
+                    600: "var(--red-power-600)",
+                    900: "var(--red-power-900)",
                 },
             },
             borderRadius: {

@@ -86,13 +86,3 @@
         --red-power-900: #2F0F0E;
     }
 }
-
-
-@layer base {
-    * {
-        @apply border-border outline-ring/50;
-    }
-    body {
-        @apply bg-background text-foreground;
-    }
-}

@@ -1,7 +1,7 @@
+import type React from 'react';
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
-import type React from 'react';
-import './globals.css';
+import '@/styles/globals.css';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
     subsets: ['latin'],
@@ -11,7 +11,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
     title: 'aargonGPT',
-    description: 'a simple GPT-3 powered text generator',
+    description: 'a simple GPT powered text generator',
 };
 
 export default function RootLayout({
@@ -22,7 +22,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`${plusJakartaSans.variable} font-sans antialiased`}
+                className={`${plusJakartaSans.variable} font-sans antialiased bg-noble-700`}
             >
                 {children}
             </body>
