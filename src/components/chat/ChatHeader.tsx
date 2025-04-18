@@ -1,18 +1,20 @@
 "use client"
 
+import { useSidebarStore } from "@/hooks/sidebarStore";
 import { LuPenLine, LuShare } from "react-icons/lu"
 
 interface ChatHeaderProps {
     title: string
     description: string
-    onMenuClick: () => void
 }
 
-export default function ChatHeader({ title, description, onMenuClick }: ChatHeaderProps) {
+export default function ChatHeader({ title, description }: ChatHeaderProps) {
+    const toggleSidebar = useSidebarStore((state) => state.toggle);
+
     return (
         <header className="border-b border-gray-800 p-4 flex items-center justify-between">
             <div className="flex items-center">
-                <button onClick={onMenuClick} className="mr-4 text-gray-400 md:hidden">
+                <button onClick={toggleSidebar} className="mr-4 text-gray-400 md:hidden">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                     </svg>
