@@ -11,7 +11,7 @@ export default function LoginPage() {
             {/* Left side - Login form */}
             <div className="w-full md:w-1/2 bg-noble-700 px-5 py-8 md:px-12 md:py-12 flex flex-col justify-between">
                 {/* Logo */}
-                <div className="mb-6">
+                <div className="mb-10">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 0L29.8564 8V24L16 32L2.14359 24V8L16 0Z" fill="url(#paint0_linear_1_2)" />
                         <defs>
@@ -25,7 +25,7 @@ export default function LoginPage() {
 
                 <div className="px-4 md:px-8">
                     {/* Heading */}
-                    <div className="mb-12">
+                    <div className="mb-10">
                         <h1 className="text-3xl font-normal text-white mb-4">
                             Let's get <span className="bg-gradient-to-r font-medium text-transparent from-day-blue-300 via-[#87DDEE] to-stem-green-500 bg-clip-text">creative!</span>
                         </h1>
@@ -37,7 +37,7 @@ export default function LoginPage() {
                     {/* Form */}
                     <LoginForm />
 
-                    <div className="mt-12">
+                    <div className="mt-10">
                         <div className="flex justify-between items-center w-full gap-4">
                             <div className="h-px bg-noble-500 w-full" />
                             <div className="text-noble-500 text-sm font-medium min-w-32 w-auto text-center">or continue with</div>

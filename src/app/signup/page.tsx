@@ -35,7 +35,7 @@ export default function SignupPage() {
         <div className="flex min-h-screen bg-noble-700">
             {/* Left side - Signup form */}
             <div className="w-full md:w-[60%] px-5 py-8 md:px-12 md:py-12 flex flex-col">
-                <div className="flex justify-between items-center mb-16">
+                <div className="flex justify-between items-center mb-10 md:mb-16">
                     {/* Logo */}
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 0L29.8564 8V24L16 32L2.14359 24V8L16 0Z" fill="url(#paint0_linear_1_2)" />
@@ -55,7 +55,7 @@ export default function SignupPage() {
 
                 <div className="w-full px-4 md:px-8">
                     {/* Heading */}
-                    <h1 className="text-2xl md:text-4xl font-normal text-noble-100 mb-16">
+                    <h1 className="text-2xl md:text-4xl font-normal text-noble-100 mb-10 md:mb-16">
                         Connect with your team and bring your creative ideas to life.
                     </h1>
 
@@ -149,7 +149,6 @@ export default function SignupPage() {
                     <div className="absolute w-60 h-20 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 blur-sm bottom-1/4 right-20 transform -rotate-15 opacity-70"></div>
                     <div className="absolute w-40 h-20 rounded-full bg-gradient-to-r from-purple-400 to-blue-600 blur-sm top-2/3 right-40 transform rotate-30 opacity-70"></div>
 
-                   
                     <div
                         className="absolute inset-0 opacity-30"
                         style={{
