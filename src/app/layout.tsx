@@ -22,7 +22,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`${plusJakartaSans.variable} font-sans antialiased bg-noble-700`}
+                className={`${plusJakartaSans.variable} font-jakarta antialiased bg-noble-700`}
             >
                 {children}
             </body>
