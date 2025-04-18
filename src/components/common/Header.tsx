@@ -13,9 +13,9 @@ const Header = () => {
 
     const navItems = [
         { href: '/', label: 'Home' },
-        { href: '/chat', label: 'Chat' },
         { href: '/privacy', label: 'Privacy' },
         { href: '/contact', label: 'Contact' },
+        { href: '/chat', label: 'Chat' },
     ];
 
     return (
