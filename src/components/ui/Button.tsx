@@ -1,14 +1,18 @@
-import { useRouter } from 'next/navigation';
+"use client"
+
 import React from 'react';
+import { useRouter } from 'next/navigation';
+import { cn } from '@/utils/cn';
 
 type ButtonProps = {
     height?: string;
     onClick?: () => void;
     children: React.ReactNode;
-    href?: string
+    href?: string;
+    className?: string
 }
 
-const Button = ({ height = "48px", onClick, children, href }: ButtonProps) => {
+const Button = ({ height = "48px", onClick, children, href, className }: ButtonProps) => {
     const navigate = useRouter();
 
     const handleClick = () => {
@@ -22,7 +26,10 @@ const Button = ({ height = "48px", onClick, children, href }: ButtonProps) => {
 
     return (
         <button
-            className={`w-full px-4 rounded-[8px] flex items-center justify-center gap-4 hover:bg-[url('/gradient.png')] bg-cover bg-no-repeat bg-center text-noble-100 font-semibold text-sm `}
+            className={cn(
+                "w-full px-4 rounded-[8px] flex items-center justify-center gap-4 hover:bg-[url('/gradient.png')] bg-cover bg-no-repeat bg-center text-noble-100 font-semibold text-sm",
+                className
+            )}
             style={{
                 height,
             }}

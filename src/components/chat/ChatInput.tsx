@@ -16,9 +16,9 @@ export default function ChatInput() {
     }
 
     return (
-        <div className="border-t border-gray-800 p-4">
-            <form onSubmit={handleSubmit} className="flex items-center space-x-2">
-                <button type="button" className="p-2 text-gray-400 hover:text-white">
+        <div className="bg-noble-800 p-6 rounded-[20px]">
+            <form onSubmit={handleSubmit} className="flex items-center gap-4">
+                <button type="button" className="h-12 w-12 flex items-center justify-center text-noble-400 hover:text-white">
                     <LuMic size={20} />
                 </button>
                 <input
@@ -26,11 +26,11 @@ export default function ChatInput() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="You can ask me anything! I am here to help."
-                    className="flex-1 bg-gray-900 border border-gray-800 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-green-500"
+                    className="flex-1 bg-noble-800 rounded-lg pr-4 py-2 text-white placeholder-noble-500 focus:outline-none"
                 />
                 <button
                     type="submit"
-                    className={`p-2 rounded-lg ${message.trim() ? "text-white bg-green-600 hover:bg-green-700" : "text-gray-500 bg-gray-800"
+                    className={`h-12 w-12 flex items-center justify-center rounded-[12px] ${message.trim() ? "text-white bg-noble-700 hover:bg-noble-700" : "text-noble-200 bg-noble-600"
                         }`}
                     disabled={!message.trim()}
                 >

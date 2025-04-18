@@ -66,7 +66,7 @@ export default function Sidebar() {
                     {projects.map((project) => (
                         <Button
                             key={project.id}
-                            href={`/projects/${project.id}`}
+                            href="/"
                         >
                             <div className={`w-5 h-5 rounded ${project.color}`}></div>
                             <span className="mr-auto">{project.name}</span>
