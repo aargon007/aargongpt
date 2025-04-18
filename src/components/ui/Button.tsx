@@ -9,10 +9,11 @@ type ButtonProps = {
     onClick?: () => void;
     children: React.ReactNode;
     href?: string;
-    className?: string
+    className?: string;
+    isActive?: boolean
 }
 
-const Button = ({ height = "48px", onClick, children, href, className }: ButtonProps) => {
+const Button = ({ height = "48px", onClick, children, href, className, isActive }: ButtonProps) => {
     const navigate = useRouter();
 
     const handleClick = () => {
@@ -28,7 +29,8 @@ const Button = ({ height = "48px", onClick, children, href, className }: ButtonP
         <button
             className={cn(
                 "w-full px-4 rounded-[8px] flex items-center justify-center gap-4 hover:bg-[url('/gradient.png')] bg-cover bg-no-repeat bg-center text-noble-100 font-semibold text-sm",
-                className
+                className,
+                isActive && "bg-[url('/gradient.png')] bg-cover bg-no-repeat bg-center"
             )}
             style={{
                 height,

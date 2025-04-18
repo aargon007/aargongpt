@@ -1,12 +1,11 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
+import Link from 'next/link';
 import Button from '../ui/Button';
 
 const Header = () => {
 
     return (
-        <header className="border-b border-gray-800 bg-noble-700 backdrop-blur-md sticky top-0 z-50">
+        <header className="border-b border-noble-600 bg-noble-700/80 backdrop-blur-md sticky top-0 z-50">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center py-4">
                     <div className="flex items-center">
@@ -23,39 +22,41 @@ const Header = () => {
                                             y2="32"
                                             gradientUnits="userSpaceOnUse"
                                         >
-                                            <stop stopColor="#4FFFB0" />
-                                            <stop offset="1" stopColor="#2ECFCA" />
+                                            <stop stopColor="#82dbf7" />
+                                            <stop offset="1" stopColor="#b6f09c" />
                                         </linearGradient>
                                     </defs>
                                 </svg>
                             </div>
-                            <span className="text-white font-bold text-xl">Artificium</span>
+                            <span className="text-white font-bold text-xl">
+                                AargonGPT
+                            </span>
                         </Link>
                     </div>
 
                     <nav className="hidden md:flex items-center space-x-8">
-                        <Link href="/" className="text-white hover:text-cyan-400 font-medium">
+                        <Link href="/" className="text-white hover:text-stem-green-500 font-medium">
                             Home
                         </Link>
-                        <Link href="/chat" className="text-gray-300 hover:text-cyan-400">
+                        <Link href="/chat" className="text-noble-300 hover:text-stem-green-500">
                             Chat
                         </Link>
-                        <Link href="/privacy" className="text-gray-300 hover:text-cyan-400">
+                        <Link href="/privacy" className="text-noble-300 hover:text-stem-green-500">
                             Privacy
                         </Link>
-                        <Link href="/contact" className="text-gray-300 hover:text-cyan-400">
+                        <Link href="/contact" className="text-noble-300 hover:text-stem-green-500">
                             Contact
                         </Link>
                     </nav>
 
-                    <div className="flex items-center space-x-2">
-                        <Button href="/Login">
-                            Login
+                    <div className="flex items-center space-x-4">
+                        <Button href='/login' className='w-20 hidden sm:block'>
+                            Log in
                         </Button>
-                        <Button href="/signup" className='min-w-28'>
+                        <Button href='/register' className='w-28 hidden sm:block'>
                             Get Started
                         </Button>
-                        <button className="md:hidden text-gray-300 hover:text-white">
+                        <button className="md:hidden text-noble-300 hover:text-white">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"

@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '@/components/common/Header';
+import Footer from '@/components/common/Footer';
 
 const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     return (
@@ -8,7 +9,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             <main className="min-h-[calc(100dvh-80px)]">
                 {children}
             </main>
-            {/* <Footer /> */}
+            <Footer />
         </>
     );
 };
