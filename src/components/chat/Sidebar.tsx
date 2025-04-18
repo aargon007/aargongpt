@@ -2,7 +2,9 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { LuCreditCard, LuPlus, LuSearch, LuSettings } from "react-icons/lu"
+import { LuArrowDown, LuCreditCard, LuPlus, LuSearch, LuSettings } from "react-icons/lu"
+import { RiArrowDownSLine } from "react-icons/ri"
+import Button from "../ui/Button"
 
 interface Project {
     id: string
@@ -19,37 +21,34 @@ export default function Sidebar() {
     ])
 
     return (
-        <aside className="w-64 h-screen bg-gray-950 border-r border-gray-800 flex flex-col overflow-hidden hidden md:flex">
+        <aside className="w-80 h-[calc(100vh-24px)] rounded-[20px] bg-noble-800 flex-col overflow-hidden hidden md:flex">
             {/* Organization */}
-            <div className="p-4 border-b border-gray-800 flex items-center justify-between">
-                <div className="flex items-center space-x-3">
+            <div className="p-5 border-b border-noble-700 flex items-center justify-between">
+                <div className="flex items-center gap-4">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">
-                        I
+                        M
                     </div>
                     <div>
-                        <h2 className="text-white font-medium">Intellisys</h2>
-                        <p className="text-gray-400 text-xs">12 members</p>
+                        <h2 className="text-white font-semibold mb-1">MyTeam</h2>
+                        <p className="text-stem-green-500 text-xs font-medium">1 members</p>
                     </div>
                 </div>
-                <button className="text-gray-400 hover:text-white">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 10L4 6H12L8 10Z" fill="currentColor" />
-                    </svg>
+                <button className="text-noble-400 hover:text-white text-xl">
+                    <RiArrowDownSLine />
                 </button>
             </div>
 
             {/* General section */}
-            <div className="p-4">
-                <h3 className="text-xs text-gray-500 font-medium mb-2">GENERAL</h3>
-                <nav className="space-y-1">
-                    <Link
-                        href="#"
-                        className="flex items-center space-x-3 px-2 py-1.5 rounded-md text-gray-400 hover:bg-gray-900 hover:text-white"
-                    >
+            <div className="py-6 px-2 border-b border-noble-700">
+                <h3 className="text-noble-400 font-semibold text-xs pl-3 mb-6">
+                    GENERAL
+                </h3>
+                <div className="space-y-2">
+                    <Button>
                         <LuSearch size={18} />
                         <span>Search</span>
                         <span className="ml-auto text-xs bg-gray-800 px-1.5 py-0.5 rounded">⌘ S</span>
-                    </Link>
+                    </Button>
                     <Link
                         href="#"
                         className="flex items-center space-x-3 px-2 py-1.5 rounded-md text-gray-400 hover:bg-gray-900 hover:text-white"
@@ -57,7 +56,7 @@ export default function Sidebar() {
                         <LuCreditCard size={18} />
                         <span>Billing</span>
                     </Link>
-                </nav>
+                </div>
             </div>
 
             {/* Projects section */}

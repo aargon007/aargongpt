@@ -2,7 +2,6 @@ import type React from "react"
 import type { Metadata } from "next"
 import Sidebar from "@/components/chat/Sidebar";
 import ChatHeader from "@/components/chat/ChatHeader";
-import ChatTabs from "@/components/chat/ChatTabs";
 import ChatInput from "@/components/chat/ChatInput";
 
 export const metadata: Metadata = {
@@ -31,12 +30,11 @@ export default function ChatLayout({ children, }: Readonly<{ children: React.Rea
             <Sidebar />
 
             {/* Main content */}
-            <div className="flex-1 flex flex-col h-full overflow-hidden">
+            <div className="flex-1 flex flex-col h-full overflow-hidden md:ml-3">
                 <ChatHeader
                     title="Orbital Oddysey"
                     description="Marketing Campaign for a new TV series Launch"
                 />
-                <ChatTabs />
                 <div className="flex-1 overflow-y-auto">
                     {children}
                 </div>
