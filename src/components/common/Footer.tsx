@@ -127,15 +127,17 @@ const Footer = () => {
                 </div>
 
                 <div className="border-t border-noble-600 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-                    <p className="text-noble-300 text-sm">© 2025 AargonGPT. All rights reserved.</p>
+                    <p className="text-noble-300 text-sm">
+                        © 2025 AargonGPT. All rights reserved.
+                    </p>
                     <div className="mt-4 md:mt-0">
-                        <a href="/privacy" className="text-noble-300 hover:text-stem-green-500 text-sm">
+                        <Link href="/privacy" className="text-noble-300 hover:text-stem-green-500 text-sm">
                             Privacy Policy
-                        </a>
+                        </Link>
                         <span className="text-noble-500 mx-2">|</span>
-                        <a href="#" className="text-noble-300 hover:text-stem-green-500 text-sm">
+                        <Link href="#" className="text-noble-300 hover:text-stem-green-500 text-sm">
                             Terms of Service
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
