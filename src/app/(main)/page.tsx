@@ -1,10 +1,8 @@
-import Hero from "@/components/home/Hero"
-import prisma from "@/lib/prisma";
 import Link from "next/link"
+import Hero from "@/components/home/Hero"
 import { LuCode, LuMessageSquare, LuShield, LuZap } from "react-icons/lu"
 
 export default async function HomePage() {
-    const users = await prisma.user.findMany();
     
     return (
         <div className="min-h-screen bg-gradient-to-br from-noble-700 via-noble-800 to-noble-700">

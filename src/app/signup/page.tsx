@@ -1,34 +1,14 @@
-"use client"
-
 import type React from "react"
-import { useState } from "react"
 import Link from "next/link"
-import InputField from "@/components/ui/input-field"
-import { LuCheck } from "react-icons/lu"
 import Image from "next/image"
+import SignUpForm from "@/components/auth/SIgnUpForm"
+
+export const metadata = {
+    title: "aargonGPT | Register",
+    description: "AI-powered collaboration platform",
+}
 
 export default function SignupPage() {
-    const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        password: "",
-        repeatPassword: "",
-        agreeTerms: false,
-    })
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type, checked } = e.target
-        setFormData((prev) => ({
-            ...prev,
-            [name]: type === "checkbox" ? checked : value,
-        }))
-    }
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        // Handle form submission
-        console.log("Form submitted:", formData)
-    }
 
     return (
         <div className="flex min-h-screen bg-noble-700">
@@ -61,77 +41,7 @@ export default function SignupPage() {
                     </h1>
 
                     {/* Form */}
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <InputField
-                                label="First name"
-                                name="firstName"
-                                placeholder="First name"
-                                value={formData.firstName}
-                                onChange={handleChange}
-                                required
-                            />
-                            <InputField
-                                label="Last name"
-                                name="lastName"
-                                placeholder="Last name"
-                                value={formData.lastName}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <InputField
-                                label="Password"
-                                name="password"
-                                type="password"
-                                placeholder="Password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                required
-                            />
-
-                            <InputField
-                                label="Repeat password"
-                                name="repeatPassword"
-                                type="password"
-                                placeholder="Repeat password"
-                                value={formData.repeatPassword}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-
-                        <div className="flex items-center">
-                            <label htmlFor="agree-terms" className="flex items-center cursor-pointer select-none">
-                                {/* Hidden Native Checkbox */}
-                                <input
-                                    id="agree-terms"
-                                    name="agreeTerms"
-                                    type="checkbox"
-                                    checked={formData.agreeTerms}
-                                    onChange={handleChange}
-                                    className="sr-only peer"
-                                    required
-                                />
-                                <div className="checkbox">
-                                    {formData.agreeTerms && <LuCheck className="text-white w-4 h-4" />}
-                                </div>
-                                <span className="ml-2 text-noble-200">I agree with{" "}
-                                    <Link href="/terms" className="primaryGradient">
-                                        Terms and conditions
-                                    </Link></span>
-                            </label>
-                        </div>
-
-                        <button
-                            type="submit"
-                            className="primaryButton"
-                        >
-                            Create free account
-                        </button>
-                    </form>
+                    <SignUpForm />
                 </div>
 
                 <div className="mt-auto pt-8 flex justify-between items-center text-xs text-noble-300">
