@@ -16,7 +16,7 @@ interface FormData {
     agreeTerms: boolean
 }
 
-const SignUpForm = () => {
+const RegisterForm = () => {
     const [formData, setFormData] = useState<FormData>({
         firstName: "",
         lastName: "",
@@ -124,4 +124,4 @@ const SignUpForm = () => {
     );
 };
 
-export default SignUpForm;
+export default RegisterForm;

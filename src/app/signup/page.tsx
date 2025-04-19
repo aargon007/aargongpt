@@ -1,7 +1,7 @@
 import type React from "react"
 import Link from "next/link"
 import Image from "next/image"
-import SignUpForm from "@/components/auth/SIgnUpForm"
+import RegisterForm from "@/components/auth/RegisterForm"
 
 export const metadata = {
     title: "aargonGPT | Register",
@@ -41,7 +41,7 @@ export default function SignupPage() {
                     </h1>
 
                     {/* Form */}
-                    <SignUpForm />
+                    <RegisterForm />
                 </div>
 
                 <div className="mt-auto pt-8 flex justify-between items-center text-xs text-noble-300">

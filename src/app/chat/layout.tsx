@@ -3,13 +3,14 @@ import type { Metadata } from "next"
 import Sidebar from "@/components/chat/Sidebar";
 import ChatHeader from "@/components/chat/ChatHeader";
 import ChatInput from "@/components/chat/ChatInput";
+import isAuthenticated from "@/lib/isAuthenticated";
 
 export const metadata: Metadata = {
     title: "AargonGPT - Chat",
     description: "AI-powered collaboration platform",
 }
 
-export default function ChatLayout({ children, }: Readonly<{ children: React.ReactNode }>) {
+const ChatLayout = ({ children, }: Readonly<{ children: React.ReactNode }>) => {
 
     return (
         <div className="flex h-screen overflow-hidden w-full bg-noble-700 p-3 rounded-[24px]">
@@ -43,3 +44,5 @@ export default function ChatLayout({ children, }: Readonly<{ children: React.Rea
         </div>
     )
 }
+
+export default isAuthenticated(ChatLayout)
