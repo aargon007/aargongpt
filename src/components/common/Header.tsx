@@ -13,8 +13,8 @@ const Header = () => {
 
     const navItems = [
         { href: '/', label: 'Home' },
-        { href: '/privacy', label: 'Privacy' },
         { href: '/contact', label: 'Contact' },
+        { href: '/privacy', label: 'Privacy' },
         { href: '/chat', label: 'Chat' },
     ];
 
@@ -36,7 +36,9 @@ const Header = () => {
                 )}
             >
                 <div className="p-6 space-y-6">
-                    <h2 className="text-white font-bold text-2xl mb-6">AargonGPT</h2>
+                    <h2 className="text-white font-bold text-2xl mb-6">
+                        AargonGPT
+                    </h2>
                     {navItems.map(({ href, label }) => (
                         <Link
                             key={href}
@@ -110,7 +112,7 @@ const Header = () => {
                             <Button href='/login' className='w-20 hidden sm:block'>
                                 Log in
                             </Button>
-                            <Button href='/register' className='w-28 hidden sm:block'>
+                            <Button href='/signup' className='w-28 hidden sm:block'>
                                 Get Started
                             </Button>
                             <button

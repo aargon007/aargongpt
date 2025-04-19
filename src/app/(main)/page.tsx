@@ -1,4 +1,5 @@
 import Hero from "@/components/home/Hero"
+import Link from "next/link"
 import { LuCode, LuMessageSquare, LuShield, LuZap } from "react-icons/lu"
 
 export default function HomePage() {
@@ -11,9 +12,11 @@ export default function HomePage() {
             <section className="py-20 relative">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Powerful AI Features</h2>
+                        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+                            Powerful AI Features
+                        </h2>
                         <p className="text-xl text-noble-300 max-w-2xl mx-auto">
-                            Everything you need to build sophisticated AI applications in one place.
+                            Everything you need to use sophisticated AI applications in one place.
                         </p>
                     </div>
 
@@ -150,9 +153,9 @@ export default function HomePage() {
                                 Join thousands of developers building the next generation of AI-powered applications.
                             </p>
                             <div className="flex flex-col sm:flex-row justify-center gap-4">
-                                <button className="primaryButton">
+                                <Link href="/signup" className="primaryButton">
                                     Sign Up Free
-                                </button>
+                                </Link>
                                 <button className="flex w-full justify-center rounded-[12px] border border-noble-500 bg-noble-700 px-4 py-2.5 font-semibold text-white shadow-sm hover:bg-noble-600 focus:outline-none">
                                     Contact Sales
                                 </button>

@@ -9,11 +9,9 @@ const Hero = () => {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="max-w-4xl mx-auto text-center">
                     <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
-                        Build AI-Powered Applications with <span className="primaryGradient">AargonGPT</span>
-                    </h1>
+                        Revolutionize Conversations with <span className="primaryGradient">AargonGPT</span>                    </h1>
                     <p className="text-xl text-noble-300 mb-10 max-w-2xl mx-auto">
-                        Leverage the power of Vercel AI SDK to create intelligent, responsive, and engaging AI experiences for
-                        your users.
+                        AI-powered chatbot built with Next.js and OpenAI’s GPT — smart, fast, and human-like.
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
                         <Button isActive href='/login' className='hover:opacity-85'>

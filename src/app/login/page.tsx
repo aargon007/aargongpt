@@ -12,15 +12,17 @@ export default function LoginPage() {
             <div className="w-full md:w-1/2 bg-noble-700 px-5 py-8 md:px-12 md:py-12 flex flex-col justify-between">
                 {/* Logo */}
                 <div className="mb-10">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16 0L29.8564 8V24L16 32L2.14359 24V8L16 0Z" fill="url(#paint0_linear_1_2)" />
-                        <defs>
-                            <linearGradient id="paint0_linear_1_2" x1="16" y1="0" x2="16" y2="32" gradientUnits="userSpaceOnUse">
-                                <stop stopColor="#4FFFB0" />
-                                <stop offset="1" stopColor="#2ECFCA" />
-                            </linearGradient>
-                        </defs>
-                    </svg>
+                    <Link href="/">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 0L29.8564 8V24L16 32L2.14359 24V8L16 0Z" fill="url(#paint0_linear_1_2)" />
+                            <defs>
+                                <linearGradient id="paint0_linear_1_2" x1="16" y1="0" x2="16" y2="32" gradientUnits="userSpaceOnUse">
+                                    <stop stopColor="#4FFFB0" />
+                                    <stop offset="1" stopColor="#2ECFCA" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </Link>
                 </div>
 
                 <div className="px-4 md:px-8">
