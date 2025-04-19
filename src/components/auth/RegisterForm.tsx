@@ -2,11 +2,12 @@
 
 import type React from "react"
 import { FormEvent, useState } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { toast } from "sonner"
 import InputField from "@/components/ui/input-field"
 import { createUser } from "@/services/user.service"
 import { LuCheck } from "react-icons/lu"
-import { toast } from "sonner"
 
 interface FormData {
     firstName: string
@@ -17,6 +18,7 @@ interface FormData {
 }
 
 const RegisterForm = () => {
+    const router = useRouter();
     const [formData, setFormData] = useState<FormData>({
         firstName: "",
         lastName: "",
@@ -41,9 +43,18 @@ const RegisterForm = () => {
         const formDataObj = new FormData(form)
 
         try {
-            const user = await createUser(formDataObj)
-            console.log("User created:", user)
-            // Handle successful signup (redirect, show message, etc.)
+            const response = await createUser(formDataObj)
+            if (response.success) {
+                setFormData({
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    password: "",
+                    agreeTerms: false,
+                });
+                router.push("/chat");
+            }
+            toast.success(response.message);
         } catch (error) {
             console.error("Error creating user:", error)
             toast.error("Error creating user");
