@@ -24,22 +24,18 @@ export default function ChatHeader({ title, description }: ChatHeaderProps) {
                     </button>
                     {/* project */}
                     <div>
-                        <h1 className="text-xl font-bold text-white">{title}</h1>
-                        <p className="text-sm font-medium text-noble-300">{description}</p>
+                        <h1 className="text-xl font-bold text-white">
+                            {title}
+                        </h1>
+                        <p className="text-sm font-medium text-noble-300 hidden md:block">
+                            {description}
+                        </p>
                     </div>
                 </div>
 
-                <div className="flex items-center gap-4">
-                    <div className="flex -space-x-2">
-                        {[1, 2, 3, 4, 5].map((i) => (
-                            <div
-                                key={i}
-                                className="w-8 h-8 rounded-full border-2 border-gray-900 bg-gradient-to-r from-purple-500 to-blue-500"
-                            ></div>
-                        ))}
-                    </div>
+                <div className="flex items-center gap-4 flex-col md:flex-row">
                     {/* share button */}
-                    <button className="h-10 w-24 flex items-center justify-center font-semibold text-sm space-x-2 text-noble-400 hover:text-noble-300">
+                    <button className="h-10 w-24 md:flex items-center justify-center font-semibold text-sm space-x-2 text-noble-400 hover:text-noble-300 hidden">
                         <LuShare size={16} />
                         <span className="hidden sm:inline">Share</span>
                     </button>

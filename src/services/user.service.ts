@@ -4,8 +4,10 @@ import { hash, compare } from "bcrypt"
 import { cookies } from 'next/headers'
 import prisma from "@/lib/prisma"
 import { config } from "@/lib/config"
-import { createToken } from "@/lib/jwt"
+import { createToken, verifyToken } from "@/lib/jwt"
 import { TResponse } from "@/types/response"
+import { User } from "@prisma/client"
+import gettoken from "@/lib/gettoken"
 
 export async function createUser(formData: FormData): Promise<TResponse> {
     try {
@@ -111,5 +113,18 @@ export async function loginUser(formData: FormData): Promise<TResponse> {
             success: false,
             message: "Something went wrong. Please try again later.",
         }
+    }
+}
+
+
+// get user from token
+export async function getUser(): Promise<User | null> {
+    try {
+        const payload = await gettoken();
+        const user = await prisma.user.findUnique({ where: { id: payload?.id } })
+        return user
+    } catch (error) {
+        console.error("Error getting user from token:", error)
+        return null
     }
 }

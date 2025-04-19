@@ -1,36 +1,34 @@
 "use client"
 
-import { useState } from "react"
 import { LuCreditCard, LuSearch, LuSettings } from "react-icons/lu"
 import { RiArrowDownSLine } from "react-icons/ri"
 import { BiPlusCircle } from "react-icons/bi"
 import Button from "../ui/Button"
 
-interface Project {
-    id: string
-    name: string
-    color: string
-}
+export default function Sidebar({ user }: any) {
 
-export default function Sidebar() {
-    const [projects, setProjects] = useState<Project[]>([
+    const projects = [
         { id: "orbital", name: "Orbital Oddysey", color: "bg-gray-500" },
         { id: "digital", name: "Digital Product Launch", color: "bg-red-500" },
         { id: "brand", name: "Brand Refresh", color: "bg-orange-500" },
         { id: "social", name: "Social Media Strategy", color: "bg-blue-500" },
-    ])
+    ];
 
     return (
-        <aside className="w-80 h-[calc(100vh-24px)] rounded-[20px] bg-noble-800 flex-col overflow-hidden hidden md:flex">
+        <aside className="w-80 h-full rounded-[20px] bg-noble-800 flex-col overflow-hidden flex">
             {/* Organization */}
             <div className="p-5 border-b border-noble-700 flex items-center justify-between">
                 <div className="flex items-center gap-4">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">
-                        M
+                        A
                     </div>
                     <div>
-                        <h2 className="text-white font-semibold mb-1">MyTeam</h2>
-                        <p className="text-stem-green-500 text-xs font-medium">1 members</p>
+                        <h2 className="text-white font-semibold mb-1">
+                            MyTeam
+                        </h2>
+                        <p className="text-stem-green-500 text-xs font-medium">
+                            1 members
+                        </p>
                     </div>
                 </div>
                 <button className="text-noble-400 hover:text-white text-xl">
@@ -45,13 +43,13 @@ export default function Sidebar() {
                 </h3>
                 <div className="space-y-2">
                     <Button>
-                        <LuSearch size={18} className="text-noble-400"/>
+                        <LuSearch size={18} className="text-noble-400" />
                         <span>Search</span>
                         <span className="ml-auto text-xs bg-[url('/gradient.png')] bg-cover bg-no-repeat bg-center px-2 py-1 rounded text-noble-300">⌘ S</span>
                     </Button>
 
                     <Button>
-                        <LuCreditCard size={18} className="text-noble-400"/>
+                        <LuCreditCard size={18} className="text-noble-400" />
                         <span className="mr-auto">Billing</span>
                     </Button>
                 </div>
@@ -85,16 +83,20 @@ export default function Sidebar() {
             <div className="m-2 h-16 p-4 rounded-[16px] bg-[url('/gradient.png')] bg-cover bg-no-repeat bg-center flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center text-white font-bold">
-                        RL
+                        {user?.first_name?.charAt(0)}
                     </div>
                     <div>
-                        <h2 className="text-white font-semibold">Ryan Lee</h2>
-                        <p className="text-stem-green-500 font-medium text-xs">Premium</p>
+                        <h2 className="text-white font-semibold">
+                            {user?.first_name} {user?.last_name ?? ""}
+                        </h2>
+                        <p className="text-stem-green-500 font-medium text-xs">
+                            Free
+                        </p>
                     </div>
                 </div>
                 <div className="flex space-x-2">
-                    <button className="text-noble-400 hover:text-white">
-                        <LuSettings size={16} />
+                    <button className="text-noble-400 hover:text-noble-300 transition-all">
+                        <LuSettings size={18} />
                     </button>
                 </div>
             </div>
