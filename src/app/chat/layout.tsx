@@ -15,7 +15,7 @@ const ChatLayout =async ({ children, }: Readonly<{ children: React.ReactNode }>)
     const user = await getUser();
 
     return (
-        <div className="flex h-screen overflow-hidden w-full bg-noble-700 p-3 rounded-[24px]">
+        <div className="flex h-dvh overflow-hidden w-full bg-noble-700 p-3 rounded-[24px]">
             {/* sidebar */}
             <Sidebar user={user} />
 
