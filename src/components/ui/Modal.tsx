@@ -69,7 +69,7 @@ export default function Modal({ isOpen, onClose, title, children, description, m
                     {/* Backdrop */}
                     <motion.div
                         ref={overlayRef}
-                        className="fixed inset-0 bg-noble-900/80 backdrop-blur-sm"
+                        className="fixed inset-0 bg-noble-700/80 backdrop-blur-sm"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -80,14 +80,14 @@ export default function Modal({ isOpen, onClose, title, children, description, m
                     {/* Modal */}
                     <motion.div
                         ref={modalRef}
-                        className={`relative z-10 w-full ${maxWidthClasses[maxWidth]} rounded-2xl bg-noble-800 border border-noble-700 shadow-xl overflow-hidden`}
+                        className={`relative z-10 w-full ${maxWidthClasses[maxWidth]} rounded-2xl bg-[#1A1D21F5] border border-[#FFFFFF14] shadow-xl overflow-hidden`}
                         initial={{ scale: 0.95, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.95, opacity: 0 }}
                         transition={{ type: "spring", damping: 20, stiffness: 300 }}
                     >
                         {/* Header */}
-                        <div className="flex items-center justify-between p-6 border-b border-noble-700">
+                        <div className="flex items-center justify-between p-10">
                             <div>
                                 <h2 className="text-xl font-semibold text-white">
                                     {title}
@@ -104,7 +104,7 @@ export default function Modal({ isOpen, onClose, title, children, description, m
                         </div>
 
                         {/* Content */}
-                        <div className="p-6">
+                        <div className="px-10 pb-10">
                             {children}
                         </div>
                     </motion.div>

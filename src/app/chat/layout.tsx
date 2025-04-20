@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import Sidebar from "@/components/chat/Sidebar";
+import Sidebar from "@/components/chat/layout/Sidebar";
 import ChatHeader from "@/components/chat/ChatHeader";
 import ChatInput from "@/components/chat/ChatInput";
 import isAuthenticated from "@/lib/isAuthenticated";

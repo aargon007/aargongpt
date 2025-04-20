@@ -5,10 +5,13 @@ import { BiPlusCircle } from "react-icons/bi"
 import { RiArrowDownSLine } from "react-icons/ri"
 import { LuCreditCard, LuSearch, LuSettings } from "react-icons/lu"
 import { useSidebarStore } from "@/hooks/sidebarStore"
-import Button from "../ui/Button"
+import Button from "@/components/ui/Button"
+import SettingsModal from "../SettingsModal"
+import { useModalStore } from "@/hooks/modalStore"
 
 export default function Sidebar({ user }: any) {
     const { isOpen, close, toggle } = useSidebarStore();
+    const { openModal } = useModalStore((state) => state);
     const [isMounted, setIsMounted] = useState(false);
 
     // Handle escape key to close sidebar on mobile
@@ -139,12 +142,17 @@ export default function Sidebar({ user }: any) {
                         </div>
                     </div>
                     <div className="flex space-x-2">
-                        <button className="text-noble-400 hover:text-noble-300 transition-all">
+                        <button
+                         className="text-noble-400 hover:text-noble-300 transition-all"
+                         onClick={()=> openModal('settings')}
+                         >
                             <LuSettings size={18} />
                         </button>
                     </div>
                 </div>
             </aside>
+
+            <SettingsModal user={user} />
         </>
     )
 }
