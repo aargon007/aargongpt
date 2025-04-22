@@ -34,6 +34,9 @@ const Button = ({ height = "48px", onClick, children, href, className, isActive 
             )}
             style={{
                 height,
+                // background: isActive
+                //     ? "linear-gradient(315deg, #D7EDED02, #CCEBEB16)"
+                //     : "linear-gradient(334deg, #D7EDED03, #CCEBEB16)", //right,left 
             }}
             onClick={handleClick}
         >
@@ -43,5 +46,3 @@ const Button = ({ height = "48px", onClick, children, href, className, isActive 
 };
 
 export default Button;
-
-//w-[320px] rounded-2xl p-4  border border-white/10 flex items-center justify-between

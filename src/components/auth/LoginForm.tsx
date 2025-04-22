@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { LuCheck, LuLock, LuMail } from "react-icons/lu"
 import { loginUser } from "@/services/user.service";
+import InputField from "../ui/input-field";
 import Spinner from "../ui/Spinner";
 import { cn } from "@/utils/cn";
 
@@ -37,40 +38,27 @@ const LoginForm = () => {
 
     return (
         <form className="space-y-5" onSubmit={handleSubmit}>
-            <div>
-                <div className="relative">
-                    <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                        <LuMail className="text-noble-300" />
-                    </div>
-                    <input
-                        type="email"
-                        name="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="example@mail.com"
-                        className="inputField"
-                        autoComplete="off"
-                        required
-                    />
-                </div>
-            </div>
+            <InputField
+                type="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                icon={<LuMail className="text-noble-300" />}
+                placeholder="example@mail.com"
+                autoComplete="off"
+                required
+            />
 
-            <div>
-                <div className="relative">
-                    <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                        <LuLock className="text-noble-300" />
-                    </div>
-                    <input
-                        type="password"
-                        name="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="password"
-                        className="inputField"
-                        required
-                    />
-                </div>
-            </div>
+            <InputField
+                type="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                icon={<LuLock className="text-noble-300" />}
+                placeholder="password"
+                autoComplete="off"
+                required
+            />
 
             <div className="flex items-center justify-between">
                 <label htmlFor="remember-me" className="flex items-center cursor-pointer select-none">

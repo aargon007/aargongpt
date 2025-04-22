@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useEffect, useRef, type ReactNode } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { LuX } from "react-icons/lu"
@@ -96,7 +95,7 @@ export default function Modal({ isOpen, onClose, title, children, description, m
                             </div>
                             <button
                                 onClick={onClose}
-                                className="rounded-full p-1.5 text-noble-400 hover:text-white hover:bg-noble-700 transition-colors"
+                                className="rounded-full p-1.5 text-noble-300 hover:text-white bg-noble-500 transition-colors"
                                 aria-label="Close"
                             >
                                 <LuX size={20} />

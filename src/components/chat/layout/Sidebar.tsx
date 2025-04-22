@@ -143,9 +143,9 @@ export default function Sidebar({ user }: any) {
                     </div>
                     <div className="flex space-x-2">
                         <button
-                         className="text-noble-400 hover:text-noble-300 transition-all"
-                         onClick={()=> openModal('settings')}
-                         >
+                            className="px-2 py-1 rounded hover:bg-[url('/gradient.png')] bg-cover bg-no-repeat bg-center text-noble-400 hover:text-noble-300 transition-all"
+                            onClick={() => openModal('settings')}
+                        >
                             <LuSettings size={18} />
                         </button>
                     </div>

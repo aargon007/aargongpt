@@ -3,20 +3,32 @@
 import { type InputHTMLAttributes, forwardRef } from "react"
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-    label: string
-    error?: string
+    label?: string;
+    error?: string;
+    icon?: React.ReactNode
 }
 
-const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({ label, error, className, ...props }, ref) => {
+const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({ label, error, icon, className, ...props }, ref) => {
     return (
         <div className="space-y-3">
-            <label className="block text-sm font-medium text-noble-300">{label}</label>
-            <input
-                ref={ref}
-                className="inputField pl-4"
-                {...props}
-                autoComplete="off"
-            />
+            {label && (
+                <label className="block text-sm font-medium text-noble-300 mb-3">
+                    {label}
+                </label>
+            )}
+            <div className="relative">
+                {icon && (
+                    <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                        {icon}
+                    </div>
+                )}
+                <input
+                    ref={ref}
+                    className={`inputField ${icon ? "" : "pl-4"}`}
+                    {...props}
+                    autoComplete="off"
+                />
+            </div>
             {error && <p className="text-xs text-red-500">{error}</p>}
         </div>
     )
