@@ -8,9 +8,9 @@ interface FeatureCardProps {
 
 export default function FeatureCard({ title, icon }: FeatureCardProps) {
     return (
-        <button className="bg-gray-900 hover:bg-gray-800 rounded-lg p-3 flex items-center justify-between w-full">
-            <span className="text-gray-300 text-sm">{title}</span>
-            <LuArrowRight size={16} className="text-gray-500" />
+        <button className="btnGradient rounded-[12px] h-12 px-4 flex items-center justify-between w-full">
+            <span className="text-noble-200 text-sm">{title}</span>
+            <LuArrowRight size={16} className="text-noble-400" />
         </button>
     )
 }

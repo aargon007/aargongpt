@@ -26,15 +26,17 @@ export default function InnovationPack() {
     ]
 
     return (
-        <div className="p-6">
-            <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold text-white mb-2">Innovation Starter Pack</h2>
-                <p className="text-gray-400">
+        <div className="p-12">
+            <div className="text-center mb-6 md:mb-16">
+                <h2 className="text-2xl font-bold text-white mb-4">
+                    Innovation Starter Pack
+                </h2>
+                <p className="text-noble-300 font-medium">
                     Kickstart your innovation process with our comprehensive selection of predefined prompts.
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                 {sections.map((section, index) => (
                     <FeatureSection
                         key={index}

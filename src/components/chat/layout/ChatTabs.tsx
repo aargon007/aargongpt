@@ -37,20 +37,6 @@ export default function ChatTabs() {
                 </svg>
             ),
         },
-        // {
-        //     id: "library",
-        //     name: "Library",
-        //     icon: (
-        //         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        //             <path
-        //                 d="M0 4C0 2.9 0.9 2 2 2H14C15.1 2 16 2.9 16 4V14C16 15.1 15.1 16 14 16H2C0.9 16 0 15.1 0 14V4ZM2 4V14H14V4H2Z"
-        //                 fill="currentColor"
-        //             />
-        //             <path d="M2 0H14V2H2V0Z" fill="currentColor" />
-        //             <path d="M4 8H12V10H4V8Z" fill="currentColor" />
-        //         </svg>
-        //     ),
-        // },
     ]
 
     return (

@@ -1,5 +1,11 @@
+import InnovationPack from "@/components/chat/InnovationPack";
+
 const ChatHome = () => {
-    return <div></div>;
+    return (
+        <div>
+            <InnovationPack/>
+        </div>
+    );
 };
 
 export default ChatHome;

@@ -1,8 +1,8 @@
 import type React from "react"
 import type { Metadata } from "next"
 import Sidebar from "@/components/chat/layout/Sidebar";
-import ChatHeader from "@/components/chat/ChatHeader";
-import ChatInput from "@/components/chat/ChatInput";
+import ChatHeader from "@/components/chat/layout/ChatHeader";
+import ChatInput from "@/components/chat/layout/ChatInput";
 import isAuthenticated from "@/lib/isAuthenticated";
 import { getUser } from "@/services/user.service";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: "AI-powered collaboration platform",
 }
 
-const ChatLayout =async ({ children, }: Readonly<{ children: React.ReactNode }>) => {
+const ChatLayout = async ({ children, }: Readonly<{ children: React.ReactNode }>) => {
     const user = await getUser();
 
     return (
