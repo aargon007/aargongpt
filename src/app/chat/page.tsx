@@ -1,9 +1,9 @@
-import InnovationPack from "@/components/chat/InnovationPack";
+import InnovationPack from "@/components/chat/home/InnovationPack";
 
 const ChatHome = () => {
     return (
         <div>
-            <InnovationPack/>
+            <InnovationPack />
         </div>
     );
 };

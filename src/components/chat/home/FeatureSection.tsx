@@ -19,7 +19,7 @@ export default function FeatureSection({ title, icon, features }: FeatureSection
                     {title}
                 </h3>
             </div>
-            
+
             <div className="space-y-2">
                 {features.map((feature, index) => (
                     <FeatureCard
