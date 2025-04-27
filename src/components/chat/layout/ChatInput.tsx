@@ -1,59 +1,33 @@
 'use client';
 
-import { useChat } from '@ai-sdk/react';
 import type React from 'react';
-import { useState } from 'react';
+import { useChat } from '@ai-sdk/react';
 import { LuMic, LuSend } from 'react-icons/lu';
+import { AutoResizeTextarea } from '@/components/ui/AutoResizeTextarea';
 
-export default function ChatInput() {
-    const {
-        error,
-        input,
-        status,
-        handleInputChange,
-        handleSubmit,
-        messages,
-        reload,
-        stop,
-    } = useChat({
-        onFinish(message, { usage, finishReason }) {
-            console.log('Usage', usage);
-            console.log('FinishReason', finishReason);
-        },
+const ChatInput = () => {
+    const { messages, input, setInput, append } = useChat({
+        api: "/api/chat",
+        initialMessages: [],
     });
-    const [message, setMessage] = useState('');
 
-    const handleFormSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (message.trim()) {
-            handleSubmit(e);
-            console.log('Sending message:', message);
-            setMessage('');
-        }
+        void append({ content: input, role: "user" });
+        setInput("");
     };
 
-    console.log('Messages', messages);
-
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        // On "Enter" key press without shift, prevent default (form submission) and submit the form
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            // Submit the form (replace with your submit logic)
-            const form = e.currentTarget.form;
-            if (form) {
-                const formEvent = new Event('submit', {
-                    bubbles: true,
-                    cancelable: true,
-                });
-                form.dispatchEvent(formEvent);
-            }
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault()
+            handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>)
         }
     };
 
     return (
         <div className="rounded-[20px] bg-noble-800 p-6">
             <form
-                onSubmit={handleFormSubmit}
+                onSubmit={handleSubmit}
                 className="flex items-center gap-4"
             >
                 <button
@@ -62,23 +36,20 @@ export default function ChatInput() {
                 >
                     <LuMic size={20} />
                 </button>
-                <textarea
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
+                <AutoResizeTextarea
                     onKeyDown={handleKeyDown}
-                    rows={2}
-                    draggable={false}
-                    placeholder="You can ask me anything! I am here to help."
-                    className="flex-1 rounded-lg bg-noble-800 py-2 pr-4 text-white placeholder-noble-500 focus:outline-none"
+                    onChange={(v) => setInput(v)}
+                    value={input}
+                    placeholder="Enter a message"
+                    className="flex-1 rounded-lg bg-noble-800 text-white placeholder-noble-500 focus:outline-none"
                 />
                 <button
                     type="submit"
-                    className={`flex h-12 w-12 items-center justify-center rounded-[12px] ${
-                        message.trim()
-                            ? 'bg-noble-700 text-white hover:bg-noble-700'
-                            : 'bg-noble-600 text-noble-200'
-                    }`}
-                    disabled={!message.trim()}
+                    className={`flex h-12 w-12 items-center justify-center rounded-[12px] ${input.trim()
+                        ? 'bg-noble-700 text-white hover:bg-noble-700'
+                        : 'bg-noble-600 text-noble-200'
+                        }`}
+                    disabled={!input.trim()}
                 >
                     <LuSend size={20} />
                 </button>
@@ -86,3 +57,5 @@ export default function ChatInput() {
         </div>
     );
 }
+
+export default ChatInput

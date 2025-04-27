@@ -19,31 +19,28 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  chats    Chat[]
-  messages Message[]
+  chats Chat[]
 }
 
 model Chat {
-  id         String   @id @default(uuid())
-  title      String
-  contents   Json     @default("[]") // Serialized content (e.g., messages)
-  user_id    String
-  user       User     @relation(fields: [user_id], references: [id])
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  user_id     String
+  user        User     @relation(fields: [user_id], references: [id])
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   messages Message[] // Assuming each Chat has many messages
 }
 
 model Message {
   id         String   @id @default(uuid())
-  content    String
-  role       Role     @default(user)
   chat_id    String
+  role       Role     @default(user)
+  content    String
   chat       Chat     @relation(fields: [chat_id], references: [id])
   created_at DateTime @default(now())
-  User       User?    @relation(fields: [userId], references: [id])
-  userId     String?
 }
 
 enum Role {

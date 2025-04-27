@@ -14,9 +14,14 @@ export async function POST(req: Request) {
     const result = streamText({
         model: openai('gpt-4o'),
         messages,
-        async onFinish({ text, toolCalls, toolResults, usage, finishReason }) {
-            // implement your own logic here, e.g. for storing messages
-            // or recording token usage
+        async onFinish({ text, toolCalls, toolResults, usage, finishReason, response }) {
+            // console.log(response);
+            // console.log('finish reason', finishReason);
+            // console.log('usage', usage);
+            // console.log('toolCalls', toolCalls);
+            // console.log('toolResults', toolResults);
+            // console.log('text', text);
+            
         },
     });
 
