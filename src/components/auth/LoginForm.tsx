@@ -1,18 +1,18 @@
-"use client"
+'use client';
 
-import { FormEvent, useState } from "react"
-import Link from "next/link";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { LuCheck, LuLock, LuMail } from "react-icons/lu"
-import { loginUser } from "@/services/user.service";
-import InputField from "../ui/input-field";
-import Spinner from "../ui/Spinner";
-import { cn } from "@/utils/cn";
+import { loginUser } from '@/services/user.service';
+import { cn } from '@/utils/cn';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
+import { LuCheck, LuLock, LuMail } from 'react-icons/lu';
+import { toast } from 'sonner';
+import InputField from '../ui/input-field';
+import Spinner from '../ui/Spinner';
 
 const LoginForm = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -26,11 +26,11 @@ const LoginForm = () => {
         try {
             const response = await loginUser(formDataObj);
             if (response.success) {
-                router.push("/chat");
+                router.push('/chat');
             }
             toast.success(response.message);
         } catch (error) {
-            toast.error("Error logging in");
+            toast.error('Error logging in');
         } finally {
             setIsLoading(false);
         }
@@ -61,23 +61,28 @@ const LoginForm = () => {
             />
 
             <div className="flex items-center justify-between">
-                <label htmlFor="remember-me" className="flex items-center cursor-pointer select-none">
+                <label
+                    htmlFor="remember-me"
+                    className="flex cursor-pointer select-none items-center"
+                >
                     {/* Hidden Native Checkbox */}
                     <input
                         id="remember-me"
                         type="checkbox"
                         checked={rememberMe}
                         onChange={(e) => setRememberMe(e.target.checked)}
-                        className="sr-only peer"
+                        className="peer sr-only"
                     />
                     <div className="checkbox">
-                        {rememberMe && <LuCheck className="text-white w-4 h-4" />}
+                        {rememberMe && (
+                            <LuCheck className="h-4 w-4 text-white" />
+                        )}
                     </div>
                     <span className="ml-2 text-noble-200">Remember me</span>
                 </label>
 
                 <div className="">
-                    <Link href="#" className="font-medium primaryGradient">
+                    <Link href="#" className="primaryGradient font-medium">
                         Forgot Password?
                     </Link>
                 </div>
@@ -86,12 +91,13 @@ const LoginForm = () => {
             <button
                 type="submit"
                 className={cn(
-                    "primaryButton",
-                    isLoading && "pointer-events-none opacity-50",
-                    (!rememberMe || !email || !password) && "pointer-events-none opacity-50"
+                    'primaryButton',
+                    isLoading && 'pointer-events-none opacity-50',
+                    (!rememberMe || !email || !password) &&
+                        'pointer-events-none opacity-50',
                 )}
             >
-                {isLoading ? <Spinner /> : "Log in"}
+                {isLoading ? <Spinner /> : 'Log in'}
             </button>
         </form>
     );

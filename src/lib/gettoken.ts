@@ -1,4 +1,4 @@
-"use server"
+'use server';
 
 import { User } from '@prisma/client';
 import { type JwtPayload } from 'jsonwebtoken';

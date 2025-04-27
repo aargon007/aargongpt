@@ -1,65 +1,81 @@
-"use client"
+'use client';
 
-import type React from "react"
-import { useEffect, useRef, type ReactNode } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { LuX } from "react-icons/lu"
+import { AnimatePresence, motion } from 'framer-motion';
+import type React from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
+import { LuX } from 'react-icons/lu';
 
 interface ModalProps {
-    isOpen: boolean
-    onClose: () => void
-    title: string
-    children: ReactNode
-    description?: string
-    maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "full"
+    isOpen: boolean;
+    onClose: () => void;
+    title: string;
+    children: ReactNode;
+    description?: string;
+    maxWidth?:
+        | 'sm'
+        | 'md'
+        | 'lg'
+        | 'xl'
+        | '2xl'
+        | '3xl'
+        | '4xl'
+        | '5xl'
+        | 'full';
 }
 
-export default function Modal({ isOpen, onClose, title, children, description, maxWidth = "md" }: ModalProps) {
-    const overlayRef = useRef<HTMLDivElement>(null)
-    const modalRef = useRef<HTMLDivElement>(null)
+export default function Modal({
+    isOpen,
+    onClose,
+    title,
+    children,
+    description,
+    maxWidth = 'md',
+}: ModalProps) {
+    const overlayRef = useRef<HTMLDivElement>(null);
+    const modalRef = useRef<HTMLDivElement>(null);
 
     // Close on escape key press
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === "Escape" && isOpen) {
-                onClose()
+            if (e.key === 'Escape' && isOpen) {
+                onClose();
             }
-        }
+        };
 
-        window.addEventListener("keydown", handleKeyDown)
-        return () => window.removeEventListener("keydown", handleKeyDown)
-    }, [isOpen, onClose])
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen, onClose]);
 
     // Prevent body scroll when modal is open
     useEffect(() => {
         if (isOpen) {
-            document.body.style.overflow = "hidden"
+            document.body.style.overflow = 'hidden';
         } else {
-            document.body.style.overflow = ""
+            document.body.style.overflow = '';
         }
         return () => {
-            document.body.style.overflow = ""
-        }
-    }, [isOpen])
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
 
     // Handle click outside to close
     const handleOverlayClick = (e: React.MouseEvent) => {
         if (overlayRef.current === e.target) {
-            onClose()
+            onClose();
         }
-    }
+    };
 
     const maxWidthClasses = {
-        sm: "max-w-sm",
-        md: "max-w-md",
-        lg: "max-w-lg",
-        xl: "max-w-xl",
-        "2xl": "max-w-2xl",
-        "3xl": "max-w-3xl",
-        "4xl": "max-w-4xl",
-        "5xl": "max-w-5xl",
-        full: "max-w-full",
-    }
+        sm: 'max-w-sm',
+        md: 'max-w-md',
+        lg: 'max-w-lg',
+        xl: 'max-w-xl',
+        '2xl': 'max-w-2xl',
+        '3xl': 'max-w-3xl',
+        '4xl': 'max-w-4xl',
+        '5xl': 'max-w-5xl',
+        full: 'max-w-full',
+    };
 
     return (
         <AnimatePresence>
@@ -68,7 +84,7 @@ export default function Modal({ isOpen, onClose, title, children, description, m
                     {/* Backdrop */}
                     <motion.div
                         ref={overlayRef}
-                        className="fixed inset-0 bg-noble-700/80 backdrop-blur-sm"
+                        className="bg-noble-700/80 fixed inset-0 backdrop-blur-sm"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -79,11 +95,15 @@ export default function Modal({ isOpen, onClose, title, children, description, m
                     {/* Modal */}
                     <motion.div
                         ref={modalRef}
-                        className={`relative z-10 w-full ${maxWidthClasses[maxWidth]} rounded-2xl bg-[#1A1D21F5] border border-[#FFFFFF14] shadow-xl overflow-hidden`}
+                        className={`relative z-10 w-full ${maxWidthClasses[maxWidth]} overflow-hidden rounded-2xl border border-[#FFFFFF14] bg-[#1A1D21F5] shadow-xl`}
                         initial={{ scale: 0.95, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.95, opacity: 0 }}
-                        transition={{ type: "spring", damping: 20, stiffness: 300 }}
+                        transition={{
+                            type: 'spring',
+                            damping: 20,
+                            stiffness: 300,
+                        }}
                     >
                         {/* Header */}
                         <div className="flex items-center justify-between p-10">
@@ -91,11 +111,15 @@ export default function Modal({ isOpen, onClose, title, children, description, m
                                 <h2 className="text-xl font-semibold text-white">
                                     {title}
                                 </h2>
-                                {description && <p className="mt-1 text-sm text-noble-300">{description}</p>}
+                                {description && (
+                                    <p className="mt-1 text-sm text-noble-300">
+                                        {description}
+                                    </p>
+                                )}
                             </div>
                             <button
                                 onClick={onClose}
-                                className="rounded-full p-1.5 text-noble-300 hover:text-white bg-noble-500 transition-colors"
+                                className="rounded-full bg-noble-500 p-1.5 text-noble-300 transition-colors hover:text-white"
                                 aria-label="Close"
                             >
                                 <LuX size={20} />
@@ -103,12 +127,10 @@ export default function Modal({ isOpen, onClose, title, children, description, m
                         </div>
 
                         {/* Content */}
-                        <div className="px-10 pb-10">
-                            {children}
-                        </div>
+                        <div className="px-10 pb-10">{children}</div>
                     </motion.div>
                 </div>
             )}
         </AnimatePresence>
-    )
+    );
 }

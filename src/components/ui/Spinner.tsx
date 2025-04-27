@@ -1,7 +1,19 @@
 export default function Spinner() {
     return (
-        <svg className="animate-spin h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle opacity={0.25} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+        <svg
+            className="h-6 w-6 animate-spin"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+        >
+            <circle
+                opacity={0.25}
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+            ></circle>
             <path
                 opacity={0.75}
                 fill="currentColor"

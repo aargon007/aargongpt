@@ -1,8 +1,8 @@
-"use client"
+'use client';
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
 import { cn } from '@/utils/cn';
+import { useRouter } from 'next/navigation';
+import React from 'react';
 
 type ButtonProps = {
     height?: string;
@@ -10,10 +10,17 @@ type ButtonProps = {
     children: React.ReactNode;
     href?: string;
     className?: string;
-    isActive?: boolean
-}
+    isActive?: boolean;
+};
 
-const Button = ({ height = "48px", onClick, children, href, className, isActive }: ButtonProps) => {
+const Button = ({
+    height = '48px',
+    onClick,
+    children,
+    href,
+    className,
+    isActive,
+}: ButtonProps) => {
     const navigate = useRouter();
 
     const handleClick = () => {
@@ -21,22 +28,23 @@ const Button = ({ height = "48px", onClick, children, href, className, isActive 
             onClick();
         }
         if (href) {
-            navigate.push(href)
+            navigate.push(href);
         }
     };
 
     return (
         <button
             className={cn(
-                "w-full px-4 rounded-[8px] flex items-center justify-center gap-4 hover:bg-[url('/gradient.png')] bg-cover bg-no-repeat bg-center text-noble-100 font-semibold text-sm",
+                "flex w-full items-center justify-center gap-4 rounded-[8px] bg-cover bg-center bg-no-repeat px-4 text-sm font-semibold text-noble-100 hover:bg-[url('/gradient.png')]",
                 className,
-                isActive && "bg-[url('/gradient.png')] bg-cover bg-no-repeat bg-center"
+                isActive &&
+                    "bg-[url('/gradient.png')] bg-cover bg-center bg-no-repeat",
             )}
             style={{
                 height,
                 // background: isActive
                 //     ? "linear-gradient(315deg, #D7EDED02, #CCEBEB16)"
-                //     : "linear-gradient(334deg, #D7EDED03, #CCEBEB16)", //right,left 
+                //     : "linear-gradient(334deg, #D7EDED03, #CCEBEB16)", //right,left
             }}
             onClick={handleClick}
         >

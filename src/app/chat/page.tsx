@@ -1,4 +1,4 @@
-import InnovationPack from "@/components/chat/home/InnovationPack";
+import InnovationPack from '@/components/chat/home/InnovationPack';
 
 const ChatHome = () => {
     return (

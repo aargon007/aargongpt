@@ -1,7 +1,7 @@
-import type React from 'react';
+import '@/styles/globals.css';
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
-import '@/styles/globals.css';
+import type React from 'react';
 import { Toaster } from 'sonner';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -23,12 +23,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`${plusJakartaSans.variable} font-jakarta antialiased bg-noble-700`}
+                className={`${plusJakartaSans.variable} bg-noble-700 font-jakarta antialiased`}
             >
                 {children}
-                <Toaster
-                    position='top-right'
-                />
+                <Toaster position="top-right" />
             </body>
         </html>
     );

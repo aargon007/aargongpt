@@ -7,7 +7,7 @@ declare global {
             TOKEN_SECRET: Secret;
             NEXT_PUBLIC_NODE: string;
             SALT_ROUND: number;
-            EXPIRES_IN:number;
+            EXPIRES_IN: number;
             DATABASE_URL: string;
             DIRECT_URL: string;
         }

@@ -1,23 +1,25 @@
-import type React from "react"
-import FeatureCard from "./FeatureCard"
-import { LuArrowRight } from "react-icons/lu"
+import type React from 'react';
+import { LuArrowRight } from 'react-icons/lu';
+import FeatureCard from './FeatureCard';
 
 interface FeatureSectionProps {
-    title: string
-    icon: React.ReactNode
-    features: string[]
+    title: string;
+    icon: React.ReactNode;
+    features: string[];
 }
 
-export default function FeatureSection({ title, icon, features }: FeatureSectionProps) {
+export default function FeatureSection({
+    title,
+    icon,
+    features,
+}: FeatureSectionProps) {
     return (
         <div>
-            <div className="flex flex-col justify-center items-center mb-8 space-y-2">
-                <div className="w-12 h-12 rounded-full btnGradient flex items-center justify-center shadow">
+            <div className="mb-8 flex flex-col items-center justify-center space-y-2">
+                <div className="btnGradient flex h-12 w-12 items-center justify-center rounded-full shadow">
                     {icon}
                 </div>
-                <h3 className="text-white font-semibold">
-                    {title}
-                </h3>
+                <h3 className="font-semibold text-white">{title}</h3>
             </div>
 
             <div className="space-y-2">
@@ -30,5 +32,5 @@ export default function FeatureSection({ title, icon, features }: FeatureSection
                 ))}
             </div>
         </div>
-    )
+    );
 }

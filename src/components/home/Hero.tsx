@@ -1,24 +1,30 @@
-import React from 'react';
 import { LuArrowRight } from 'react-icons/lu';
 import Button from '../ui/Button';
 
 const Hero = () => {
     return (
-        <section className="relative py-20 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-b from-day-blue-900/20 to-transparent"></div>
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="max-w-4xl mx-auto text-center">
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
-                        Revolutionize Conversations with <span className="primaryGradient">AargonGPT</span>                    </h1>
-                    <p className="text-xl text-noble-300 mb-10 max-w-2xl mx-auto">
-                        AI-powered chatbot built with Next.js and OpenAI’s GPT — smart, fast, and human-like.
+        <section className="relative overflow-hidden py-20">
+            <div className="from-day-blue-900/20 absolute inset-0 bg-gradient-to-b to-transparent"></div>
+            <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="mx-auto max-w-4xl text-center">
+                    <h1 className="mb-6 text-4xl font-bold text-white sm:text-5xl md:text-6xl">
+                        Revolutionize Conversations with{' '}
+                        <span className="primaryGradient">AargonGPT</span>{' '}
+                    </h1>
+                    <p className="mx-auto mb-10 max-w-2xl text-xl text-noble-300">
+                        AI-powered chatbot built with Next.js and OpenAI’s GPT —
+                        smart, fast, and human-like.
                     </p>
-                    <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <Button isActive href='/login' className='hover:opacity-85'>
+                    <div className="flex flex-col justify-center gap-4 sm:flex-row">
+                        <Button
+                            isActive
+                            href="/login"
+                            className="hover:opacity-85"
+                        >
                             Get Started
                             <LuArrowRight size={18} />
                         </Button>
-                        <Button isActive className='hover:opacity-85'>
+                        <Button isActive className="hover:opacity-85">
                             View Documentation
                         </Button>
                     </div>
@@ -26,7 +32,7 @@ const Hero = () => {
             </div>
 
             {/* Decorative elements */}
-            <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 w-full max-w-6xl h-64 bg-gradient-to-b from-heisenberg-blue-500/20 to-transparent blur-3xl rounded-full"></div>
+            <div className="from-heisenberg-blue-500/20 absolute -bottom-16 left-1/2 h-64 w-full max-w-6xl -translate-x-1/2 transform rounded-full bg-gradient-to-b to-transparent blur-3xl"></div>
         </section>
     );
 };

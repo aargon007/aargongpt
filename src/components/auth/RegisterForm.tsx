@@ -1,69 +1,69 @@
-"use client"
+'use client';
 
-import type React from "react"
-import { FormEvent, useState } from "react"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import { toast } from "sonner"
-import InputField from "@/components/ui/input-field"
-import { createUser } from "@/services/user.service"
-import { LuCheck } from "react-icons/lu"
+import InputField from '@/components/ui/input-field';
+import { createUser } from '@/services/user.service';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import type React from 'react';
+import { FormEvent, useState } from 'react';
+import { LuCheck } from 'react-icons/lu';
+import { toast } from 'sonner';
 
 interface FormData {
-    firstName: string
-    lastName: string
-    email: string
-    password: string
-    agreeTerms: boolean
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    agreeTerms: boolean;
 }
 
 const RegisterForm = () => {
     const router = useRouter();
     const [formData, setFormData] = useState<FormData>({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
         agreeTerms: false,
-    })
+    });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type, checked } = e.target
+        const { name, value, type, checked } = e.target;
         setFormData((prev) => ({
             ...prev,
-            [name]: type === "checkbox" ? checked : value,
-        }))
-    }
+            [name]: type === 'checkbox' ? checked : value,
+        }));
+    };
 
     const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault()
+        e.preventDefault();
 
         // Create a FormData object from the form element
-        const form = e.target as HTMLFormElement
-        const formDataObj = new FormData(form)
+        const form = e.target as HTMLFormElement;
+        const formDataObj = new FormData(form);
 
         try {
-            const response = await createUser(formDataObj)
+            const response = await createUser(formDataObj);
             if (response.success) {
                 setFormData({
-                    firstName: "",
-                    lastName: "",
-                    email: "",
-                    password: "",
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    password: '',
                     agreeTerms: false,
                 });
-                router.push("/chat");
+                router.push('/chat');
             }
             toast.success(response.message);
         } catch (error) {
-            console.error("Error creating user:", error)
-            toast.error("Error creating user");
+            console.error('Error creating user:', error);
+            toast.error('Error creating user');
         }
     };
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <InputField
                     label="First name"
                     name="firstName"
@@ -81,7 +81,7 @@ const RegisterForm = () => {
                 />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <InputField
                     label="Email"
                     name="email"
@@ -104,31 +104,35 @@ const RegisterForm = () => {
             </div>
 
             <div className="flex items-center">
-                <label htmlFor="agree-terms" className="flex items-center cursor-pointer select-none">
+                <label
+                    htmlFor="agree-terms"
+                    className="flex cursor-pointer select-none items-center"
+                >
                     {/* Hidden Native Checkbox */}
                     <input
                         id="agree-terms"
                         name="agreeTerms"
                         type="checkbox"
-                        className="sr-only peer"
+                        className="peer sr-only"
                         checked={formData.agreeTerms}
                         onChange={handleChange}
                         required
                     />
                     <div className="checkbox">
-                        {formData.agreeTerms && <LuCheck className="text-white w-4 h-4" />}
+                        {formData.agreeTerms && (
+                            <LuCheck className="h-4 w-4 text-white" />
+                        )}
                     </div>
-                    <span className="ml-2 text-noble-200">I agree with{" "}
+                    <span className="ml-2 text-noble-200">
+                        I agree with{' '}
                         <Link href="/terms" className="primaryGradient">
                             Terms and conditions
-                        </Link></span>
+                        </Link>
+                    </span>
                 </label>
             </div>
 
-            <button
-                type="submit"
-                className="primaryButton"
-            >
+            <button type="submit" className="primaryButton">
                 Create free account
             </button>
         </form>
