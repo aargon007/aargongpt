@@ -1,19 +1,30 @@
 'use client';
 
 import type React from 'react';
-import { useChat } from '@ai-sdk/react';
+import { useRouter } from 'next/navigation';
 import { LuMic, LuSend } from 'react-icons/lu';
 import { AutoResizeTextarea } from '@/components/ui/AutoResizeTextarea';
+import { createChat, saveMessage } from '@/services/chat.service';
 
-const ChatInput = () => {
-    const { messages, input, setInput, append } = useChat({
-        api: "/api/chat",
-        initialMessages: [],
-    });
+const ChatInput = ({ chat_id, input, setInput, append }:{chat_id: string; input: string; setInput: (input: string) => void; append: (message: { content: string; role: 'user' | 'assistant' }) => void}) => {
+    const router = useRouter();
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit =async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        void append({ content: input, role: "user" });
+
+        if (!input.trim()) return;
+
+        if (!chat_id) {
+            // First time -> create new chat
+            const res = await createChat({ firstMessage: input });
+            router.push(`/chat/${res.data.id}`); // Redirect user
+        } else {
+            // Existing chat -> save message
+            await saveMessage({ chat_id, content: input, role: 'user' });
+
+            void append({ content: input, role: 'user' }); // Update local chat state
+        }
+
         setInput("");
     };
 

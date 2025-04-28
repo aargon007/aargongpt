@@ -1,3 +1,5 @@
+import gettoken from '@/lib/gettoken';
+import prisma from '@/lib/prisma';
 import { openai } from '@ai-sdk/openai';
 import { streamText } from 'ai';
 
@@ -5,6 +7,7 @@ import { streamText } from 'ai';
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
+    const user = await gettoken();
     // Extract the `messages` from the body of the request
     const { messages, id } = await req.json();
 
@@ -20,8 +23,16 @@ export async function POST(req: Request) {
             // console.log('usage', usage);
             // console.log('toolCalls', toolCalls);
             // console.log('toolResults', toolResults);
-            // console.log('text', text);
-            
+            // Persist the assistant's reply as a new Message
+            if (id) {
+                await prisma.message.create({
+                    data: {
+                        content: text,
+                        role: 'assistant',
+                        chat_id: id,
+                    },
+                });
+            }
         },
     });
 
