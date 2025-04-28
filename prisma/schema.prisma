@@ -36,11 +36,11 @@ model Chat {
 
 model Message {
   id         String   @id @default(uuid())
-  chat_id    String
   role       Role     @default(user)
   content    String
+  createdAt DateTime @default(now())
+  chat_id    String
   chat       Chat     @relation(fields: [chat_id], references: [id])
-  created_at DateTime @default(now())
 }
 
 enum Role {

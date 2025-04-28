@@ -96,7 +96,6 @@ export async function loginUser(formData: FormData): Promise<TResponse> {
             httpOnly: true,
             maxAge: config.expires_in, // 30 days
             path: '/',
-            sameSite: 'lax',
             secure: process.env.NODE_ENV === 'production',
         });
 

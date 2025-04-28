@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { Message } from 'ai';
 import { useChat } from '@ai-sdk/react';
 import ChatInput from '../layout/ChatInput';
+import MessageCard from './MessageCard';
 
 const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; initialMessages: Message[]; }) => {
     const { messages, input, setInput, append, reload } = useChat({
@@ -30,13 +31,9 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
 
     return (
         <>
-
-            <div id="chat-container" className="flex-1 overflow-y-auto">
-                {messages.map((message, index) => (
-                    <div key={index} className={`chat ${message.role === 'user' ? 'chat-start' : 'chat-end'}`}>
-                        <div className="chat-header">{message.role === 'user' ? 'You' : 'AI'}</div>
-                        <div className="chat-bubble">{message.content}</div>
-                    </div>
+            <div id="chat-container" className="flex-1 overflow-y-auto space-y-4 pb-32">
+                {messages?.map((message, index) => (
+                    <MessageCard key={index} message={message} />
                 ))}
             </div>
 
