@@ -82,3 +82,27 @@ export async function getChat(chat_id: string): Promise<TResponse> {
         data: chat
     }
 }
+
+// get all chats of user
+export async function getChats(): Promise<TResponse> {
+    const user = await getUser();
+
+    if (!user?.id) {
+        return {
+            success: false,
+            message: 'Missing required fields.',
+        }
+    };
+
+    const chats = await prisma.chat.findMany({
+        where: {
+            user_id: user.id
+        }
+    });
+
+    return {
+        success: true,
+        message: 'Chats loaded successfully.',
+        data: chats
+    }
+}

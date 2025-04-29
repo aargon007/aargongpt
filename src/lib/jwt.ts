@@ -6,9 +6,14 @@ if (!JWT_SECRET)
     throw new Error('TOKEN_SECRET is not set in environment variables.');
 
 export function createToken(payload: object) {
-    return jwt.sign(payload, JWT_SECRET, {
+    const token = jwt.sign(payload, JWT_SECRET, {
         expiresIn: config.expires_in, //30d
     });
+
+//     const v = verifyToken(token);
+//    console.log(v);
+   
+    return token;
 }
 
 export function verifyToken<T>(token: string): T | null {

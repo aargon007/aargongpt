@@ -1,13 +1,16 @@
 'use client';
 
-import Button from '@/components/ui/Button';
-import { useModalStore } from '@/hooks/modalStore';
-import { useSidebarStore } from '@/hooks/sidebarStore';
 import { useEffect, useState } from 'react';
 import { BiPlusCircle } from 'react-icons/bi';
-import { LuCreditCard, LuSearch, LuSettings } from 'react-icons/lu';
 import { RiArrowDownSLine } from 'react-icons/ri';
+import { IoChatboxOutline } from "react-icons/io5";
+import { LuCreditCard, LuSettings } from 'react-icons/lu';
+import { useSidebarStore } from '@/hooks/sidebarStore';
+import { useModalStore } from '@/hooks/modalStore';
+import Button from '@/components/ui/Button';
 import SettingsModal from '../SettingsModal';
+import { cn } from '@/utils/cn';
+import Link from 'next/link';
 
 export default function Sidebar({ user }: any) {
     const { isOpen, close, toggle } = useSidebarStore();
@@ -45,33 +48,31 @@ export default function Sidebar({ user }: any) {
         <>
             {/* Backdrop overlay for mobile */}
             <div
-                className={`bg-noble-900/80 fixed inset-0 z-40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
-                    }`}
+                className={cn(
+                    "bg-noble-900/80 fixed inset-0 z-40 backdrop-blur-sm transition-opacity duration-300 md:hidden",
+                    isOpen ? 'opacity-100' : 'pointer-events-none opacity-0',
+                )}
                 onClick={close}
                 aria-hidden="true"
             />
 
             {/* Sidebar */}
             <aside
-                className={`fixed left-0 top-0 z-50 flex h-full w-64 flex-col overflow-hidden bg-noble-800 transition-transform duration-300 ease-in-out md:sticky md:z-0 md:w-80 ${isOpen
-                    ? 'translate-x-0'
-                    : '-translate-x-full md:translate-x-0'
-                    } shadow-xl md:rounded-[20px] md:shadow-none`}
+                className={cn(
+                    "fixed left-0 top-0 z-50 flex h-full w-64 flex-col overflow-hidden bg-noble-800 transition-transform duration-300 ease-in-out md:sticky md:z-0 md:w-80",
+                    isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
+                    "shadow-xl md:rounded-[20px] md:shadow-none"
+                )}
             >
                 {/* Organization */}
                 <div className="flex items-center justify-between border-b border-noble-700 p-5">
                     <div className="flex items-center gap-4">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-blue-500 font-bold text-white">
-                            A
-                        </div>
-                        <div>
-                            <h2 className="mb-1 font-semibold text-white">
-                                MyTeam
-                            </h2>
-                            <p className="text-xs font-medium text-stem-green-500">
-                                1 members
-                            </p>
-                        </div>
+                        <h2 className="mb-1 font-semibold text-white">
+                            Model
+                        </h2>
+                        <p className="text-xs font-medium text-stem-green-500">
+                            Chatgpt-
+                        </p>
                     </div>
                     <button className="text-xl text-noble-400 hover:text-white">
                         <RiArrowDownSLine />
@@ -84,13 +85,13 @@ export default function Sidebar({ user }: any) {
                         GENERAL
                     </h3>
                     <div className="space-y-2">
-                        <Button>
-                            <LuSearch size={18} className="text-noble-400" />
-                            <span>Search</span>
+                        <Link href="/chat/history" className="flex h-[48px] w-full items-center justify-center gap-4 rounded-[8px] bg-cover bg-center bg-no-repeat px-4 text-sm font-semibold text-noble-100 hover:bg-[url('/gradient.png')]">
+                            <IoChatboxOutline size={18} className="text-noble-400" />
+                            <span>All Chats</span>
                             <span className="ml-auto rounded bg-[url('/gradient.png')] bg-cover bg-center bg-no-repeat px-2 py-1 text-xs text-noble-300">
-                                ⌘ S
+                                ⌘ C
                             </span>
-                        </Button>
+                        </Link>
 
                         <Button>
                             <LuCreditCard

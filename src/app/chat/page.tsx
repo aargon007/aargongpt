@@ -5,7 +5,7 @@ import InnovationPack from '@/components/chat/home/InnovationPack';
 import ChatInput from '@/components/chat/layout/ChatInput';
 
 const ChatHome = () => {
-    const { input, setInput, append } = useChat({
+    const { append, status } = useChat({
         api: "/api/chat",
         initialMessages: [],
     });
@@ -17,9 +17,8 @@ const ChatHome = () => {
             </div>
             <ChatInput
                 chat_id=''
-                input={input}
-                setInput={setInput}
                 append={append}
+                status={status}
             />
         </>
     );
