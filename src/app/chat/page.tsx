@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from 'react';
 import { useChat } from '@ai-sdk/react';
 import InnovationPack from '@/components/chat/home/InnovationPack';
 import ChatInput from '@/components/chat/layout/ChatInput';
 
 const ChatHome = () => {
-    const { append, status } = useChat({
+    const [isLoading, setIsLoading] = useState(false);
+    const { append } = useChat({
         api: "/api/chat",
         initialMessages: [],
     });
@@ -18,7 +20,8 @@ const ChatHome = () => {
             <ChatInput
                 chat_id=''
                 append={append}
-                status={status}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
             />
         </>
     );

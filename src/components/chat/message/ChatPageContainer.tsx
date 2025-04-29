@@ -1,16 +1,18 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Message } from 'ai';
 import { useChat } from '@ai-sdk/react';
 import ChatInput from '../layout/ChatInput';
 import MessageCard from './MessageCard';
 
 const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; initialMessages: Message[]; }) => {
-    const { messages, append, reload, status } = useChat({
+    const [isLoading, setIsLoading] = useState(false);
+    const { messages, append, reload } = useChat({
         api: "/api/chat",
         initialMessages: initialMessages,
-        id: chat_id
+        id: chat_id,
+        onFinish: () => setIsLoading(false)
     });
 
     // 👈 Prevent double-sending!
@@ -51,7 +53,7 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
                     <MessageCard
                         key={index}
                         message={message}
-                        streaming={status === 'streaming'}
+                        streaming={isLoading}
                     />
                 ))}
             </div>
@@ -59,7 +61,8 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
             <ChatInput
                 chat_id={chat_id}
                 append={append}
-                status={status}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
             />
         </>
     );

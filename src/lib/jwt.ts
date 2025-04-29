@@ -7,12 +7,9 @@ if (!JWT_SECRET)
 
 export function createToken(payload: object) {
     const token = jwt.sign(payload, JWT_SECRET, {
-        expiresIn: config.expires_in, //30d
+        expiresIn: "30d"//config.expires_in, //30d
     });
 
-//     const v = verifyToken(token);
-//    console.log(v);
-   
     return token;
 }
 

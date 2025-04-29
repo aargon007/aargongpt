@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { BiPlusCircle } from 'react-icons/bi';
+import { BiEdit, BiPlusCircle } from 'react-icons/bi';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { IoChatboxOutline } from "react-icons/io5";
-import { LuCreditCard, LuSettings } from 'react-icons/lu';
+import { LuCreditCard, LuPlug, LuSettings } from 'react-icons/lu';
 import { useSidebarStore } from '@/hooks/sidebarStore';
 import { useModalStore } from '@/hooks/modalStore';
 import Button from '@/components/ui/Button';
@@ -66,17 +66,21 @@ export default function Sidebar({ user }: any) {
             >
                 {/* Organization */}
                 <div className="flex items-center justify-between border-b border-noble-700 p-5">
-                    <div className="flex items-center gap-4">
+                    <div className='flex gap-4'>
                         <h2 className="mb-1 font-semibold text-white">
-                            Model
+                            AargonGPT
                         </h2>
-                        <p className="text-xs font-medium text-stem-green-500">
-                            Chatgpt-
-                        </p>
+                        <button className="text-xl text-noble-400 hover:text-white">
+                            <RiArrowDownSLine />
+                        </button>
                     </div>
-                    <button className="text-xl text-noble-400 hover:text-white">
-                        <RiArrowDownSLine />
-                    </button>
+
+                    <Link href="/chat" className="ml-auto rounded bg-[url('/gradient.png')] bg-cover bg-center bg-no-repeat px-3 py-1 text-xs text-noble-30">
+                        <BiEdit
+                            size={18}
+                            className="text-noble-100"
+                        />
+                    </Link>
                 </div>
 
                 {/* General section */}

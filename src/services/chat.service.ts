@@ -15,7 +15,7 @@ export async function createChat({ firstMessage }: { firstMessage: string }): Pr
     };
 
     // Generate a title — simple example, you can make it fancier
-    const title = firstMessage.length > 20 ? firstMessage.slice(0, 20) + "..." : firstMessage;
+    const title = firstMessage.length > 30 ? firstMessage.slice(0, 30) : firstMessage;
 
     const chat = await prisma.chat.create({
         data: {
@@ -97,6 +97,9 @@ export async function getChats(): Promise<TResponse> {
     const chats = await prisma.chat.findMany({
         where: {
             user_id: user.id
+        },
+        orderBy: {
+            created_at: 'desc'
         }
     });
 

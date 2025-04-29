@@ -11,10 +11,11 @@ import Spinner from '@/components/ui/Spinner';
 type TProps = {
     chat_id: string;
     append: (message: { content: string; role: 'user' | 'assistant' }) => void;
-    status: "error" | "submitted" | "streaming" | "ready"
+    isLoading: boolean;
+    setIsLoading: (isLoading: boolean) => void;
 }
 
-const ChatInput = ({ chat_id, append, status }: TProps) => {
+const ChatInput = ({ chat_id, append, isLoading, setIsLoading }: TProps) => {
     const [input, setInput] = useState<string>("");
     const router = useRouter();
 
@@ -22,6 +23,8 @@ const ChatInput = ({ chat_id, append, status }: TProps) => {
         e.preventDefault();
 
         if (!input.trim()) return;
+
+        setIsLoading(true);
 
         if (!chat_id) {
             // First time -> create new chat
@@ -74,10 +77,10 @@ const ChatInput = ({ chat_id, append, status }: TProps) => {
                         ? 'bg-noble-700 text-white hover:bg-noble-700'
                         : 'bg-noble-600 text-noble-200'
                         }`}
-                    disabled={!input.trim()}
+                    disabled={!input.trim() || isLoading}
                 >
-                    {status !== 'streaming' && <LuSend size={20} />}
-                    {status === 'streaming' && <Spinner />}
+                    {!isLoading && <LuSend size={20} />}
+                    {isLoading && <Spinner />}
                 </button>
             </form>
         </div>

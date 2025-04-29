@@ -7,8 +7,13 @@ import { formatDistanceToNow } from 'date-fns';
 import MarkdownPreview from './MarkdownPreview';
 
 const MessageCard = ({ message, streaming }: { message: Message; streaming?: boolean }) => {
-    const { content, role, createdAt } = message;
+    const { content, role, createdAt, parts } = message;
     const timeAgo = createdAt ? formatDistanceToNow(new Date(createdAt), { addSuffix: true }) : '';
+    console.log(parts);
+
+    const MemoMarkdownPreview = React.memo(MarkdownPreview, (prev, next) => {
+        return prev.markdownContent === next.markdownContent && prev.streaming === next.streaming;
+    });
 
     return (
         <div className='p-4 border border-noble-500 rounded-[16px] flex flex-col md:flex-row justify-between items-start gap-6'>
@@ -27,11 +32,14 @@ const MessageCard = ({ message, streaming }: { message: Message; streaming?: boo
                 </div>
 
                 <div className='mt-3 text-base text-noble-100 prose prose-invert max-w-none'>
-                    <MarkdownPreview
-                        markdownContent={content}
-                        streaming={streaming}
-                    />
-                    {/* {content} */}
+                    {role === 'user' && content}
+                    {role === 'assistant' && parts?.map((part: any, index) => (
+                        <MemoMarkdownPreview
+                            key={index}
+                            markdownContent={part?.text}
+                            streaming={streaming}
+                        />
+                    ))}
                 </div>
             </div>
         </div>
