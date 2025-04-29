@@ -6,10 +6,17 @@ import { LuMic, LuSend } from 'react-icons/lu';
 import { AutoResizeTextarea } from '@/components/ui/AutoResizeTextarea';
 import { createChat, saveMessage } from '@/services/chat.service';
 
-const ChatInput = ({ chat_id, input, setInput, append }:{chat_id: string; input: string; setInput: (input: string) => void; append: (message: { content: string; role: 'user' | 'assistant' }) => void}) => {
+type TProps = {
+    chat_id: string;
+    input: string;
+    setInput: (input: string) => void;
+    append: (message: { content: string; role: 'user' | 'assistant' }) => void;
+}
+
+const ChatInput = ({ chat_id, input, setInput, append }: TProps) => {
     const router = useRouter();
 
-    const handleSubmit =async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!input.trim()) return;

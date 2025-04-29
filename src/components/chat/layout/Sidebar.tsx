@@ -41,31 +41,22 @@ export default function Sidebar({ user }: any) {
         };
     }, [isOpen, isMounted]);
 
-    const projects = [
-        { id: 'orbital', name: 'Orbital Oddysey', color: 'bg-gray-500' },
-        // { id: "digital", name: "Digital Product Launch", color: "bg-red-500" },
-        // { id: "brand", name: "Brand Refresh", color: "bg-orange-500" },
-        // { id: "social", name: "Social Media Strategy", color: "bg-blue-500" },
-    ];
-
     return (
         <>
             {/* Backdrop overlay for mobile */}
             <div
-                className={`bg-noble-900/80 fixed inset-0 z-40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
-                    isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
-                }`}
+                className={`bg-noble-900/80 fixed inset-0 z-40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
+                    }`}
                 onClick={close}
                 aria-hidden="true"
             />
 
             {/* Sidebar */}
             <aside
-                className={`fixed left-0 top-0 z-50 flex h-full w-64 flex-col overflow-hidden bg-noble-800 transition-transform duration-300 ease-in-out md:sticky md:z-0 md:w-80 ${
-                    isOpen
-                        ? 'translate-x-0'
-                        : '-translate-x-full md:translate-x-0'
-                } shadow-xl md:rounded-[20px] md:shadow-none`}
+                className={`fixed left-0 top-0 z-50 flex h-full w-64 flex-col overflow-hidden bg-noble-800 transition-transform duration-300 ease-in-out md:sticky md:z-0 md:w-80 ${isOpen
+                    ? 'translate-x-0'
+                    : '-translate-x-full md:translate-x-0'
+                    } shadow-xl md:rounded-[20px] md:shadow-none`}
             >
                 {/* Organization */}
                 <div className="flex items-center justify-between border-b border-noble-700 p-5">
@@ -117,14 +108,15 @@ export default function Sidebar({ user }: any) {
                         PROJECTS
                     </h3>
                     <nav className="space-y-2">
-                        {projects.map((project) => (
-                            <Button key={project.id} href="/">
-                                <div
-                                    className={`h-5 w-5 rounded ${project.color}`}
-                                ></div>
-                                <span className="mr-auto">{project.name}</span>
-                            </Button>
-                        ))}
+                        <Button >
+                            <div
+                                className={`h-5 w-5 rounded bg-gray-500`}
+                            />
+                            <span className="mr-auto">
+                                All Chats
+                            </span>
+                        </Button>
+
                         <Button>
                             <BiPlusCircle
                                 size={18}

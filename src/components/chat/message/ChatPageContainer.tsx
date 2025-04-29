@@ -14,7 +14,8 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
     });
 
     // 👈 Prevent double-sending!
-    const hasContinuedRef = useRef(false); 
+    const hasContinuedRef = useRef(false);
+    const chatContainerRef = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
 
     useEffect(() => {
         if (messages.length === 0 || hasContinuedRef.current) return;
@@ -23,15 +24,25 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
 
         if (lastMessage.role === 'user') {
             // Prevent multiple triggers
-            hasContinuedRef.current = true; 
+            hasContinuedRef.current = true;
             // 🚀 Instead of append() — we use reload()
             void reload();
         }
     }, [messages, reload]);
 
+    // Scroll to bottom whenever messages change
+    useEffect(() => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTo({
+                top: chatContainerRef.current.scrollHeight,
+                behavior: 'smooth',
+            });
+        }
+    }, []);
+
     return (
         <>
-            <div id="chat-container" className="flex-1 overflow-y-auto space-y-4 pb-32">
+            <div id="chat-container" ref={chatContainerRef} className="flex-1 overflow-y-auto space-y-4 pb-32">
                 {messages?.map((message, index) => (
                     <MessageCard key={index} message={message} />
                 ))}
