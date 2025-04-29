@@ -2,11 +2,11 @@
 
 import React from 'react';
 import { Message } from 'ai';
-import { formatDistanceToNow } from 'date-fns';
 import { LuCopy } from 'react-icons/lu';
+import { formatDistanceToNow } from 'date-fns';
 import MarkdownPreview from './MarkdownPreview';
 
-const MessageCard = ({ message }: { message: Message }) => {
+const MessageCard = ({ message, streaming }: { message: Message; streaming?: boolean }) => {
     const { content, role, createdAt } = message;
     const timeAgo = createdAt ? formatDistanceToNow(new Date(createdAt), { addSuffix: true }) : '';
 
@@ -19,7 +19,7 @@ const MessageCard = ({ message }: { message: Message }) => {
             <div className='w-full py-2'>
                 <div className='flex justify-between items-center'>
                     <h3 className='text-base font-bold text-white'>
-                        {role === 'user' ? 'You' : 'AI'} <span className='pl-4 text-noble-400 text-sm font-medium'>{timeAgo}</span>
+                        {role === 'user' ? 'You' : 'AI'} {timeAgo && <span className='pl-4 text-noble-400 text-sm font-medium'>{timeAgo}</span>}
                     </h3>
                     <div className='text-noble-400 hover:text-noble-300 cursor-pointer h-8 w-8'>
                         <LuCopy size={16} />
@@ -27,7 +27,11 @@ const MessageCard = ({ message }: { message: Message }) => {
                 </div>
 
                 <div className='mt-3 text-base text-noble-100 prose prose-invert max-w-none'>
-                    <MarkdownPreview markdownContent={content} />
+                    <MarkdownPreview
+                        markdownContent={content}
+                        streaming={streaming}
+                    />
+                    {/* {content} */}
                 </div>
             </div>
         </div>

@@ -7,15 +7,15 @@ import ChatInput from '../layout/ChatInput';
 import MessageCard from './MessageCard';
 
 const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; initialMessages: Message[]; }) => {
-    const { messages, input, setInput, append, reload } = useChat({
+    const { messages, append, reload, status } = useChat({
         api: "/api/chat",
         initialMessages: initialMessages,
-        id: chat_id,
+        id: chat_id
     });
 
     // 👈 Prevent double-sending!
     const hasContinuedRef = useRef(false);
-    const chatContainerRef = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
+    const chatContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (messages.length === 0 || hasContinuedRef.current) return;
@@ -28,7 +28,7 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
             // 🚀 Instead of append() — we use reload()
             void reload();
         }
-    }, [messages, reload]);
+    }, []);
 
     // Scroll to bottom whenever messages change
     useEffect(() => {
@@ -42,17 +42,24 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
 
     return (
         <>
-            <div id="chat-container" ref={chatContainerRef} className="flex-1 overflow-y-auto space-y-4 pb-32">
+            <div
+                id="chat-container"
+                ref={chatContainerRef}
+                className="flex-1 overflow-y-auto space-y-4 pb-32 md:px-20"
+            >
                 {messages?.map((message, index) => (
-                    <MessageCard key={index} message={message} />
+                    <MessageCard
+                        key={index}
+                        message={message}
+                        streaming={status === 'streaming'}
+                    />
                 ))}
             </div>
 
             <ChatInput
                 chat_id={chat_id}
-                input={input}
-                setInput={setInput}
                 append={append}
+                status={status}
             />
         </>
     );

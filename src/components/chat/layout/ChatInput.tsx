@@ -1,19 +1,21 @@
 'use client';
 
 import type React from 'react';
+import { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LuMic, LuSend } from 'react-icons/lu';
 import { AutoResizeTextarea } from '@/components/ui/AutoResizeTextarea';
 import { createChat, saveMessage } from '@/services/chat.service';
+import Spinner from '@/components/ui/Spinner';
 
 type TProps = {
     chat_id: string;
-    input: string;
-    setInput: (input: string) => void;
     append: (message: { content: string; role: 'user' | 'assistant' }) => void;
+    status: "error" | "submitted" | "streaming" | "ready"
 }
 
-const ChatInput = ({ chat_id, input, setInput, append }: TProps) => {
+const ChatInput = ({ chat_id, append, status }: TProps) => {
+    const [input, setInput] = useState<string>("");
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -29,7 +31,8 @@ const ChatInput = ({ chat_id, input, setInput, append }: TProps) => {
             // Existing chat -> save message
             await saveMessage({ chat_id, content: input, role: 'user' });
 
-            void append({ content: input, role: 'user' }); // Update local chat state
+            append({ content: input, role: 'user' });
+            // void append({ content: input, role: 'user' });
         }
 
         setInput("");
@@ -41,6 +44,10 @@ const ChatInput = ({ chat_id, input, setInput, append }: TProps) => {
             handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>)
         }
     };
+
+    const handleChange = useCallback((v: string) => {
+        setInput(v);
+    }, [setInput]);
 
     return (
         <div className="rounded-[20px] bg-noble-800 p-6">
@@ -56,7 +63,7 @@ const ChatInput = ({ chat_id, input, setInput, append }: TProps) => {
                 </button>
                 <AutoResizeTextarea
                     onKeyDown={handleKeyDown}
-                    onChange={(v) => setInput(v)}
+                    onChange={handleChange}
                     value={input}
                     placeholder="Enter a message"
                     className="flex-1 rounded-lg bg-noble-800 text-white placeholder-noble-500 focus:outline-none"
@@ -69,7 +76,8 @@ const ChatInput = ({ chat_id, input, setInput, append }: TProps) => {
                         }`}
                     disabled={!input.trim()}
                 >
-                    <LuSend size={20} />
+                    {status !== 'streaming' && <LuSend size={20} />}
+                    {status === 'streaming' && <Spinner />}
                 </button>
             </form>
         </div>

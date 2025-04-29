@@ -9,9 +9,10 @@ import remarkGfm from 'remark-gfm';
 
 interface MarkdownPreviewProps {
     markdownContent: string;
+    streaming?: boolean; // New
 }
 
-const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ markdownContent }) => {
+const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ markdownContent, streaming }) => {
     const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
     const handleCopy = async (code: string) => {
@@ -34,8 +35,8 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ markdownContent }) =>
                         const code = String(children).trim();
                         const language = className?.replace('language-', '') || '';
 
-                        // Only for code blocks (inside pre)
-                        if (language) {
+                        if (language && !streaming) {
+                            // Full highlighting after stream ends
                             return (
                                 <div className="relative group">
                                     <div className='flex justify-between items-center text-sm py-px px-5 bg-noble-600'>
@@ -64,8 +65,10 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ markdownContent }) =>
                                 </div>
                             );
                         }
+
+                        // During streaming, just use a simple <code>
                         return (
-                            <code {...props}>
+                            <code {...props} className={className}>
                                 {children}
                             </code>
                         );
@@ -74,6 +77,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ markdownContent }) =>
             >
                 {markdownContent}
             </ReactMarkdown>
+
         </div>
     );
 };

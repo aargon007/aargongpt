@@ -71,6 +71,9 @@ export async function getChat(chat_id: string): Promise<TResponse> {
         where: {
             chat_id
         },
+        orderBy: {
+            createdAt: 'asc'
+        }
     });
 
     return {
