@@ -10,8 +10,9 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
     const [isLoading, setIsLoading] = useState(false);
     const { messages, append, reload } = useChat({
         api: "/api/chat",
-        initialMessages: initialMessages,
         id: chat_id,
+        initialMessages: initialMessages,
+        experimental_throttle: 50,
         onFinish: () => setIsLoading(false)
     });
 
@@ -27,8 +28,8 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
         if (lastMessage.role === 'user') {
             // Prevent multiple triggers
             hasContinuedRef.current = true;
-            // 🚀 Instead of append() — we use reload()
-            void reload();
+            setIsLoading(true);
+            reload();
         }
     }, []);
 
@@ -49,11 +50,10 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
                 ref={chatContainerRef}
                 className="flex-1 overflow-y-auto space-y-4 pb-32 md:px-20"
             >
-                {messages?.map((message, index) => (
+                {messages?.map((message) => (
                     <MessageCard
-                        key={index}
+                        key={message?.id}
                         message={message}
-                        streaming={isLoading}
                     />
                 ))}
             </div>

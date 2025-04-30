@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import { TResponse } from "@/types/response";
 import { getUser } from "./user.service";
+import { revalidatePath } from "next/cache";
 
 export async function createChat({ firstMessage }: { firstMessage: string }): Promise<TResponse> {
     const user = await getUser();
@@ -65,7 +66,7 @@ export async function saveMessage({ chat_id, content, role }: { chat_id: string,
     }
 }
 
-// load chat
+// get single chat message
 export async function getChat(chat_id: string): Promise<TResponse> {
     const chat = await prisma.message.findMany({
         where: {
@@ -107,5 +108,31 @@ export async function getChats(): Promise<TResponse> {
         success: true,
         message: 'Chats loaded successfully.',
         data: chats
+    }
+}
+
+// delete chat 
+export async function deleteChat(chat_id: string): Promise<TResponse> {
+   // delete chat and message in transaction
+    const chat = await prisma.$transaction([
+        prisma.message.deleteMany({
+            where: {
+                chat_id
+            }
+        }),
+        prisma.chat.delete({
+            where: {
+                id: chat_id,
+                user_id: (await getUser())?.id
+            }
+        })
+   ])
+
+   revalidatePath('/chat');
+
+    return {
+        success: true,
+        message: 'Chat deleted successfully.',
+        data: chat
     }
 }

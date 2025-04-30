@@ -1,8 +1,8 @@
-import { getChats } from "@/services/chat.service";
 import { Chat } from "@prisma/client";
-import Link from "next/link";
+import { getChats } from "@/services/chat.service";
 import { LuSearch } from "react-icons/lu";
 import { PiSidebarSimpleBold } from "react-icons/pi";
+import ChatCard from "@/components/history/ChatCard";
 
 const ChatHistory = async () => {
     const chats = await getChats();
@@ -36,23 +36,9 @@ const ChatHistory = async () => {
                     </div>
                 </div>
 
-                <div className="p-6 space-y-2 overflow-y-auto h-[calc(85vh-50px)]">
+                <div className="p-6 space-y-2 overflow-y-auto h-[calc(90vh-50px)]">
                     {chats?.data?.map((chat: Chat) => (
-                        <Link
-                            key={chat?.id}
-                            href={`/chat/${chat?.id}`}
-                            className="block p-3 rounded-[12px] border border-noble-600 hover:bg-noble-600 transition-all"
-                        >
-                            <h2 className="mb-2 text-lg font-semibold text-white">
-                                {chat?.title}
-                            </h2>
-                            <p className="mb-2 text-sm text-noble-300">
-                                {chat?.description}
-                            </p>
-                            <p className="text-sm text-noble-300 pt-2 border-t border-noble-600">
-                              Updated At {chat?.updated_at?.toLocaleString()}
-                            </p>
-                        </Link>
+                        <ChatCard key={chat.id} chat={chat} />
                     ))}
                 </div>
             </main>

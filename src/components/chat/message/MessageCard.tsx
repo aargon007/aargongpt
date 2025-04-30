@@ -4,16 +4,14 @@ import React from 'react';
 import { Message } from 'ai';
 import { LuCopy } from 'react-icons/lu';
 import { formatDistanceToNow } from 'date-fns';
-import MarkdownPreview from './MarkdownPreview';
+import { MemoizedMarkdown } from './MarkdownPreview';
 
 const MessageCard = ({ message, streaming }: { message: Message; streaming?: boolean }) => {
-    const { content, role, createdAt, parts } = message;
+    const { content, role, createdAt } = message;
     const timeAgo = createdAt ? formatDistanceToNow(new Date(createdAt), { addSuffix: true }) : '';
 
-    const MemoMarkdownPreview = React.memo(MarkdownPreview, (prev, next) => {
-        return prev.markdownContent === next.markdownContent && prev.streaming === next.streaming;
-    });
-
+    console.log(message);
+    
     return (
         <div className='p-4 border border-noble-500 rounded-[16px] flex flex-col md:flex-row justify-between items-start gap-6'>
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r from-green-400 to-blue-500 font-bold text-white">
@@ -32,13 +30,12 @@ const MessageCard = ({ message, streaming }: { message: Message; streaming?: boo
 
                 <div className='mt-3 text-base text-noble-100 prose prose-invert max-w-none'>
                     {role === 'user' && content}
-                    {role === 'assistant' && parts?.map((part: any, index) => (
-                        <MemoMarkdownPreview
-                            key={index}
-                            markdownContent={part?.text}
-                            streaming={streaming}
+                    {role === 'assistant' &&
+                        <MemoizedMarkdown
+                            id={message.id}
+                            content={content}
                         />
-                    ))}
+                    }
                 </div>
             </div>
         </div>
