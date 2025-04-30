@@ -15,7 +15,7 @@ export async function POST(req: Request) {
 
     // Call the language model
     const result = streamText({
-        model: openai('o4-mini-2025-04-16'),
+        model: openai('chatgpt-4o-latest'),
         messages,
         async onFinish({ text, toolCalls, toolResults, usage, finishReason, response }) {
             // console.log(response);
@@ -23,7 +23,6 @@ export async function POST(req: Request) {
             console.log('usage', usage);
             // console.log('toolCalls', toolCalls);
             // console.log('toolResults', toolResults);
-            // Persist the assistant's reply as a new Message
             if (id) {
                 await prisma.message.create({
                     data: {
@@ -34,6 +33,9 @@ export async function POST(req: Request) {
                 });
             }
         },
+        onError(error) {
+            console.error(error);
+        }
     });
 
     // Respond with the stream

@@ -9,7 +9,7 @@ const ChatHistory = async () => {
 
     return (
         <div className="relative min-w-0 flex-1">
-            <main className='bg-noble-800 size-full overflow-y-auto rounded-[20px] shadow-lg border border-noble-600'>
+            <main className='bg-noble-800 size-full rounded-[20px] shadow-lg border border-noble-600'>
                 <div className="h-12 text-noble-300 flex items-center justify-start px-5 border-b border-noble-700 gap-3">
                     <button className="aspect-square p-2 flex items-center justify-center">
                         <PiSidebarSimpleBold size={24} />
@@ -36,12 +36,12 @@ const ChatHistory = async () => {
                     </div>
                 </div>
 
-                <div className="p-6 space-y-2">
+                <div className="p-6 space-y-2 overflow-y-auto h-[calc(85vh-50px)]">
                     {chats?.data?.map((chat: Chat) => (
                         <Link
                             key={chat?.id}
                             href={`/chat/${chat?.id}`}
-                            className="block p-3 rounded-[12px] border border-noble-700 hover:bg-noble-600 transition-all"
+                            className="block p-3 rounded-[12px] border border-noble-600 hover:bg-noble-600 transition-all"
                         >
                             <h2 className="mb-2 text-lg font-semibold text-white">
                                 {chat?.title}

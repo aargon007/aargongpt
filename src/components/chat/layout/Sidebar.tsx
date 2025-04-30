@@ -118,7 +118,7 @@ export default function Sidebar({ user }: any) {
                                 className={`h-5 w-5 rounded bg-gray-500`}
                             />
                             <span className="mr-auto">
-                                All Chats
+                               Project Alpha
                             </span>
                         </Button>
 

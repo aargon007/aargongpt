@@ -9,7 +9,6 @@ import MarkdownPreview from './MarkdownPreview';
 const MessageCard = ({ message, streaming }: { message: Message; streaming?: boolean }) => {
     const { content, role, createdAt, parts } = message;
     const timeAgo = createdAt ? formatDistanceToNow(new Date(createdAt), { addSuffix: true }) : '';
-    console.log(parts);
 
     const MemoMarkdownPreview = React.memo(MarkdownPreview, (prev, next) => {
         return prev.markdownContent === next.markdownContent && prev.streaming === next.streaming;
