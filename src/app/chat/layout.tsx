@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import type React from 'react';
 
-import Sidebar from '@/components/chat/layout/Sidebar';
+import Sidebar from '@/components/layout/Sidebar';
 import isAuthenticated from '@/lib/isAuthenticated';
 import { getUser } from '@/services/user.service';
 

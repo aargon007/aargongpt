@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Message } from 'ai';
 import { useChat } from '@ai-sdk/react';
-import ChatInput from '../layout/ChatInput';
+import ChatInput from '../../layout/ChatInput';
 import MessageCard from './MessageCard';
 
 const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; initialMessages: Message[]; }) => {

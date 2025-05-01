@@ -8,7 +8,7 @@ import { LuCreditCard, LuPlug, LuSettings } from 'react-icons/lu';
 import { useSidebarStore } from '@/hooks/sidebarStore';
 import { useModalStore } from '@/hooks/modalStore';
 import Button from '@/components/ui/Button';
-import SettingsModal from '../SettingsModal';
+import SettingsModal from '../chat/SettingsModal';
 import { cn } from '@/utils/cn';
 import Link from 'next/link';
 
@@ -118,7 +118,7 @@ export default function Sidebar({ user }: any) {
                                 className={`h-5 w-5 rounded bg-gray-500`}
                             />
                             <span className="mr-auto">
-                               Project Alpha
+                                Project Alpha
                             </span>
                         </Button>
 

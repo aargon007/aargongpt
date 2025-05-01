@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useChat } from '@ai-sdk/react';
 import InnovationPack from '@/components/chat/home/InnovationPack';
-import ChatInput from '@/components/chat/layout/ChatInput';
+import ChatInput from '@/components/layout/ChatInput';
 
 const ChatHome = () => {
     const [isLoading, setIsLoading] = useState(false);
