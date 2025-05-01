@@ -15,7 +15,9 @@ export async function POST(req: Request) {
 
     // Call the language model
     const result = streamText({
-        model: openai('chatgpt-4o-latest'),
+        model: openai("o4-mini"),
+        system:
+            'You are a helpful assistant. Respond to the user in Markdown format.',
         messages,
         async onFinish({ text, toolCalls, toolResults, usage, finishReason, response }) {
             // console.log(response);
