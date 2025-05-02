@@ -11,6 +11,7 @@ import Button from '@/components/ui/Button';
 import SettingsModal from '../chat/SettingsModal';
 import { cn } from '@/utils/cn';
 import Link from 'next/link';
+import AddProjectModal from '../projects/AddProjectModal';
 
 export default function Sidebar({ user }: any) {
     const { isOpen, close, toggle } = useSidebarStore();
@@ -122,7 +123,7 @@ export default function Sidebar({ user }: any) {
                             </span>
                         </Button>
 
-                        <Button>
+                        <Button onClick={() => openModal('profile')}>
                             <BiPlusCircle
                                 size={18}
                                 className="text-noble-400"
@@ -161,6 +162,7 @@ export default function Sidebar({ user }: any) {
             </aside>
 
             <SettingsModal user={user} />
+            <AddProjectModal />
         </>
     );
 }

@@ -1,7 +1,7 @@
 // store/modalStore.ts
 import { create } from 'zustand';
 
-type ModalType = 'settings' | 'profile' | 'login' | string; // Add more modal types as needed
+type ModalType = 'settings' | 'project' | 'profile' | 'login' | string; // Add more modal types as needed
 
 interface ModalStore {
     modals: Record<ModalType, boolean>;

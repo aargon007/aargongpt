@@ -21,7 +21,7 @@ export async function createChat({ firstMessage }: { firstMessage: string }): Pr
     const chat = await prisma.chat.create({
         data: {
             title,
-            description: firstMessage,
+            description: firstMessage.length > 60 ? firstMessage.slice(0, 60) : firstMessage,
             user_id: user.id,
         },
     });

@@ -122,7 +122,10 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #444;
 }
-
+input[type="color"] {
+  padding: 22px;
+  box-sizing: border-box;
+}
 
 /* styles/globals.css or wherever you import your base styles */
 
