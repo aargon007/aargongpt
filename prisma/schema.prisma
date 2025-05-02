@@ -27,7 +27,9 @@ model Chat {
   title       String
   description String
   user_id     String
+  project_id  String?
   user        User     @relation(fields: [user_id], references: [id])
+  project     Project? @relation(fields: [project_id], references: [id])
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
@@ -35,12 +37,20 @@ model Chat {
 }
 
 model Message {
-  id         String   @id @default(uuid())
-  role       Role     @default(user)
-  content    String
+  id        String   @id @default(uuid())
+  role      Role     @default(user)
+  content   String
   createdAt DateTime @default(now())
-  chat_id    String
-  chat       Chat     @relation(fields: [chat_id], references: [id])
+  chat_id   String
+  chat      Chat     @relation(fields: [chat_id], references: [id])
+}
+
+model Project {
+  id    String @id @default(uuid())
+  name  String
+  color String @default("#131619")
+
+  chats Chat[]
 }
 
 enum Role {
