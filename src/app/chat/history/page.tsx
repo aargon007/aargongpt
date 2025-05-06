@@ -1,8 +1,8 @@
 import { Chat } from "@prisma/client";
 import { getChats } from "@/services/chat.service";
 import { LuSearch } from "react-icons/lu";
-import { PiSidebarSimpleBold } from "react-icons/pi";
 import ChatCard from "@/components/history/ChatCard";
+import SideBarButton from "@/components/history/SideBarButton";
 
 const ChatHistory = async () => {
     const chats = await getChats();
@@ -11,9 +11,7 @@ const ChatHistory = async () => {
         <div className="relative min-w-0 flex-1">
             <main className='bg-noble-800 size-full rounded-[20px] shadow-lg border border-noble-600'>
                 <div className="h-12 text-noble-300 flex items-center justify-start px-5 border-b border-noble-700 gap-3">
-                    <button className="aspect-square p-2 flex items-center justify-center">
-                        <PiSidebarSimpleBold size={24} />
-                    </button>
+                    <SideBarButton />
                     <h1 className="text-base text-white font-semibold sm:tracking-tight">
                         Chats
                     </h1>

@@ -6,11 +6,9 @@ import { LuCopy } from 'react-icons/lu';
 import { formatDistanceToNow } from 'date-fns';
 import { MemoizedMarkdown } from './MarkdownPreview';
 
-const MessageCard = ({ message, streaming }: { message: Message; streaming?: boolean }) => {
+const MessageCard = ({ message }: { message: Message; streaming?: boolean }) => {
     const { content, role, createdAt } = message;
     const timeAgo = createdAt ? formatDistanceToNow(new Date(createdAt), { addSuffix: true }) : '';
-
-    console.log(message);
     
     return (
         <div className='p-4 border border-noble-500 rounded-[16px] flex flex-col md:flex-row justify-between items-start gap-6'>

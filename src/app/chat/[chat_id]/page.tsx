@@ -1,4 +1,5 @@
 import ChatPageContainer from "@/components/chat/message/ChatPageContainer";
+import ChatHeader from "@/components/layout/ChatHeader";
 import { getChat } from "@/services/chat.service";
 
 const ChatPage = async ({ params, }: { params: Promise<{ chat_id: string }> }) => {
@@ -7,6 +8,7 @@ const ChatPage = async ({ params, }: { params: Promise<{ chat_id: string }> }) =
 
     return (
         <>
+            <ChatHeader />
             <ChatPageContainer
                 chat_id={chat_id}
                 initialMessages={chat.data}

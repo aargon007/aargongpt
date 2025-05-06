@@ -25,10 +25,6 @@ const ChatLayout = async ({ children, }: Readonly<{ children: React.ReactNode }>
 
             {/* Main content */}
             <div className="flex h-full flex-1 flex-col overflow-hidden md:ml-3">
-                {/* <ChatHeader
-                    title="Orbital Oddysey"
-                    description="Marketing Campaign for a new TV series Launch"
-                /> */}
                 {children}
             </div>
         </div>

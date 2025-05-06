@@ -11,11 +11,12 @@ export async function POST(req: Request) {
     // Extract the `messages` from the body of the request
     const { messages, id } = await req.json();
 
-    //console.log('chat id', id);
+    // gpt-4.1 June 2024
+    //
 
     // Call the language model
     const result = streamText({
-        model: openai("gpt-4o-2024-05-13"),
+        model: openai("gpt-4.1"),
         system:
             'You are a helpful assistant. Respond to the user in Markdown format.',
         messages,
