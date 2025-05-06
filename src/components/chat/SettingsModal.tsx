@@ -15,14 +15,7 @@ import {
 } from 'react-icons/lu';
 import InputField from '../ui/input-field';
 import Modal from '../ui/Modal';
-
-interface User {
-    id: string;
-    first_name: string;
-    last_name: string;
-    email: string;
-    avatar_url?: string;
-}
+import { User } from '@prisma/client';
 
 interface SettingsModalProps {
     user: User;
@@ -150,15 +143,15 @@ export default function SettingsModal({ user }: SettingsModalProps) {
                                         label="First name"
                                         placeholder="First name"
                                         value={user.first_name}
-                                        onChange={(e) => {}}
+                                        onChange={(e) => { }}
                                     />
 
                                     <InputField
                                         type="text"
                                         label="Last name"
                                         placeholder="Last name"
-                                        value={user.last_name}
-                                        onChange={(e) => {}}
+                                        value={user?.last_name || ''}
+                                        onChange={(e) => { }}
                                     />
                                 </div>
 
@@ -168,7 +161,7 @@ export default function SettingsModal({ user }: SettingsModalProps) {
                                         label="Email"
                                         placeholder="Email"
                                         value={user.email}
-                                        onChange={(e) => {}}
+                                        onChange={(e) => { }}
                                         icon={
                                             <LuMail
                                                 size={18}
@@ -275,8 +268,8 @@ export default function SettingsModal({ user }: SettingsModalProps) {
                                         }
                                         error={
                                             newPassword &&
-                                            confirmPassword &&
-                                            newPassword !== confirmPassword
+                                                confirmPassword &&
+                                                newPassword !== confirmPassword
                                                 ? 'Passwords do not match'
                                                 : undefined
                                         }

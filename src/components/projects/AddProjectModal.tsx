@@ -1,17 +1,40 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import { useModalStore } from '@/hooks/modalStore';
 import Modal from '../ui/Modal';
-import InputField from '../ui/input-field';
 import { cn } from '@/utils/cn';
 import Spinner from '../ui/Spinner';
-import { LuRainbow } from 'react-icons/lu';
+import InputField from '../ui/input-field';
+import { createProject } from '@/services/project.service';
+import { toast } from 'sonner';
 
 const AddProjectModal = () => {
-    const [name, setName] = React.useState('');
-    const [color, setColor] = React.useState('#131619');
-    const [isLoading, setIsLoading] = React.useState(false);
+    const [name, setName] = useState('');
+    const [color, setColor] = useState('#131619');
+    const [isLoading, setIsLoading] = useState(false);
     const isOpen = useModalStore((state) => state.modals?.profile);
     const { closeModal } = useModalStore((state) => state);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        const form = e.target as HTMLFormElement;
+        const formDataObj = new FormData(form);
+
+        try {
+            const r = await createProject(formDataObj);
+
+            if (r.success) {
+                toast.success(r.message);
+                setIsLoading(false);
+                closeModal('profile');
+            }
+        } catch (error) {
+            console.error('Error creating project:', error);
+        }
+    };
 
     return (
         <Modal
@@ -21,24 +44,32 @@ const AddProjectModal = () => {
             maxWidth="xl"
         >
             <div className="min-h-auto h-full">
-                <form action="">
-                    <div className='grid grid-cols-2 gap-4 mb-6 items-stretch'> 
+                <form onSubmit={handleSubmit}>
+                    <div className='grid grid-cols-2 gap-4 mb-6 items-stretch'>
                         <InputField
                             label="Project Name"
                             placeholder="Project Name"
                             type="text"
                             className="w-full"
                             value={name}
+                            name='name'
                             onChange={(e) => setName(e.target.value)}
                         />
-                        <InputField
-                            label="Project Color"
-                            placeholder="Project Color"
-                            type="color"
-                            style={{alignContent:"stretch"}}
-                            value={color}
-                            onChange={(e) => setColor(e.target.value)}
-                        />
+                        <div className="space-y-3">
+                            <label className="mb-3 block text-sm font-medium text-noble-300">
+                                Project Color
+                            </label>
+                            <div className="relative">
+                                <input
+                                    className='inputField pl-4'
+                                    autoComplete="off"
+                                    type='color'
+                                    value={color}
+                                    name='color'
+                                    onChange={(e) => setColor(e.target.value)}
+                                />
+                            </div>
+                        </div>
                     </div>
                     <button
                         type="submit"

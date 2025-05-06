@@ -1,19 +1,20 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { BiEdit, BiPlusCircle } from 'react-icons/bi';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { IoChatboxOutline } from "react-icons/io5";
-import { LuCreditCard, LuPlug, LuSettings } from 'react-icons/lu';
+import { LuCreditCard, LuSettings } from 'react-icons/lu';
 import { useSidebarStore } from '@/hooks/sidebarStore';
 import { useModalStore } from '@/hooks/modalStore';
 import Button from '@/components/ui/Button';
 import SettingsModal from '../chat/SettingsModal';
 import { cn } from '@/utils/cn';
-import Link from 'next/link';
 import AddProjectModal from '../projects/AddProjectModal';
+import { Project, User } from '@prisma/client';
 
-export default function Sidebar({ user }: any) {
+export default function Sidebar({ user, projects }: { user: User; projects: Project[] }) {
     const { isOpen, close, toggle } = useSidebarStore();
     const { openModal } = useModalStore((state) => state);
     const [isMounted, setIsMounted] = useState(false);
@@ -65,7 +66,7 @@ export default function Sidebar({ user }: any) {
                     "shadow-xl md:rounded-[20px] md:shadow-none"
                 )}
             >
-                {/* Organization */}
+                {/* top section */}
                 <div className="flex items-center justify-between border-b border-noble-700 p-5">
                     <div className='flex gap-4'>
                         <h2 className="mb-1 font-semibold text-white">
@@ -114,14 +115,14 @@ export default function Sidebar({ user }: any) {
                         PROJECTS
                     </h3>
                     <nav className="space-y-2">
-                        <Button >
-                            <div
-                                className={`h-5 w-5 rounded bg-gray-500`}
-                            />
-                            <span className="mr-auto">
-                                Project Alpha
-                            </span>
-                        </Button>
+                        {projects?.map((project) => (
+                            <Button key={project?.id}>
+                                <div className='h-5 w-5 rounded' style={{ backgroundColor: project?.color }} />
+                                <span className="mr-auto">
+                                    {project?.name}
+                                </span>
+                            </Button>
+                        ))}
 
                         <Button onClick={() => openModal('profile')}>
                             <BiPlusCircle
