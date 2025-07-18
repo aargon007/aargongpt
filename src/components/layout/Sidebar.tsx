@@ -1,18 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { BiEdit, BiPlusCircle } from 'react-icons/bi';
-import { RiArrowDownSLine } from 'react-icons/ri';
 import { IoChatboxOutline } from "react-icons/io5";
 import { LuCreditCard, LuSettings } from 'react-icons/lu';
 import { useSidebarStore } from '@/hooks/sidebarStore';
 import { useModalStore } from '@/hooks/modalStore';
+import { Project, User } from '@prisma/client';
 import Button from '@/components/ui/Button';
 import SettingsModal from '../chat/SettingsModal';
-import { cn } from '@/utils/cn';
 import AddProjectModal from '../projects/AddProjectModal';
-import { Project, User } from '@prisma/client';
+import { cn } from '@/utils/cn';
 
 export default function Sidebar({ user, projects }: { user: User; projects: Project[] }) {
     const { isOpen, close, toggle } = useSidebarStore();
@@ -69,12 +68,9 @@ export default function Sidebar({ user, projects }: { user: User; projects: Proj
                 {/* top section */}
                 <div className="flex items-center justify-between border-b border-noble-700 p-5">
                     <div className='flex gap-4'>
-                        <h2 className="mb-1 font-semibold text-white">
+                        <Link href="/" className="mb-1 font-semibold text-white">
                             AargonGPT
-                        </h2>
-                        <button className="text-xl text-noble-400 hover:text-white">
-                            <RiArrowDownSLine />
-                        </button>
+                        </Link>
                     </div>
 
                     <Link href="/chat" className="ml-auto rounded-sm bg-[url('/gradient.png')] bg-cover bg-center bg-no-repeat px-3 py-1 text-xs text-noble-30">

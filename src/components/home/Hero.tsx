@@ -13,7 +13,7 @@ const Hero = () => {
                         <span className="primaryGradient">AargonGPT</span>{' '}
                     </h1>
                     <p className="mx-auto mb-10 max-w-2xl text-xl text-noble-300">
-                        AI-powered chatbot built with Next.js and OpenAI’s GPT —
+                        AI-powered chatbot built with Next.js and Vercel AI SDK —
                         smart, fast, and human-like.
                     </p>
                     <div className="flex flex-col justify-center gap-4 sm:flex-row">
