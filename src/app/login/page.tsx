@@ -1,8 +1,8 @@
-import LoginForm from '@/components/auth/LoginForm';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaApple } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
+import LoginForm from '@/components/auth/LoginForm';
 
 export default function LoginPage() {
     return (

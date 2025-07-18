@@ -1,5 +1,5 @@
-import Hero from '@/components/home/Hero';
 import Link from 'next/link';
+import Hero from '@/components/home/Hero';
 import { LuCode, LuMessageSquare, LuShield, LuZap } from 'react-icons/lu';
 
 export default async function HomePage() {
@@ -176,7 +176,8 @@ export default async function HomePage() {
 
             {/* CTA Section */}
             <section className="relative py-20">
-                <div className="from-stem-green-500/10 absolute inset-0 bg-linear-to-t to-transparent"></div>
+                <div className="from-stem-green-900/5 absolute inset-0 bg-linear-to-t to-transparent"></div>
+               
                 <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="bg-noble-600/40 mx-auto max-w-4xl rounded-2xl border border-noble-500 p-8 backdrop-blur-md sm:p-12">
                         <div className="text-center">

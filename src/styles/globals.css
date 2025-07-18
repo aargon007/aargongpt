@@ -109,7 +109,7 @@
 }
 
 @utility primaryGradient {
-  @apply bg-gradient-to-r from-heisenberg-blue-500 to-stem-green-500 bg-clip-text text-transparent;
+  @apply bg-linear-to-r from-heisenberg-blue-500 to-stem-green-500 bg-clip-text text-transparent;
 }
 
 @utility btnGradient {

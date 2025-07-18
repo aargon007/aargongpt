@@ -1,11 +1,11 @@
 'use client';
 
-import type React from 'react';
-
-import InputField from '@/components/ui/input-field';
-import Link from 'next/link';
 import { useState } from 'react';
+import type React from 'react';
+import Link from 'next/link';
+import { toast } from 'sonner';
 import { LuMail, LuMapPin, LuPhone, LuSend } from 'react-icons/lu';
+import InputField from '@/components/ui/input-field';
 
 export default function ContactPage() {
     const [formData, setFormData] = useState({
@@ -15,12 +15,9 @@ export default function ContactPage() {
         message: '',
     });
 
-    const handleChange = (
-        e: React.ChangeEvent<
-            HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-        >,
-    ) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,) => {
         const { name, value } = e.target;
+        // Update the formData state
         setFormData((prev) => ({
             ...prev,
             [name]: value,
@@ -30,8 +27,11 @@ export default function ContactPage() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         console.log('Form submitted:', formData);
-        // Here you would typically send the form data to your backend
-        alert("Thank you for your message! We'll get back to you soon.");
+
+        // send
+        toast.success("Thank you for your message! We'll get back to you soon.");
+
+        // Reset the form
         setFormData({
             name: '',
             email: '',
@@ -44,14 +44,14 @@ export default function ContactPage() {
         <div className="min-h-screen bg-linear-to-br from-noble-700 via-noble-800 to-noble-700">
             {/* Contact Header */}
             <section className="relative py-16">
-                <div className="from-heisenberg-blue-500/10 absolute inset-0 bg-linear-to-b to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-b from-noble-800 to-noble-700"></div>
                 <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="mx-auto max-w-3xl text-center">
                         <h1 className="mb-6 text-4xl font-bold text-white sm:text-5xl">
                             Get in Touch
                         </h1>
                         <p className="mb-8 text-xl text-noble-300">
-                            Have questions about our AI SDK? We're here to help
+                            Have questions about our services? We're here to help
                             you build the future of AI applications.
                         </p>
                     </div>
@@ -83,10 +83,10 @@ export default function ContactPage() {
                                                     Email
                                                 </h3>
                                                 <Link
-                                                    href="mailto:hello@aargongpt.ai"
+                                                    href="muhaiminul101@protonmail.com"
                                                     className="text-noble-300 hover:text-stem-green-500"
                                                 >
-                                                    hello@aargongpt.ai
+                                                    muhaiminul101@protonmail.com
                                                 </Link>
                                             </div>
                                         </div>
@@ -106,7 +106,7 @@ export default function ContactPage() {
                                                     href="tel:+1234567890"
                                                     className="text-noble-300 hover:text-stem-green-500"
                                                 >
-                                                    +1 (234) 567-890
+                                                    +880 17711-74424
                                                 </Link>
                                             </div>
                                         </div>
@@ -123,11 +123,11 @@ export default function ContactPage() {
                                                     Address
                                                 </h3>
                                                 <p className="text-noble-300">
-                                                    123 AI Innovation Street
+                                                    4th Floor, MK Tower
                                                     <br />
-                                                    San Francisco, CA 94105
+                                                    55 KDA Avenue, Khulna
                                                     <br />
-                                                    United States
+                                                    Bangladesh
                                                 </p>
                                             </div>
                                         </div>

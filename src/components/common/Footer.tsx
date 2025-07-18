@@ -1,9 +1,51 @@
 import Link from 'next/link';
-import { BiLogoLinkedinSquare } from 'react-icons/bi';
 import { FaGithub } from 'react-icons/fa6';
+import { BiLogoLinkedinSquare } from 'react-icons/bi';
 import { RiFacebookCircleFill } from 'react-icons/ri';
 
 const Footer = () => {
+    const footerNavs = [
+        {
+            title: 'Product',
+            navs: [
+                {
+                    name: 'Features',
+                    href: '/',
+                },
+                {
+                    name: 'Pricing',
+                    href: '/pricing',
+                },
+            ]
+        },
+        {
+            title: 'Company',
+            navs: [
+                {
+                    name: 'About',
+                    href: '/about',
+                },
+                {
+                    name: 'Contact',
+                    href: '/contact',
+                },
+            ]
+        },
+        {
+            title: 'Legal',
+            navs: [
+                {
+                    name: 'Privacy Policy',
+                    href: '/privacy',
+                },
+                {
+                    name: 'Terms of Service',
+                    href: '/terms',
+                },
+            ]
+        },
+    ];
+
     return (
         <footer className="border-t border-noble-600 bg-noble-700">
             <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
@@ -70,131 +112,48 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <div>
-                        <h3 className="mb-4 font-semibold text-white">
-                            Product
-                        </h3>
-                        <ul className="space-y-2">
-                            <li>
-                                <a
-                                    href="#"
-                                    className="text-noble-300 hover:text-stem-green-500"
-                                >
-                                    Features
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="text-noble-300 hover:text-stem-green-500"
-                                >
-                                    Pricing
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="text-noble-300 hover:text-stem-green-500"
-                                >
-                                    API
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="text-noble-300 hover:text-stem-green-500"
-                                >
-                                    Integrations
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 className="mb-4 font-semibold text-white">
-                            Resources
-                        </h3>
-                        <ul className="space-y-2">
-                            <li>
-                                <a
-                                    href="#"
-                                    className="text-noble-300 hover:text-stem-green-500"
-                                >
-                                    Documentation
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="text-noble-300 hover:text-stem-green-500"
-                                >
-                                    Guides
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="text-noble-300 hover:text-stem-green-500"
-                                >
-                                    Blog
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="text-noble-300 hover:text-stem-green-500"
-                                >
-                                    Support
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 className="mb-4 font-semibold text-white">
-                            Company
-                        </h3>
-                        <ul className="space-y-2">
-                            <li>
-                                <a
-                                    href="#"
-                                    className="text-noble-300 hover:text-stem-green-500"
-                                >
-                                    About
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="/contact"
-                                    className="text-noble-300 hover:text-stem-green-500"
-                                >
-                                    Contact
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="/privacy"
-                                    className="text-noble-300 hover:text-stem-green-500"
-                                >
-                                    Privacy Policy
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="text-noble-300 hover:text-stem-green-500"
-                                >
-                                    Terms of Service
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    {
+                        footerNavs.map((sectionNav, index) => (
+                            <div key={index}>
+                                <h3 className="mb-4 font-semibold text-white">
+                                    {sectionNav.title}
+                                </h3>
+                                <ul className="space-y-2">
+                                    {
+                                        sectionNav?.navs?.map((nav, index) => (
+                                            <li key={index}>
+                                                <Link
+                                                    href={nav.href}
+                                                    className="text-noble-300 hover:text-stem-green-500"
+                                                >
+                                                    {nav.name}
+                                                </Link>
+                                            </li>
+                                        ))}
+                                </ul>
+                            </div>
+                        ))
+                    }
                 </div>
 
                 <div className="mt-12 flex flex-col items-center justify-between border-t border-noble-600 pt-8 md:flex-row">
                     <p className="text-sm text-noble-300">
-                        © 2025 AargonGPT. All rights reserved.
+                        © 2025 AargonGPT. All Rights Reserved.
                     </p>
+
+                    {/* designed by */}
+                    <div className="mt-4 md:mt-0">
+                        <p className="text-sm text-noble-300">
+                            Designed by{' '}
+                            <Link
+                                href='https://www.linkedin.com/in/aargon/'
+                                className="font-semibold text-stem-green-500"
+                            >
+                                Md Muhaiminul
+                            </Link>
+                        </p>
+                    </div>
+
                     <div className="mt-4 md:mt-0">
                         <Link
                             href="/privacy"

@@ -11,7 +11,7 @@ export default function PrivacyPage() {
                         </h1>
                         <div className="prose prose-invert max-w-none">
                             <p className="mb-6 text-gray-300">
-                                Last updated: April 18, 2025
+                                Last updated: July 18, 2025
                             </p>
 
                             <h2 className="mb-4 mt-8 text-xl font-semibold text-white">
@@ -278,13 +278,13 @@ export default function PrivacyPage() {
                             <p className="mb-4 text-gray-300">
                                 AargonGPT, Inc.
                                 <br />
-                                123 AI Innovation Street
+                                4th Floor, MK Tower
                                 <br />
-                                San Francisco, CA 94105
+                                55 KDA Avenue, Khulna
                                 <br />
-                                Email: privacy@aargongpt.ai
+                                Email: muhaiminul101@protonmail.com
                                 <br />
-                                Phone: +1 (234) 567-890
+                                Phone: +880 17711-74424
                             </p>
                         </div>
                     </div>

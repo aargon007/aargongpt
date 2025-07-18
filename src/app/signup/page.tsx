@@ -1,6 +1,6 @@
-import RegisterForm from '@/components/auth/RegisterForm';
 import Image from 'next/image';
 import Link from 'next/link';
+import RegisterForm from '@/components/auth/RegisterForm';
 
 export const metadata = {
     title: 'aargonGPT | Register',
