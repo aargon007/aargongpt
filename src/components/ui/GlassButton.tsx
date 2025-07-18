@@ -59,6 +59,8 @@ const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
                 'text-gray-200 border border-[#FFFFFF14] shadow-xs hover:shadow-md active:shadow-inner active:translate-y-px bg-linear-to-br from-gray-700/80 to-gray-800/60',
             outline:
                 'text-gray-200 border border-[#FFFFFF30] shadow-xs hover:shadow-md active:shadow-inner active:translate-y-px bg-transparent hover:bg-linear-to-br hover:from-[#D7EDED20] hover:to-[#CCEBEB00]',
+            'outline-solid':
+                'text-gray-200 border border-[#FFFFFF30] shadow-xs hover:shadow-md active:shadow-inner active:translate-y-px bg-transparent hover:bg-linear-to-br hover:from-[#D7EDED20] hover:to-[#CCEBEB00]',
         };
 
         // Disabled styles
