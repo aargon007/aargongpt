@@ -25,7 +25,7 @@ const ChatHistory = async () => {
                                     <LuSearch className="text-noble-400" size={18} />
                                 </div>
                                 <input
-                                    className='pl-10 text-sm bg-inherit outline-none text-noble-300 placeholder:text-noble-400'
+                                    className='pl-10 text-sm bg-inherit outline-hidden text-noble-300 placeholder:text-noble-400'
                                     placeholder="Search for a chat..."
                                     autoComplete="off"
                                 />

@@ -74,9 +74,9 @@ export default function SignupPage() {
             {/* <div className="hidden md:block md:w-[40%] bg-gray-950 relative overflow-hidden">
                 <div className="absolute inset-0">
                    
-                    <div className="absolute w-40 h-20 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 blur-sm top-1/4 right-10 transform rotate-45 opacity-70"></div>
-                    <div className="absolute w-60 h-20 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 blur-sm bottom-1/4 right-20 transform -rotate-15 opacity-70"></div>
-                    <div className="absolute w-40 h-20 rounded-full bg-gradient-to-r from-purple-400 to-blue-600 blur-sm top-2/3 right-40 transform rotate-30 opacity-70"></div>
+                    <div className="absolute w-40 h-20 rounded-full bg-linear-to-r from-purple-500 to-blue-500 blur-xs top-1/4 right-10 transform rotate-45 opacity-70"></div>
+                    <div className="absolute w-60 h-20 rounded-full bg-linear-to-r from-blue-500 to-purple-500 blur-xs bottom-1/4 right-20 transform -rotate-15 opacity-70"></div>
+                    <div className="absolute w-40 h-20 rounded-full bg-linear-to-r from-purple-400 to-blue-600 blur-xs top-2/3 right-40 transform rotate-30 opacity-70"></div>
 
                     <div
                         className="absolute inset-0 opacity-30"

@@ -83,7 +83,7 @@ export default function SettingsModal({ user }: SettingsModalProps) {
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={cn(
-                                'flex w-full items-center gap-3 rounded p-3 text-left text-white transition-colors',
+                                'flex w-full items-center gap-3 rounded-sm p-3 text-left text-white transition-colors',
                                 activeTab === tab.id
                                     ? 'btnGradient'
                                     : 'hover:btnGradient',
@@ -119,7 +119,7 @@ export default function SettingsModal({ user }: SettingsModalProps) {
                         >
                             <div className="flex items-center gap-4">
                                 <div className="relative">
-                                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-heisenberg-blue-500 to-stem-green-500 text-2xl font-bold text-white">
+                                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-r from-heisenberg-blue-500 to-stem-green-500 text-2xl font-bold text-white">
                                         {user.first_name.charAt(0)}
                                     </div>
                                     <button className="absolute bottom-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-noble-500 text-white transition-colors hover:bg-noble-600">

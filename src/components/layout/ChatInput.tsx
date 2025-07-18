@@ -69,7 +69,7 @@ const ChatInput = ({ chat_id, append, isLoading, setIsLoading }: TProps) => {
                     onChange={handleChange}
                     value={input}
                     placeholder="Enter a message"
-                    className="flex-1 rounded-lg bg-noble-800 text-white placeholder-noble-500 focus:outline-none"
+                    className="flex-1 rounded-lg bg-noble-800 text-white placeholder-noble-500 focus:outline-hidden"
                 />
                 <button
                     type="submit"

@@ -4,7 +4,7 @@ import Button from '../ui/Button';
 const Hero = () => {
     return (
         <section className="relative overflow-hidden py-20">
-            <div className="from-day-blue-900/20 absolute inset-0 bg-gradient-to-b to-transparent"></div>
+            <div className="from-day-blue-900/20 absolute inset-0 bg-linear-to-b to-transparent"></div>
             <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mx-auto max-w-4xl text-center">
                     <h1 className="mb-6 text-4xl font-bold text-white sm:text-5xl md:text-6xl">
@@ -32,7 +32,7 @@ const Hero = () => {
             </div>
 
             {/* Decorative elements */}
-            <div className="from-heisenberg-blue-500/20 absolute -bottom-16 left-1/2 h-64 w-full max-w-6xl -translate-x-1/2 transform rounded-full bg-gradient-to-b to-transparent blur-3xl"></div>
+            <div className="from-heisenberg-blue-500/20 absolute -bottom-16 left-1/2 h-64 w-full max-w-6xl -translate-x-1/2 transform rounded-full bg-linear-to-b to-transparent blur-3xl"></div>
         </section>
     );
 };

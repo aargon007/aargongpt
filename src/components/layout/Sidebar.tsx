@@ -51,7 +51,7 @@ export default function Sidebar({ user, projects }: { user: User; projects: Proj
             {/* Backdrop overlay for mobile */}
             <div
                 className={cn(
-                    "bg-noble-900/80 fixed inset-0 z-40 backdrop-blur-sm transition-opacity duration-300 md:hidden",
+                    "bg-noble-900/80 fixed inset-0 z-40 backdrop-blur-xs transition-opacity duration-300 md:hidden",
                     isOpen ? 'opacity-100' : 'pointer-events-none opacity-0',
                 )}
                 onClick={close}
@@ -77,7 +77,7 @@ export default function Sidebar({ user, projects }: { user: User; projects: Proj
                         </button>
                     </div>
 
-                    <Link href="/chat" className="ml-auto rounded bg-[url('/gradient.png')] bg-cover bg-center bg-no-repeat px-3 py-1 text-xs text-noble-30">
+                    <Link href="/chat" className="ml-auto rounded-sm bg-[url('/gradient.png')] bg-cover bg-center bg-no-repeat px-3 py-1 text-xs text-noble-30">
                         <BiEdit
                             size={18}
                             className="text-noble-100"
@@ -94,7 +94,7 @@ export default function Sidebar({ user, projects }: { user: User; projects: Proj
                         <Link href="/chat/history" className="flex h-[48px] w-full items-center justify-center gap-4 rounded-[8px] bg-cover bg-center bg-no-repeat px-4 text-sm font-semibold text-noble-100 hover:bg-[url('/gradient.png')]">
                             <IoChatboxOutline size={18} className="text-noble-400" />
                             <span>All Chats</span>
-                            <span className="ml-auto rounded bg-[url('/gradient.png')] bg-cover bg-center bg-no-repeat px-2 py-1 text-xs text-noble-300">
+                            <span className="ml-auto rounded-sm bg-[url('/gradient.png')] bg-cover bg-center bg-no-repeat px-2 py-1 text-xs text-noble-300">
                                 ⌘ C
                             </span>
                         </Link>
@@ -117,7 +117,7 @@ export default function Sidebar({ user, projects }: { user: User; projects: Proj
                     <nav className="space-y-2">
                         {projects?.map((project) => (
                             <Button key={project?.id}>
-                                <div className='h-5 w-5 rounded' style={{ backgroundColor: project?.color }} />
+                                <div className='h-5 w-5 rounded-sm' style={{ backgroundColor: project?.color }} />
                                 <span className="mr-auto">
                                     {project?.name}
                                 </span>
@@ -139,7 +139,7 @@ export default function Sidebar({ user, projects }: { user: User; projects: Proj
                 {/* User profile */}
                 <div className="m-2 flex h-16 items-center justify-between rounded-[16px] bg-[url('/gradient.png')] bg-cover bg-center bg-no-repeat p-4">
                     <div className="flex items-center space-x-3">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r from-green-400 to-blue-500 font-bold text-white">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-r from-green-400 to-blue-500 font-bold text-white">
                             {user?.first_name?.charAt(0)}
                         </div>
                         <div>

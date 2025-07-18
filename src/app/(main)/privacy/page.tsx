@@ -1,10 +1,10 @@
 export default function PrivacyPage() {
     return (
-        <div className="min-h-screen bg-gradient-to-br from-noble-800 via-noble-700 to-noble-800">
+        <div className="min-h-screen bg-linear-to-br from-noble-800 via-noble-700 to-noble-800">
             {/* Privacy Policy Content */}
             <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
                 <div className="mx-auto max-w-4xl">
-                    <div className="bg-noble-600/50 rounded-xl border border-noble-500 p-8 backdrop-blur-sm">
+                    <div className="bg-noble-600/50 rounded-xl border border-noble-500 p-8 backdrop-blur-xs">
                         {' '}
                         <h1 className="mb-8 text-3xl font-bold text-white">
                             Privacy Policy

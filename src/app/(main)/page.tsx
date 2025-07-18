@@ -4,7 +4,7 @@ import { LuCode, LuMessageSquare, LuShield, LuZap } from 'react-icons/lu';
 
 export default async function HomePage() {
     return (
-        <div className="min-h-screen bg-gradient-to-br from-noble-700 via-noble-800 to-noble-700">
+        <div className="min-h-screen bg-linear-to-br from-noble-700 via-noble-800 to-noble-700">
             {/* Hero Section */}
             <Hero />
 
@@ -23,8 +23,8 @@ export default async function HomePage() {
 
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                         {/* Feature 1 */}
-                        <div className="bg-noble-600/50 hover:border-stem-green-500/50 rounded-xl border border-noble-500 p-6 backdrop-blur-sm transition-all duration-300">
-                            <div className="from-heisenberg-blue-500/20 to-heisenberg-blue-500/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br">
+                        <div className="bg-noble-600/50 hover:border-stem-green-500/50 rounded-xl border border-noble-500 p-6 backdrop-blur-xs transition-all duration-300">
+                            <div className="from-heisenberg-blue-500/20 to-heisenberg-blue-500/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                                 <LuMessageSquare
                                     className="text-heisenberg-blue-500"
                                     size={24}
@@ -41,8 +41,8 @@ export default async function HomePage() {
                         </div>
 
                         {/* Feature 2 */}
-                        <div className="bg-noble-600/50 hover:border-stem-green-500/50 rounded-xl border border-noble-500 p-6 backdrop-blur-sm transition-all duration-300">
-                            <div className="from-stem-green-500/20 to-stem-green-500/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br">
+                        <div className="bg-noble-600/50 hover:border-stem-green-500/50 rounded-xl border border-noble-500 p-6 backdrop-blur-xs transition-all duration-300">
+                            <div className="from-stem-green-500/20 to-stem-green-500/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                                 <LuCode
                                     className="text-stem-green-500"
                                     size={24}
@@ -59,8 +59,8 @@ export default async function HomePage() {
                         </div>
 
                         {/* Feature 3 */}
-                        <div className="bg-noble-600/50 hover:border-stem-green-500/50 rounded-xl border border-noble-500 p-6 backdrop-blur-sm transition-all duration-300">
-                            <div className="from-purple-blue-500/20 to-purple-blue-500/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br">
+                        <div className="bg-noble-600/50 hover:border-stem-green-500/50 rounded-xl border border-noble-500 p-6 backdrop-blur-xs transition-all duration-300">
+                            <div className="from-purple-blue-500/20 to-purple-blue-500/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                                 <LuShield
                                     className="text-purple-blue-400"
                                     size={24}
@@ -77,8 +77,8 @@ export default async function HomePage() {
                         </div>
 
                         {/* Feature 4 */}
-                        <div className="bg-noble-600/50 hover:border-stem-green-500/50 rounded-xl border border-noble-500 p-6 backdrop-blur-sm transition-all duration-300">
-                            <div className="from-sunglow-500/20 to-sunglow-500/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br">
+                        <div className="bg-noble-600/50 hover:border-stem-green-500/50 rounded-xl border border-noble-500 p-6 backdrop-blur-xs transition-all duration-300">
+                            <div className="from-sunglow-500/20 to-sunglow-500/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                                 <LuZap className="text-sunglow-500" size={24} />
                             </div>
                             <h3 className="mb-2 text-xl font-semibold text-white">
@@ -91,8 +91,8 @@ export default async function HomePage() {
                         </div>
 
                         {/* Feature 5 */}
-                        <div className="bg-noble-600/50 hover:border-stem-green-500/50 rounded-xl border border-noble-500 p-6 backdrop-blur-sm transition-all duration-300">
-                            <div className="from-happy-orange-600/20 to-happy-orange-600/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br">
+                        <div className="bg-noble-600/50 hover:border-stem-green-500/50 rounded-xl border border-noble-500 p-6 backdrop-blur-xs transition-all duration-300">
+                            <div className="from-happy-orange-600/20 to-happy-orange-600/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                                 <svg
                                     className="text-happy-orange-600"
                                     width="24"
@@ -128,8 +128,8 @@ export default async function HomePage() {
                         </div>
 
                         {/* Feature 6 */}
-                        <div className="bg-noble-600/50 hover:border-stem-green-500/50 rounded-xl border border-noble-500 p-6 backdrop-blur-sm transition-all duration-300">
-                            <div className="from-day-blue-500/20 to-day-blue-500/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br">
+                        <div className="bg-noble-600/50 hover:border-stem-green-500/50 rounded-xl border border-noble-500 p-6 backdrop-blur-xs transition-all duration-300">
+                            <div className="from-day-blue-500/20 to-day-blue-500/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                                 <svg
                                     className="text-day-blue-500"
                                     width="24"
@@ -176,7 +176,7 @@ export default async function HomePage() {
 
             {/* CTA Section */}
             <section className="relative py-20">
-                <div className="from-stem-green-500/10 absolute inset-0 bg-gradient-to-t to-transparent"></div>
+                <div className="from-stem-green-500/10 absolute inset-0 bg-linear-to-t to-transparent"></div>
                 <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="bg-noble-600/40 mx-auto max-w-4xl rounded-2xl border border-noble-500 p-8 backdrop-blur-md sm:p-12">
                         <div className="text-center">
@@ -191,7 +191,7 @@ export default async function HomePage() {
                                 <Link href="/signup" className="primaryButton">
                                     Sign Up Free
                                 </Link>
-                                <button className="flex w-full justify-center rounded-[12px] border border-noble-500 bg-noble-700 px-4 py-2.5 font-semibold text-white shadow-sm hover:bg-noble-600 focus:outline-none">
+                                <button className="flex w-full justify-center rounded-[12px] border border-noble-500 bg-noble-700 px-4 py-2.5 font-semibold text-white shadow-xs hover:bg-noble-600 focus:outline-hidden">
                                     Contact Sales
                                 </button>
                             </div>

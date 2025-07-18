@@ -31,7 +31,7 @@ const Header = () => {
             {/* Sidebar */}
             <div
                 className={cn(
-                    'fixed left-0 top-0 z-[51] h-full w-64 transform bg-noble-800 transition-transform duration-300 ease-in-out md:hidden',
+                    'fixed left-0 top-0 z-51 h-full w-64 transform bg-noble-800 transition-transform duration-300 ease-in-out md:hidden',
                     sidebarOpen ? 'translate-x-0' : '-translate-x-full',
                 )}
             >

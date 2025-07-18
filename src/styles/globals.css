@@ -1,6 +1,120 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+/* @custom-variant dark (&:is(.dark *)); */
+
+@theme {
+  --color-noble-100: var(--noble-100);
+  --color-noble-200: var(--noble-200);
+  --color-noble-300: var(--noble-300);
+  --color-noble-400: var(--noble-400);
+  --color-noble-500: var(--noble-500);
+  --color-noble-600: var(--noble-600);
+  --color-noble-700: var(--noble-700);
+  --color-noble-800: var(--noble-800);
+  --color-noble-900: var(--noble-900);
+
+  --color-day-blue-100: var(--day-blue-100);
+  --color-day-blue-200: var(--day-blue-200);
+  --color-day-blue-300: var(--day-blue-300);
+  --color-day-blue-400: var(--day-blue-400);
+  --color-day-blue-500: var(--day-blue-500);
+  --color-day-blue-600: var(--day-blue-600);
+  --color-day-blue-700: var(--day-blue-700);
+  --color-day-blue-800: var(--day-blue-800);
+  --color-day-blue-900: var(--day-blue-900);
+
+  --color-stem-green-100: var(--stem-green-100);
+  --color-stem-green-200: var(--stem-green-200);
+  --color-stem-green-300: var(--stem-green-300);
+  --color-stem-green-400: var(--stem-green-400);
+  --color-stem-green-500: var(--stem-green-500);
+  --color-stem-green-600: var(--stem-green-600);
+  --color-stem-green-700: var(--stem-green-700);
+  --color-stem-green-800: var(--stem-green-800);
+  --color-stem-green-900: var(--stem-green-900);
+
+  --color-heisenberg-blue-100: var(--heisenberg-blue-100);
+  --color-heisenberg-blue-200: var(--heisenberg-blue-200);
+  --color-heisenberg-blue-300: var(--heisenberg-blue-300);
+  --color-heisenberg-blue-400: var(--heisenberg-blue-400);
+  --color-heisenberg-blue-500: var(--heisenberg-blue-500);
+  --color-heisenberg-blue-600: var(--heisenberg-blue-600);
+  --color-heisenberg-blue-700: var(--heisenberg-blue-700);
+  --color-heisenberg-blue-800: var(--heisenberg-blue-800);
+  --color-heisenberg-blue-900: var(--heisenberg-blue-900);
+
+  --color-purple-blue-100: var(--purple-blue-100);
+  --color-purple-blue-200: var(--purple-blue-200);
+  --color-purple-blue-300: var(--purple-blue-300);
+  --color-purple-blue-400: var(--purple-blue-400);
+  --color-purple-blue-500: var(--purple-blue-500);
+  --color-purple-blue-600: var(--purple-blue-600);
+  --color-purple-blue-700: var(--purple-blue-700);
+  --color-purple-blue-800: var(--purple-blue-800);
+  --color-purple-blue-900: var(--purple-blue-900);
+
+  --color-sunglow-100: var(--sunglow-100);
+  --color-sunglow-200: var(--sunglow-200);
+  --color-sunglow-300: var(--sunglow-300);
+  --color-sunglow-400: var(--sunglow-400);
+  --color-sunglow-500: var(--sunglow-500);
+  --color-sunglow-600: var(--sunglow-600);
+  --color-sunglow-700: var(--sunglow-700);
+  --color-sunglow-800: var(--sunglow-800);
+  --color-sunglow-900: var(--sunglow-900);
+
+  --color-happy-orange-100: var(--happy-orange-100);
+  --color-happy-orange-600: var(--happy-orange-600);
+  --color-happy-orange-900: var(--happy-orange-900);
+
+  --color-electric-green-100: var(--electric-green-100);
+  --color-electric-green-400: var(--electric-green-400);
+  --color-electric-green-900: var(--electric-green-900);
+
+  --color-red-power-100: var(--red-power-100);
+  --color-red-power-600: var(--red-power-600);
+  --color-red-power-900: var(--red-power-900);
+
+  --font-jakarta: var(--font-plus-jakarta-sans), sans-serif;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility inputField {
+  @apply w-full rounded-[8px] border border-noble-500 bg-noble-600 py-3 pl-10 pr-3 text-white placeholder-noble-300 focus:outline-hidden;
+}
+
+@utility checkbox {
+  @apply flex h-5 w-5 items-center justify-center rounded-sm border border-noble-500 bg-noble-600 transition-colors peer-checked:bg-blue-600;
+}
+
+@utility primaryButton {
+  @apply flex w-full justify-center rounded-[12px] bg-stem-green-600 px-4 py-2.5 font-semibold text-day-blue-900 shadow-xs focus:outline-hidden;
+}
+
+@utility primaryGradient {
+  @apply bg-gradient-to-r from-heisenberg-blue-500 to-stem-green-500 bg-clip-text text-transparent;
+}
+
+@utility btnGradient {
+  @apply bg-[url('/gradient.png')] bg-cover bg-center bg-no-repeat;
+}
 
 @layer base {
     :root {
@@ -84,24 +198,6 @@
         --red-power-100: #fbecec;
         --red-power-600: #d0302f;
         --red-power-900: #2f0f0e;
-    }
-}
-
-@layer components {
-    .inputField {
-        @apply w-full rounded-[8px] border border-noble-500 bg-noble-600 py-3 pl-10 pr-3 text-white placeholder-noble-300 focus:outline-none;
-    }
-    .checkbox {
-        @apply flex h-5 w-5 items-center justify-center rounded border border-noble-500 bg-noble-600 transition-colors peer-checked:bg-blue-600;
-    }
-    .primaryButton {
-        @apply flex w-full justify-center rounded-[12px] bg-stem-green-600 px-4 py-2.5 font-semibold text-day-blue-900 shadow-sm focus:outline-none;
-    }
-    .primaryGradient {
-        @apply bg-gradient-to-r from-heisenberg-blue-500 to-stem-green-500 bg-clip-text text-transparent;
-    }
-    .btnGradient {
-        @apply bg-[url('/gradient.png')] bg-cover bg-center bg-no-repeat;
     }
 }
 

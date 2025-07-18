@@ -12,7 +12,7 @@ const MessageCard = ({ message }: { message: Message; streaming?: boolean }) => 
     
     return (
         <div className='p-4 border border-noble-500 rounded-[16px] flex flex-col md:flex-row justify-between items-start gap-6'>
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r from-green-400 to-blue-500 font-bold text-white">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-r from-green-400 to-blue-500 font-bold text-white">
                 {role === 'user' ? 'U' : 'A'}
             </div>
 

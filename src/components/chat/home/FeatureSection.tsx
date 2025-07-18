@@ -16,7 +16,7 @@ export default function FeatureSection({
     return (
         <div>
             <div className="mb-8 flex flex-col items-center justify-center space-y-2">
-                <div className="btnGradient flex h-12 w-12 items-center justify-center rounded-full shadow">
+                <div className="btnGradient flex h-12 w-12 items-center justify-center rounded-full shadow-sm">
                     {icon}
                 </div>
                 <h3 className="font-semibold text-white">{title}</h3>

@@ -45,7 +45,7 @@ export default function LoginPage() {
                     <div className="mb-10">
                         <h1 className="mb-4 text-3xl font-normal text-white">
                             Let's get{' '}
-                            <span className="bg-gradient-to-r from-day-blue-300 via-[#87DDEE] to-stem-green-500 bg-clip-text font-medium text-transparent">
+                            <span className="bg-linear-to-r from-day-blue-300 via-[#87DDEE] to-stem-green-500 bg-clip-text font-medium text-transparent">
                                 creative!
                             </span>
                         </h1>
@@ -69,7 +69,7 @@ export default function LoginPage() {
                         <div className="mt-6 grid gap-3 md:grid-cols-2">
                             <button
                                 type="button"
-                                className="inline-flex w-full items-center justify-center rounded-[12px] bg-noble-600 px-4 py-3 text-sm font-medium text-noble-400 shadow-sm"
+                                className="inline-flex w-full items-center justify-center rounded-[12px] bg-noble-600 px-4 py-3 text-sm font-medium text-noble-400 shadow-xs"
                             >
                                 <FcGoogle className="h-5 w-5" />
                                 <span className="ml-2">Google Account</span>
@@ -77,7 +77,7 @@ export default function LoginPage() {
 
                             <button
                                 type="button"
-                                className="inline-flex w-full items-center justify-center rounded-[12px] bg-noble-600 px-4 py-3 text-sm font-medium text-noble-400 shadow-sm"
+                                className="inline-flex w-full items-center justify-center rounded-[12px] bg-noble-600 px-4 py-3 text-sm font-medium text-noble-400 shadow-xs"
                             >
                                 <FaApple className="h-5 w-5 text-white" />
                                 <span className="ml-2">Apple Account</span>

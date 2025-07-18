@@ -41,10 +41,10 @@ export default function ContactPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-noble-700 via-noble-800 to-noble-700">
+        <div className="min-h-screen bg-linear-to-br from-noble-700 via-noble-800 to-noble-700">
             {/* Contact Header */}
             <section className="relative py-16">
-                <div className="from-heisenberg-blue-500/10 absolute inset-0 bg-gradient-to-b to-transparent"></div>
+                <div className="from-heisenberg-blue-500/10 absolute inset-0 bg-linear-to-b to-transparent"></div>
                 <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="mx-auto max-w-3xl text-center">
                         <h1 className="mb-6 text-4xl font-bold text-white sm:text-5xl">
@@ -59,20 +59,20 @@ export default function ContactPage() {
             </section>
 
             {/* Contact Content */}
-            <section className="bg-gradient-to-t from-noble-800 to-noble-700 pb-20">
+            <section className="bg-linear-to-t from-noble-800 to-noble-700 pb-20">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="mx-auto max-w-6xl">
                         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                             {/* Contact Information */}
                             <div className="lg:col-span-1">
-                                <div className="bg-noble-600/50 rounded-xl border border-noble-500 p-6 backdrop-blur-sm">
+                                <div className="bg-noble-600/50 rounded-xl border border-noble-500 p-6 backdrop-blur-xs">
                                     <h2 className="mb-6 text-2xl font-bold text-white">
                                         Contact Information
                                     </h2>
 
                                     <div className="space-y-6">
                                         <div className="flex items-start">
-                                            <div className="from-heisenberg-blue-500/20 to-heisenberg-blue-500/10 mr-4 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br">
+                                            <div className="from-heisenberg-blue-500/20 to-heisenberg-blue-500/10 mr-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-linear-to-br">
                                                 <LuMail
                                                     className="text-heisenberg-blue-500"
                                                     size={20}
@@ -92,7 +92,7 @@ export default function ContactPage() {
                                         </div>
 
                                         <div className="flex items-start">
-                                            <div className="from-stem-green-500/20 to-stem-green-500/10 mr-4 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br">
+                                            <div className="from-stem-green-500/20 to-stem-green-500/10 mr-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-linear-to-br">
                                                 <LuPhone
                                                     className="text-stem-green-500"
                                                     size={20}
@@ -112,7 +112,7 @@ export default function ContactPage() {
                                         </div>
 
                                         <div className="flex items-start">
-                                            <div className="from-day-blue-500/20 to-day-blue-500/10 mr-4 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br">
+                                            <div className="from-day-blue-500/20 to-day-blue-500/10 mr-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-linear-to-br">
                                                 <LuMapPin
                                                     className="text-day-blue-500"
                                                     size={20}
@@ -209,7 +209,7 @@ export default function ContactPage() {
 
                             {/* Contact Form */}
                             <div className="lg:col-span-2">
-                                <div className="bg-noble-600/50 rounded-xl border border-noble-500 p-6 backdrop-blur-sm">
+                                <div className="bg-noble-600/50 rounded-xl border border-noble-500 p-6 backdrop-blur-xs">
                                     <h2 className="mb-6 text-2xl font-bold text-white">
                                         Send Us a Message
                                     </h2>

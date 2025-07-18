@@ -6,7 +6,7 @@ import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 export interface GlassButtonProps
     extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode;
-    variant?: 'default' | 'primary' | 'secondary' | 'outline';
+    variant?: 'default' | 'primary' | 'secondary' | 'outline-solid';
     size?: 'sm' | 'md' | 'lg';
     fullWidth?: boolean;
     icon?: ReactNode;
@@ -44,21 +44,21 @@ const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
 
         // Glass intensity styles
         const intensityStyles = {
-            light: 'backdrop-blur-sm bg-gradient-to-br from-[#D7EDED40] to-[#CCEBEB00]',
-            medium: 'backdrop-blur-md bg-gradient-to-br from-[#D7EDED60] to-[#CCEBEB00]',
-            heavy: 'backdrop-blur-lg bg-gradient-to-br from-[#D7EDED80] to-[#CCEBEB00]',
+            light: 'backdrop-blur-xs bg-linear-to-br from-[#D7EDED40] to-[#CCEBEB00]',
+            medium: 'backdrop-blur-md bg-linear-to-br from-[#D7EDED60] to-[#CCEBEB00]',
+            heavy: 'backdrop-blur-lg bg-linear-to-br from-[#D7EDED80] to-[#CCEBEB00]',
         };
 
         // Variant styles
         const variantStyles = {
             default:
-                'text-gray-800 border border-[#FFFFFF14] shadow-sm hover:shadow-md active:shadow-inner active:translate-y-[1px]',
+                'text-gray-800 border border-[#FFFFFF14] shadow-xs hover:shadow-md active:shadow-inner active:translate-y-px',
             primary:
-                'text-white border border-[#FFFFFF14] shadow-sm hover:shadow-md active:shadow-inner active:translate-y-[1px] bg-gradient-to-br from-cyan-500/80 to-cyan-600/60',
+                'text-white border border-[#FFFFFF14] shadow-xs hover:shadow-md active:shadow-inner active:translate-y-px bg-linear-to-br from-cyan-500/80 to-cyan-600/60',
             secondary:
-                'text-gray-200 border border-[#FFFFFF14] shadow-sm hover:shadow-md active:shadow-inner active:translate-y-[1px] bg-gradient-to-br from-gray-700/80 to-gray-800/60',
+                'text-gray-200 border border-[#FFFFFF14] shadow-xs hover:shadow-md active:shadow-inner active:translate-y-px bg-linear-to-br from-gray-700/80 to-gray-800/60',
             outline:
-                'text-gray-200 border border-[#FFFFFF30] shadow-sm hover:shadow-md active:shadow-inner active:translate-y-[1px] bg-transparent hover:bg-gradient-to-br hover:from-[#D7EDED20] hover:to-[#CCEBEB00]',
+                'text-gray-200 border border-[#FFFFFF30] shadow-xs hover:shadow-md active:shadow-inner active:translate-y-px bg-transparent hover:bg-linear-to-br hover:from-[#D7EDED20] hover:to-[#CCEBEB00]',
         };
 
         // Disabled styles
@@ -80,19 +80,19 @@ const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
                     variantStyles[variant],
                     fullWidthStyle,
                     disabled && disabledStyles,
-                    "before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-b before:from-white/10 before:to-transparent before:opacity-30 before:content-['']",
-                    "after:absolute after:inset-[1px] after:rounded-[7px] after:bg-gradient-to-b after:from-white/5 after:to-transparent after:content-['']",
+                    "before:absolute before:inset-0 before:rounded-lg before:bg-linear-to-b before:from-white/10 before:to-transparent before:opacity-30 before:content-['']",
+                    "after:absolute after:inset-px after:rounded-[7px] after:bg-linear-to-b after:from-white/5 after:to-transparent after:content-['']",
                     className,
                 )}
                 {...props}
             >
                 <span className="relative z-10 flex items-center justify-center gap-2">
                     {icon && iconPosition === 'left' && (
-                        <span className="flex-shrink-0">{icon}</span>
+                        <span className="shrink-0">{icon}</span>
                     )}
                     {children}
                     {icon && iconPosition === 'right' && (
-                        <span className="flex-shrink-0">{icon}</span>
+                        <span className="shrink-0">{icon}</span>
                     )}
                 </span>
             </button>
