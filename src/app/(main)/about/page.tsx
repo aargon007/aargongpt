@@ -59,7 +59,7 @@ export default function AboutPage() {
 
             {/* Our Mission Section */}
             <section className="py-20 relative">
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-full max-w-6xl h-64 bg-gradient-to-t from-heisenberg-blue-500/20 to-transparent blur-3xl rounded-full"></div>
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-full max-w-6xl h-64 bg-gradient-to-t from-heisenberg-blue-700/20 to-transparent blur-3xl rounded-full"></div>
 
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">

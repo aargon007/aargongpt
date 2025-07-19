@@ -15,7 +15,7 @@ const Header = () => {
         { href: '/', label: 'Home' },
         { href: '/about', label: 'About' },
         { href: '/contact', label: 'Contact' },
-        { href: '/chat', label: 'Chat' },
+        { href: '/pricing', label: 'Pricing' },
     ];
 
     return (

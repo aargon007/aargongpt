@@ -40,7 +40,7 @@ const Footer = () => {
                 },
                 {
                     name: 'Terms of Service',
-                    href: '/terms',
+                    href: '/privacy',
                 },
             ]
         },
