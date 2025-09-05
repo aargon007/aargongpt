@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import type React from 'react';
+import { Suspense } from 'react';
 
 import Sidebar from '@/components/layout/Sidebar';
+import SidebarSkeleton from '@/components/layout/SidebarSkeleton';
 import isAuthenticated from '@/lib/isAuthenticated';
 import { getUser } from '@/services/user.service';
 import { getProjects } from '@/services/project.service';
@@ -11,17 +13,27 @@ export const metadata: Metadata = {
     description: 'AI-powered collaboration platform',
 };
 
-const ChatLayout = async ({ children, }: Readonly<{ children: React.ReactNode }>) => {
-    const user = await getUser();
-    const projects = await getProjects();
+async function SidebarWrapper() {
+    const [user, projects] = await Promise.all([
+        getUser(),
+        getProjects(),
+    ]);
 
+    return (
+        <Sidebar
+            user={user!}
+            projects={projects?.data || []}
+        />
+    );
+}
+
+const ChatLayout = ({ children, }: Readonly<{ children: React.ReactNode }>) => {
     return (
         <div className="flex h-dvh w-full overflow-hidden rounded-[24px] bg-noble-700 p-3">
             {/* sidebar */}
-            <Sidebar
-                user={user!}
-                projects={projects?.data}
-            />
+            <Suspense fallback={<SidebarSkeleton />}>
+                <SidebarWrapper />
+            </Suspense>
 
             {/* Main content */}
             <div className="flex h-full flex-1 flex-col overflow-hidden md:ml-3">

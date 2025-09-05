@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { LuMic, LuSend } from 'react-icons/lu';
 import { AutoResizeTextarea } from '@/components/ui/AutoResizeTextarea';
@@ -18,6 +18,19 @@ type TProps = {
 const ChatInput = ({ chat_id, append, isLoading, setIsLoading }: TProps) => {
     const [input, setInput] = useState<string>("");
     const router = useRouter();
+
+    // Listen for prompt selection events from the homepage
+    useEffect(() => {
+        const handlePromptSelected = (event: CustomEvent) => {
+            const { prompt } = event.detail;
+            setInput(prompt);
+        };
+
+        window.addEventListener('promptSelected', handlePromptSelected as EventListener);
+        return () => {
+            window.removeEventListener('promptSelected', handlePromptSelected as EventListener);
+        };
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

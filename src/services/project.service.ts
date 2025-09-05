@@ -36,7 +36,16 @@ export async function createProject(formData: FormData): Promise<TResponse> {
 // get user all projects
 export async function getProjects(): Promise<TResponse> {
     try {
-        const projects = await prisma.project.findMany();
+        const projects = await prisma.project.findMany({
+            select: {
+                id: true,
+                name: true,
+                color: true,
+            },
+            orderBy: {
+                name: 'asc',
+            },
+        });
         return {
             success: true,
             message: 'Projects loaded successfully.',

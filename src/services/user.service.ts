@@ -69,7 +69,26 @@ export async function loginUser(formData: FormData): Promise<TResponse> {
         const email = formData.get('email') as string;
         const password = formData.get('password') as string;
 
-        const user = await prisma.user.findUnique({ where: { email } });
+        // Validate input
+        if (!email || !password) {
+            return {
+                success: false,
+                message: 'Email and password are required.',
+            };
+        }
+
+        // Only select necessary fields for login
+        const user = await prisma.user.findUnique({
+            where: { email },
+            select: {
+                id: true,
+                email: true,
+                password: true,
+                first_name: true,
+                last_name: true,
+            }
+        });
+
         if (!user) {
             return {
                 success: false,
@@ -97,6 +116,7 @@ export async function loginUser(formData: FormData): Promise<TResponse> {
             maxAge: config.expires_in, // 30 days
             path: '/',
             secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
         });
 
         return {
@@ -116,10 +136,25 @@ export async function loginUser(formData: FormData): Promise<TResponse> {
 export async function getUser(): Promise<User | null> {
     try {
         const payload = await gettoken();
+        if (!payload?.id) {
+            return null;
+        }
+
         const user = await prisma.user.findUnique({
-            where: { id: payload?.id },
+            where: { id: payload.id },
+            select: {
+                id: true,
+                email: true,
+                first_name: true,
+                last_name: true,
+                image: true,
+                created_at: true,
+                updated_at: true,
+            }
         });
+
         return user;
+        
     } catch (error) {
         console.error('Error getting user from token:', error);
         return null;

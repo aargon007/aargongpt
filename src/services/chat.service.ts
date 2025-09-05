@@ -6,39 +6,52 @@ import { getUser } from "./user.service";
 import { revalidatePath } from "next/cache";
 
 export async function createChat({ firstMessage }: { firstMessage: string }): Promise<TResponse> {
-    const user = await getUser();
+    try {
+        const user = await getUser();
 
-    if (!firstMessage || !user?.id) {
+        if (!firstMessage?.trim() || !user?.id) {
+            return {
+                success: false,
+                message: 'Missing required fields.',
+            }
+        };
+
+        // Generate a title — simple example, you can make it fancier
+        const title = firstMessage.length > 30 ? firstMessage.slice(0, 30) + '...' : firstMessage;
+
+        // Use transaction for atomicity
+        const result = await prisma.$transaction(async (tx) => {
+            const chat = await tx.chat.create({
+                data: {
+                    title,
+                    description: firstMessage.length > 60 ? firstMessage.slice(0, 60) + '...' : firstMessage,
+                    user_id: user.id,
+                },
+            });
+
+            // Save first message as the first Message too
+            await tx.message.create({
+                data: {
+                    chat_id: chat.id,
+                    content: firstMessage,
+                    role: 'user',
+                },
+            });
+
+            return chat;
+        });
+
+        return {
+            success: true,
+            message: 'Chat created successfully.',
+            data: result
+        }
+    } catch (error) {
+        console.error('Error creating chat:', error);
         return {
             success: false,
-            message: 'Missing required fields.',
+            message: 'Failed to create chat.',
         }
-    };
-
-    // Generate a title — simple example, you can make it fancier
-    const title = firstMessage.length > 30 ? firstMessage.slice(0, 30) : firstMessage;
-
-    const chat = await prisma.chat.create({
-        data: {
-            title,
-            description: firstMessage.length > 60 ? firstMessage.slice(0, 60) : firstMessage,
-            user_id: user.id,
-        },
-    });
-
-    // Save first message as the first Message too
-    await prisma.message.create({
-        data: {
-            chat_id: chat.id,
-            content: firstMessage,
-            role: 'user',
-        },
-    });
-
-    return {
-        success: true,
-        message: 'Chat created successfully.',
-        data: chat
     }
 }
 
@@ -68,19 +81,42 @@ export async function saveMessage({ chat_id, content, role }: { chat_id: string,
 
 // get single chat message
 export async function getChat(chat_id: string): Promise<TResponse> {
-    const chat = await prisma.message.findMany({
-        where: {
-            chat_id
-        },
-        orderBy: {
-            createdAt: 'asc'
+    try {
+        if (!chat_id) {
+            return {
+                success: false,
+                message: 'Chat ID is required.',
+                data: []
+            }
         }
-    });
 
-    return {
-        success: true,
-        message: 'Chat loaded successfully.',
-        data: chat
+        const messages = await prisma.message.findMany({
+            where: {
+                chat_id
+            },
+            select: {
+                id: true,
+                content: true,
+                role: true,
+                createdAt: true,
+            },
+            orderBy: {
+                createdAt: 'asc'
+            }
+        });
+
+        return {
+            success: true,
+            message: 'Chat loaded successfully.',
+            data: messages
+        }
+    } catch (error) {
+        console.error('Error loading chat:', error);
+        return {
+            success: false,
+            message: 'Failed to load chat.',
+            data: []
+        }
     }
 }
 
@@ -113,7 +149,7 @@ export async function getChats(): Promise<TResponse> {
 
 // delete chat 
 export async function deleteChat(chat_id: string): Promise<TResponse> {
-   // delete chat and message in transaction
+    // delete chat and message in transaction
     const chat = await prisma.$transaction([
         prisma.message.deleteMany({
             where: {
@@ -126,9 +162,9 @@ export async function deleteChat(chat_id: string): Promise<TResponse> {
                 user_id: (await getUser())?.id
             }
         })
-   ])
+    ])
 
-   revalidatePath('/chat');
+    revalidatePath('/chat');
 
     return {
         success: true,
