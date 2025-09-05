@@ -1,12 +1,25 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { jest, describe, it, beforeEach, expect } from '@jest/globals'
-import '@testing-library/jest-dom/jest-globals'
+import '@testing-library/jest-dom'
+
+// Mock dependencies first
+jest.mock('@/services/chat.service')
+jest.mock('@/lib/gettoken')
+jest.mock('next/headers', () => ({
+  cookies: jest.fn(() => ({
+    get: jest.fn(() => ({ value: 'mock-token' })),
+  })),
+}))
+
 import ChatInput from '@/components/layout/ChatInput'
 import { createChat, saveMessage } from '@/services/chat.service'
+import gettoken from '@/lib/gettoken'
 
-// Mock dependencies
-jest.mock('@/services/chat.service')
+// Get the mocked functions
+const mockCreateChat = jest.mocked(createChat)
+const mockSaveMessage = jest.mocked(saveMessage)
+const mockGettoken = jest.mocked(gettoken)
+
 jest.mock('@/components/ui/AutoResizeTextarea', () => {
   return {
     AutoResizeTextarea: ({ onChange, onKeyDown, value, placeholder, className, ...props }: any) => (
@@ -22,8 +35,6 @@ jest.mock('@/components/ui/AutoResizeTextarea', () => {
   }
 })
 
-const mockCreateChat = createChat as jest.MockedFunction<typeof createChat>
-const mockSaveMessage = saveMessage as jest.MockedFunction<typeof saveMessage>
 const mockPush = jest.fn()
 
 // Mock useRouter
@@ -43,29 +54,49 @@ describe('ChatInput', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
+
+    // Setup mock return values
+    mockGettoken.mockResolvedValue({
+      user: {
+        id: 'test-user-id',
+        email: 'test@example.com',
+        first_name: 'Test',
+        last_name: 'User',
+        password: 'hashed-password',
+        image: '',
+        created_at: new Date(),
+        updated_at: new Date(),
+      }
+    })
+    mockCreateChat.mockResolvedValue({
+      success: true,
+      message: 'Chat created',
+      data: { id: 'new-chat-id' }
+    })
+    mockSaveMessage.mockResolvedValue({
+      success: true,
+      message: 'Message saved',
+      data: {}
+    })
   })
 
   it('renders input form correctly', () => {
     render(<ChatInput {...defaultProps} />)
 
     expect(screen.getByPlaceholderText('Enter a message')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /send/i })).toBeInTheDocument()
+    const submitButtons = screen.getAllByRole('button')
+    const submitButton = submitButtons.find(button => button.getAttribute('type') === 'submit')
+    expect(submitButton).toBeInTheDocument()
   })
 
   it('creates new chat when no chat_id provided', async () => {
     const user = userEvent.setup()
-    const mockResponse = {
-      success: true,
-      message: 'Chat created',
-      data: { id: 'new-chat-id' }
-    }
-
-    mockCreateChat.mockResolvedValue(mockResponse)
 
     render(<ChatInput {...defaultProps} />)
 
     const input = screen.getByPlaceholderText('Enter a message')
-    const submitButton = screen.getByRole('button', { name: /send/i })
+    const submitButtons = screen.getAllByRole('button')
+    const submitButton = submitButtons.find(button => button.getAttribute('type') === 'submit')!
 
     await user.type(input, 'Hello, this is a new chat')
     await user.click(submitButton)
@@ -80,16 +111,11 @@ describe('ChatInput', () => {
     const user = userEvent.setup()
     const propsWithChatId = { ...defaultProps, chat_id: 'existing-chat-id' }
 
-    mockSaveMessage.mockResolvedValue({
-      success: true,
-      message: 'Message saved',
-      data: {}
-    })
-
     render(<ChatInput {...propsWithChatId} />)
 
     const input = screen.getByPlaceholderText('Enter a message')
-    const submitButton = screen.getByRole('button', { name: /send/i })
+    const submitButtons = screen.getAllByRole('button')
+    const submitButton = submitButtons.find(button => button.getAttribute('type') === 'submit')!
 
     await user.type(input, 'This is a message to existing chat')
     await user.click(submitButton)
@@ -107,13 +133,6 @@ describe('ChatInput', () => {
 
   it('handles Enter key submission', async () => {
     const user = userEvent.setup()
-    const mockResponse = {
-      success: true,
-      message: 'Chat created',
-      data: { id: 'new-chat-id' }
-    }
-
-    mockCreateChat.mockResolvedValue(mockResponse)
 
     render(<ChatInput {...defaultProps} />)
 
@@ -145,7 +164,8 @@ describe('ChatInput', () => {
 
     render(<ChatInput {...defaultProps} />)
 
-    const submitButton = screen.getByRole('button', { name: /send/i })
+    const submitButtons = screen.getAllByRole('button')
+    const submitButton = submitButtons.find(button => button.getAttribute('type') === 'submit')!
 
     await user.click(submitButton)
 
@@ -155,13 +175,6 @@ describe('ChatInput', () => {
 
   it('clears input after successful submission', async () => {
     const user = userEvent.setup()
-    const mockResponse = {
-      success: true,
-      message: 'Chat created',
-      data: { id: 'new-chat-id' }
-    }
-
-    mockCreateChat.mockResolvedValue(mockResponse)
 
     render(<ChatInput {...defaultProps} />)
 
@@ -199,14 +212,16 @@ describe('ChatInput', () => {
 
     render(<ChatInput {...loadingProps} />)
 
-    const submitButton = screen.getByRole('button', { name: /send/i })
+    const submitButtons = screen.getAllByRole('button')
+    const submitButton = submitButtons.find(button => button.getAttribute('type') === 'submit')!
     expect(submitButton).toBeDisabled()
   })
 
   it('disables submit button when input is empty', () => {
     render(<ChatInput {...defaultProps} />)
 
-    const submitButton = screen.getByRole('button', { name: /send/i })
+    const submitButtons = screen.getAllByRole('button')
+    const submitButton = submitButtons.find(button => button.getAttribute('type') === 'submit')!
     expect(submitButton).toBeDisabled()
   })
 })

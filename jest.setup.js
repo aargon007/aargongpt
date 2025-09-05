@@ -20,17 +20,135 @@ jest.mock('next/navigation', () => ({
     },
 }));
 
+// Mock Prisma
+jest.mock('@/lib/prisma', () => ({
+    __esModule: true,
+    default: {
+        user: {
+            findUnique: jest.fn(),
+            create: jest.fn(),
+            update: jest.fn(),
+            delete: jest.fn(),
+        },
+        chat: {
+            findMany: jest.fn(),
+            findUnique: jest.fn(),
+            create: jest.fn(),
+            update: jest.fn(),
+            delete: jest.fn(),
+        },
+        message: {
+            findMany: jest.fn(),
+            create: jest.fn(),
+            update: jest.fn(),
+            delete: jest.fn(),
+        },
+        $transaction: jest.fn(),
+    },
+}));
+
 // Mock framer-motion
 jest.mock('framer-motion', () => ({
     motion: {
-        div: ({ children, ...props }) => <div {...props}>{children}</div>,
-        button: ({ children, ...props }) => (
-            <button {...props}>{children}</button>
-        ),
-        form: ({ children, ...props }) => <form {...props}>{children}</form>,
-        span: ({ children, ...props }) => <span {...props}>{children}</span>,
+        div: ({ children, ...props }) => {
+            const {
+                animate,
+                initial,
+                transition,
+                whileHover,
+                whileTap,
+                layout,
+                ...restProps
+            } = props;
+            return <div {...restProps}>{children}</div>;
+        },
+        button: ({ children, ...props }) => {
+            const {
+                animate,
+                initial,
+                transition,
+                whileHover,
+                whileTap,
+                layout,
+                ...restProps
+            } = props;
+            return <button {...restProps}>{children}</button>;
+        },
+        form: ({ children, ...props }) => {
+            const {
+                animate,
+                initial,
+                transition,
+                whileHover,
+                whileTap,
+                layout,
+                ...restProps
+            } = props;
+            return <form {...restProps}>{children}</form>;
+        },
+        span: ({ children, ...props }) => {
+            const {
+                animate,
+                initial,
+                transition,
+                whileHover,
+                whileTap,
+                layout,
+                ...restProps
+            } = props;
+            return <span {...restProps}>{children}</span>;
+        },
     },
     AnimatePresence: ({ children }) => children,
+}));
+
+// Mock marked
+jest.mock('marked', () => {
+    const mockMarked = jest.fn((text) => text);
+    mockMarked.lexer = jest.fn((text) => [{ type: 'text', raw: text }]);
+    return {
+        marked: mockMarked,
+    };
+});
+
+// Mock react-markdown
+jest.mock('react-markdown', () => {
+    return function MockReactMarkdown({ children }) {
+        return <div>{children}</div>;
+    };
+});
+
+// Mock react-syntax-highlighter
+jest.mock('react-syntax-highlighter', () => ({
+    Prism: function MockPrism({ children, ...props }) {
+        return (
+            <pre data-testid="syntax-highlighter" {...props}>
+                {children}
+            </pre>
+        );
+    },
+}));
+
+// Mock react-syntax-highlighter styles
+jest.mock('react-syntax-highlighter/dist/esm/styles/prism', () => ({
+    oneDark: {},
+}));
+
+// Mock rehype-raw
+jest.mock('rehype-raw', () => ({
+    __esModule: true,
+    default: () => {},
+}));
+
+// Mock remark-gfm
+jest.mock('remark-gfm', () => ({
+    __esModule: true,
+    default: () => {},
+}));
+
+// Mock Next.js cache
+jest.mock('next/cache', () => ({
+    unstable_cache: jest.fn((fn) => fn),
 }));
 
 // Mock Prisma - will be mocked in individual test files as needed
@@ -39,6 +157,13 @@ jest.mock('framer-motion', () => ({
 process.env.TOKEN_SECRET = 'test-secret';
 process.env.SALT_ROUND = '10';
 process.env.EXPIRES_IN = '2592000';
+
+// Add TextEncoder/TextDecoder for Node.js environment
+if (typeof global.TextEncoder === 'undefined') {
+    const { TextEncoder, TextDecoder } = require('util');
+    global.TextEncoder = TextEncoder;
+    global.TextDecoder = TextDecoder;
+}
 
 // Global test utilities
 global.mockUser = {

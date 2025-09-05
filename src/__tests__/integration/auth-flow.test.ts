@@ -5,22 +5,24 @@
 
 import { loginUser, createUser } from '@/services/user.service'
 import { createChat } from '@/services/chat.service'
-import prisma from '@/lib/prisma'
 import { hash } from 'bcrypt'
 
 // Mock Prisma for integration tests
 jest.mock('@/lib/prisma', () => ({
-  user: {
-    findUnique: jest.fn(),
-    create: jest.fn(),
+  __esModule: true,
+  default: {
+    user: {
+      findUnique: jest.fn(),
+      create: jest.fn(),
+    },
+    chat: {
+      create: jest.fn(),
+    },
+    message: {
+      create: jest.fn(),
+    },
+    $transaction: jest.fn(),
   },
-  chat: {
-    create: jest.fn(),
-  },
-  message: {
-    create: jest.fn(),
-  },
-  $transaction: jest.fn(),
 }))
 
 jest.mock('next/headers', () => ({
@@ -30,7 +32,14 @@ jest.mock('next/headers', () => ({
   })),
 }))
 
-const mockPrisma = prisma as jest.Mocked<typeof prisma>
+// Mock gettoken
+jest.mock('@/lib/gettoken', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}))
+
+import prisma from '@/lib/prisma'
+const mockPrisma = jest.mocked(prisma)
 
 describe('Authentication Flow Integration', () => {
   beforeEach(() => {
@@ -64,7 +73,7 @@ describe('Authentication Flow Integration', () => {
       mockPrisma.user.create.mockResolvedValue(newUser)
 
       const registrationResult = await createUser(registrationData)
-      
+
       expect(registrationResult.success).toBe(true)
       expect(mockPrisma.user.create).toHaveBeenCalledWith({
         data: {
@@ -84,7 +93,7 @@ describe('Authentication Flow Integration', () => {
       mockPrisma.user.findUnique.mockResolvedValueOnce(newUser)
 
       const loginResult = await loginUser(loginData)
-      
+
       expect(loginResult.success).toBe(true)
       expect(loginResult.message).toBe('Login successful.')
 
@@ -108,7 +117,7 @@ describe('Authentication Flow Integration', () => {
       }
 
       // Mock transaction for chat creation
-      mockPrisma.$transaction.mockImplementation(async (callback) => {
+      mockPrisma.$transaction.mockImplementation(async (callback: any) => {
         return await callback({
           chat: {
             create: jest.fn().mockResolvedValue(newChat),
@@ -116,17 +125,18 @@ describe('Authentication Flow Integration', () => {
           message: {
             create: jest.fn().mockResolvedValue(newMessage),
           },
-        })
+        } as any)
       })
 
       // Mock getUser to return the logged-in user
+      const mockGetUser = jest.fn().mockResolvedValue(newUser)
       jest.doMock('@/services/user.service', () => ({
         ...jest.requireActual('@/services/user.service'),
-        getUser: jest.fn().mockResolvedValue(newUser),
+        getUser: mockGetUser,
       }))
 
       const chatResult = await createChat({ firstMessage })
-      
+
       expect(chatResult.success).toBe(true)
       expect(chatResult.data).toEqual(newChat)
     })
@@ -144,6 +154,9 @@ describe('Authentication Flow Integration', () => {
         first_name: 'Test',
         last_name: 'User',
         password: await hash('password123', 10),
+        image: '',
+        created_at: new Date(),
+        updated_at: new Date(),
       }
 
       mockPrisma.user.findUnique.mockResolvedValue(user)
@@ -204,9 +217,9 @@ describe('Authentication Flow Integration', () => {
         first_name: 'Test',
         last_name: 'User',
         password: await hash('password123', 10),
-        // Sensitive data that shouldn't be exposed
-        resetToken: 'secret-reset-token',
-        lastLoginIp: '192.168.1.1',
+        image: '',
+        created_at: new Date(),
+        updated_at: new Date(),
       }
 
       mockPrisma.user.findUnique.mockResolvedValue(userWithSensitiveData)
