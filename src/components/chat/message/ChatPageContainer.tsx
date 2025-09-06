@@ -1,20 +1,24 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Message } from 'ai';
 import { useChat } from '@ai-sdk/react';
 import ChatInput from '../../layout/ChatInput';
 import MessageCard from './MessageCard';
+import { Message } from '@prisma/client';
 
 const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; initialMessages: Message[]; }) => {
     const [isLoading, setIsLoading] = useState(false);
-    const { messages, append, reload } = useChat({
-        api: "/api/chat",
-        id: chat_id,
-        initialMessages: initialMessages,
-        experimental_throttle: 50,
-        onFinish: () => setIsLoading(false)
+    const { messages, sendMessage, regenerate } = useChat({
+        messages:
+            initialMessages?.map((msg) => ({
+                id: msg.id,
+                role: msg.role as "user" | "assistant",
+                parts: [{ type: 'text', text: msg.content }],
+            })) || [],
     });
+
+    console.log(messages);
+
 
     // 👈 Prevent double-sending!
     const hasContinuedRef = useRef(false);
@@ -29,7 +33,7 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
             // Prevent multiple triggers
             hasContinuedRef.current = true;
             setIsLoading(true);
-            reload();
+            regenerate();
         }
     }, []);
 
@@ -42,6 +46,13 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
             });
         }
     }, []);
+
+    const handleAppend = (message: string) => {
+        sendMessage({
+            role: 'user',
+            parts: [{ type: 'text', text: message }]
+        });
+    };
 
     return (
         <>
@@ -60,7 +71,7 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
 
             <ChatInput
                 chat_id={chat_id}
-                append={append}
+                append={handleAppend}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
             />

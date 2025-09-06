@@ -1,12 +1,12 @@
 'use client';
 
 import React from 'react';
-import { Message } from 'ai';
 import { LuCopy } from 'react-icons/lu';
 import { formatDistanceToNow } from 'date-fns';
 import { MemoizedMarkdown } from './MarkdownPreview';
+import { UIMessage } from 'ai';
 
-const MessageCard = ({ message }: { message: Message; streaming?: boolean }) => {
+const MessageCard = ({ message }: { message: UIMessage; streaming?: boolean }) => {
     const { content, role, createdAt } = message;
     const timeAgo = createdAt ? formatDistanceToNow(new Date(createdAt), { addSuffix: true }) : '';
     

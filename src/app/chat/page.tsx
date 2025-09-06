@@ -7,10 +7,14 @@ import ChatInput from '@/components/layout/ChatInput';
 
 const ChatHome = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const { append } = useChat({
-        api: "/api/chat",
-        initialMessages: [],
-    });
+    const { sendMessage } = useChat();
+
+    const handleAppend = (message: string) => {
+        sendMessage({
+            role: 'user',
+            parts: [{ type: 'text', text: message }]
+        });
+    };
 
     return (
         <>
@@ -19,7 +23,7 @@ const ChatHome = () => {
             </div>
             <ChatInput
                 chat_id=''
-                append={append}
+                append={handleAppend}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
             />

@@ -118,15 +118,14 @@ jest.mock('react-markdown', () => {
     };
 });
 
-// Mock react-syntax-highlighter
-jest.mock('react-syntax-highlighter', () => ({
-    Prism: function MockPrism({ children, ...props }) {
-        return (
-            <pre data-testid="syntax-highlighter" {...props}>
-                {children}
-            </pre>
-        );
+// Mock React lazy loading for syntax highlighter
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
+    lazy: (fn) => {
+        const Component = fn();
+        return Component.default || Component;
     },
+    Suspense: ({ children }) => children,
 }));
 
 // Mock react-syntax-highlighter styles
@@ -160,9 +159,10 @@ process.env.EXPIRES_IN = '2592000';
 
 // Add TextEncoder/TextDecoder for Node.js environment
 if (typeof global.TextEncoder === 'undefined') {
-    const { TextEncoder, TextDecoder } = require('util');
-    global.TextEncoder = TextEncoder;
-    global.TextDecoder = TextDecoder;
+    import('util').then(({ TextEncoder, TextDecoder }) => {
+        global.TextEncoder = TextEncoder;
+        global.TextDecoder = TextDecoder;
+    });
 }
 
 // Global test utilities

@@ -1,43 +1,43 @@
-import { streamText } from 'ai';
-import { openai } from '@ai-sdk/openai';
-import gettoken from '@/lib/gettoken';
-import prisma from '@/lib/prisma';
+import { convertToModelMessages, streamText, UIMessage } from "ai"
+import gettoken from "@/lib/gettoken"
+import prisma from "@/lib/prisma"
 
-import { google } from '@ai-sdk/google';
-
+import { google } from "@ai-sdk/google"
 
 // Allow streaming responses up to 60 seconds
-export const maxDuration = 60;
+export const maxDuration = 60
 
 export async function POST(req: Request) {
     const user = await gettoken();
-    // Extract the \`messages\` from the body of the request
-    const { messages, id } = await req.json();
+
+    // parse body
+    const { messages, id }: { messages: UIMessage[], id: string } = await req.json()
 
     // Call the language model using Google Gemini
     const result = streamText({
-        model: google('gemini-2.0-flash'), // Use a Gemini model, e.g., 'gemini-pro'
-        system: 'You are a helpful assistant. Respond to the user in Markdown format.',
-        messages,
+        model: google("gemini-2.0-flash"), // Use a Gemini model, e.g., 'gemini-pro'
+        system: "You are a helpful assistant. Respond to the user in Markdown format.",
+        messages: convertToModelMessages(messages),
         async onFinish({ text, toolCalls, toolResults, usage, finishReason, response }) {
-            console.log('usage', usage);
+            console.log("usage", text);
+
             if (id) {
                 await prisma.message.create({
                     data: {
                         content: text,
-                        role: 'assistant',
+                        role: "assistant",
                         chat_id: id,
                     },
-                });
+                })
             }
         },
         onError(error) {
             console.error(error);
-        }
-    });
+        },
+    })
 
     // Respond with the stream
-    return result.toDataStreamResponse();
+    return result.toUIMessageStreamResponse();
 }
 
 // Allow streaming responses up to 30 seconds
@@ -79,5 +79,5 @@ export async function POST(req: Request) {
 //     });
 
 //     // Respond with the stream
-//     return result.toDataStreamResponse();
+//     return result.toTextStreamResponse();
 // }

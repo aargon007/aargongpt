@@ -10,7 +10,7 @@ import Spinner from '@/components/ui/Spinner';
 
 type TProps = {
     chat_id: string;
-    append: (message: { content: string; role: 'user' | 'assistant' }) => void;
+    append: (message: string) => void;
     isLoading: boolean;
     setIsLoading: (isLoading: boolean) => void;
 }
@@ -47,8 +47,7 @@ const ChatInput = ({ chat_id, append, isLoading, setIsLoading }: TProps) => {
             // Existing chat -> save message
             await saveMessage({ chat_id, content: input, role: 'user' });
 
-            append({ content: input, role: 'user' });
-            // void append({ content: input, role: 'user' });
+            append(input);
         }
 
         setInput("");
