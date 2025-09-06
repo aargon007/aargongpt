@@ -17,7 +17,7 @@ describe('Chat Service', () => {
   describe('createChat', () => {
     it('should create chat successfully', async () => {
       const firstMessage = 'Hello, this is my first message'
-      
+
       mockGetUser.mockResolvedValue(global.mockUser)
       mockPrisma.$transaction.mockImplementation(async (callback) => {
         return await callback({
@@ -39,7 +39,7 @@ describe('Chat Service', () => {
 
     it('should fail to create chat without user', async () => {
       const firstMessage = 'Hello, this is my first message'
-      
+
       mockGetUser.mockResolvedValue(null)
 
       const result = await createChat({ firstMessage })
@@ -50,7 +50,7 @@ describe('Chat Service', () => {
 
     it('should fail to create chat without message', async () => {
       const firstMessage = ''
-      
+
       mockGetUser.mockResolvedValue(global.mockUser)
 
       const result = await createChat({ firstMessage })
@@ -61,7 +61,7 @@ describe('Chat Service', () => {
 
     it('should handle database errors', async () => {
       const firstMessage = 'Hello, this is my first message'
-      
+
       mockGetUser.mockResolvedValue(global.mockUser)
       mockPrisma.$transaction.mockRejectedValue(new Error('Database error'))
 
@@ -119,11 +119,10 @@ describe('Chat Service', () => {
       expect(result.data).toEqual(mockMessages)
       expect(mockPrisma.message.findMany).toHaveBeenCalledWith({
         where: { chat_id: chatId },
-        select: {
-          id: true,
-          content: true,
-          role: true,
-          createdAt: true,
+        include: {
+          parts: {
+            orderBy: { createdAt: 'asc' }
+          }
         },
         orderBy: { createdAt: 'asc' },
       })
@@ -139,7 +138,7 @@ describe('Chat Service', () => {
 
     it('should handle database errors', async () => {
       const chatId = 'test-chat-id'
-      
+
       mockPrisma.message.findMany.mockRejectedValue(new Error('Database error'))
 
       const result = await getChat(chatId)

@@ -4,21 +4,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useChat } from '@ai-sdk/react';
 import ChatInput from '../../layout/ChatInput';
 import MessageCard from './MessageCard';
-import { Message } from '@prisma/client';
+import { TMessage } from '@/types/chat';
 
-const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; initialMessages: Message[]; }) => {
+const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; initialMessages: TMessage[]; }) => {
     const [isLoading, setIsLoading] = useState(false);
     const { messages, sendMessage, regenerate } = useChat({
-        messages:
-            initialMessages?.map((msg) => ({
-                id: msg.id,
-                role: msg.role as "user" | "assistant",
-                parts: [{ type: 'text', text: msg.content }],
-            })) || [],
+        messages: initialMessages
     });
-
-    console.log(messages);
-
 
     // 👈 Prevent double-sending!
     const hasContinuedRef = useRef(false);

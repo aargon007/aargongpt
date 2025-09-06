@@ -30,11 +30,19 @@ export async function createChat({ firstMessage }: { firstMessage: string }): Pr
             });
 
             // Save first message as the first Message too
-            await tx.message.create({
+            const message = await tx.message.create({
                 data: {
                     chat_id: chat.id,
-                    content: firstMessage,
                     role: 'user',
+                },
+            });
+
+            // Create the text part for the message
+            await tx.messagePart.create({
+                data: {
+                    message_id: message.id,
+                    type: 'text',
+                    text: firstMessage,
                 },
             });
 
@@ -64,18 +72,59 @@ export async function saveMessage({ chat_id, content, role }: { chat_id: string,
         }
     }
 
-    const message = await prisma.message.create({
-        data: {
-            chat_id,
-            content,
-            role,
-        },
-    });
+    try {
+        const result = await prisma.$transaction(async (tx) => {
+            // Create the message
+            const message = await tx.message.create({
+                data: {
+                    chat_id,
+                    role,
+                },
+            });
 
-    return {
-        success: true,
-        message: 'Message saved successfully.',
-        data: message
+            // Create the text part for the message
+            await tx.messagePart.create({
+                data: {
+                    message_id: message.id,
+                    type: 'text',
+                    text: content,
+                },
+            });
+
+            return message;
+        });
+
+        return {
+            success: true,
+            message: 'Message saved successfully.',
+            data: result
+        }
+    } catch (error) {
+        console.error('Error saving message:', error);
+        return {
+            success: false,
+            message: 'Failed to save message.',
+        }
+    }
+}
+
+// Get messages with parts for a chat
+export async function getChatMessages(chat_id: string) {
+    try {
+        const messages = await prisma.message.findMany({
+            where: { chat_id },
+            include: {
+                parts: {
+                    orderBy: { createdAt: 'asc' }
+                }
+            },
+            orderBy: { createdAt: 'asc' }
+        });
+
+        return messages;
+    } catch (error) {
+        console.error('Error fetching chat messages:', error);
+        return [];
     }
 }
 
@@ -94,11 +143,10 @@ export async function getChat(chat_id: string): Promise<TResponse> {
             where: {
                 chat_id
             },
-            select: {
-                id: true,
-                content: true,
-                role: true,
-                createdAt: true,
+            include: {
+                parts: {
+                    orderBy: { createdAt: 'asc' }
+                }
             },
             orderBy: {
                 createdAt: 'asc'

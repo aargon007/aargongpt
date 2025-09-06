@@ -44,16 +44,30 @@ model Chat {
 }
 
 model Message {
-  id        String   @id @default(uuid())
-  role      Role     @default(user)
-  content   String
-  createdAt DateTime @default(now())
+  id        String        @id @default(uuid())
+  role      Role          @default(user)
+  parts     MessagePart[]
+  metadata  Json?
+  createdAt DateTime      @default(now())
   chat_id   String
-  chat      Chat     @relation(fields: [chat_id], references: [id])
+  chat      Chat          @relation(fields: [chat_id], references: [id])
 
   @@index([chat_id])
   @@index([createdAt])
   @@index([chat_id, createdAt])
+}
+
+model MessagePart {
+  id         String   @id @default(uuid())
+  type       PartType
+  text       String?
+  image      String? // URL or base64 for images
+  data       Json? // For other data types
+  message_id String
+  message    Message  @relation(fields: [message_id], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@index([message_id])
 }
 
 model Project {
@@ -67,4 +81,13 @@ model Project {
 enum Role {
   user
   assistant
+  system
+}
+
+enum PartType {
+  text
+  image
+  file
+  tool_call
+  tool_result
 }

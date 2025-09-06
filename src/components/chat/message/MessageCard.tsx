@@ -6,10 +6,22 @@ import { formatDistanceToNow } from 'date-fns';
 import { MemoizedMarkdown } from './MarkdownPreview';
 import { UIMessage } from 'ai';
 
+// Helper function to extract text content from UIMessage parts
+const getTextContent = (message: UIMessage): string => {
+    if (message.parts && Array.isArray(message.parts)) {
+        const textPart = message.parts.find(part => part.type === 'text');
+        return textPart?.text || '';
+    }
+    // Fallback for legacy content field
+    return (message as any).content || '';
+};
+
 const MessageCard = ({ message }: { message: UIMessage; streaming?: boolean }) => {
-    const { content, role, createdAt } = message;
+    const { role } = message;
+    const content = getTextContent(message);
+    const createdAt = (message as any).createdAt;
     const timeAgo = createdAt ? formatDistanceToNow(new Date(createdAt), { addSuffix: true }) : '';
-    
+
     return (
         <div className='p-4 border border-noble-500 rounded-[16px] flex flex-col md:flex-row justify-between items-start gap-6'>
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-r from-green-400 to-blue-500 font-bold text-white">

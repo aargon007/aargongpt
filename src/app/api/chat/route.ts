@@ -12,6 +12,7 @@ export async function POST(req: Request) {
 
     // parse body
     const { messages, id }: { messages: UIMessage[], id: string } = await req.json()
+    console.log("chat id", id);
 
     // Call the language model using Google Gemini
     const result = streamText({
@@ -19,16 +20,27 @@ export async function POST(req: Request) {
         system: "You are a helpful assistant. Respond to the user in Markdown format.",
         messages: convertToModelMessages(messages),
         async onFinish({ text, toolCalls, toolResults, usage, finishReason, response }) {
-            console.log("usage", text);
+            // console.log("usage", text);
 
             if (id) {
-                await prisma.message.create({
-                    data: {
-                        content: text,
-                        role: "assistant",
-                        chat_id: id,
-                    },
-                })
+                await prisma.$transaction(async (tx) => {
+                    // Create the message
+                    const message = await tx.message.create({
+                        data: {
+                            role: "assistant",
+                            chat_id: id,
+                        },
+                    });
+
+                    // Create the text part for the message
+                    await tx.messagePart.create({
+                        data: {
+                            message_id: message.id,
+                            type: 'text',
+                            text: text,
+                        },
+                    });
+                });
             }
         },
         onError(error) {
