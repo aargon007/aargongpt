@@ -2,10 +2,9 @@
 
 import type React from 'react';
 import { useCallback, useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { LuMic, LuSend } from 'react-icons/lu';
 import { AutoResizeTextarea } from '@/components/ui/AutoResizeTextarea';
-import { createChat, saveMessage } from '@/services/chat.service';
+import { saveMessage } from '@/services/chat.service';
 import Spinner from '@/components/ui/Spinner';
 
 type TProps = {
@@ -17,7 +16,6 @@ type TProps = {
 
 const ChatInput = ({ chat_id, append, isLoading, setIsLoading }: TProps) => {
     const [input, setInput] = useState<string>("");
-    const router = useRouter();
 
     // Listen for prompt selection events from the homepage
     useEffect(() => {
@@ -41,8 +39,7 @@ const ChatInput = ({ chat_id, append, isLoading, setIsLoading }: TProps) => {
 
         if (!chat_id) {
             // First time -> create new chat
-            const res = await createChat({ firstMessage: input });
-            router.push(`/chat/${res.data.id}`); // Redirect user
+            append(input);
         } else {
             // Existing chat -> save message
             await saveMessage({ chat_id, content: input, role: 'user' });
