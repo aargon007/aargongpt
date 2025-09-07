@@ -28,7 +28,7 @@ export default function LoadingSpinner({
     return (
         <div className={`flex flex-col items-center justify-center gap-3 ${className}`}>
             <motion.div
-                className={`${sizeClasses[size]} border-2 border-noble-600 border-t-green-400 rounded-full`}
+                className={`${sizeClasses[size]} border-2 border-noble-600 border-t-stem-green-500 rounded-full`}
                 animate={{ rotate: 360 }}
                 transition={{
                     duration: 1,

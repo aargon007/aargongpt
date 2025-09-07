@@ -5,6 +5,7 @@ import { marked } from 'marked';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
+import CodeBlockSkeleton from '@/components/skeleton/CodeBlockSkeleton';
 
 // Lazy load syntax highlighter to improve initial bundle size
 const SyntaxHighlighter = lazy(() =>
@@ -28,25 +29,6 @@ function parseMarkdownIntoBlocks(markdown: string): string[] {
         console.error('Error parsing markdown:', error);
         return [markdown]; // Fallback to original content
     }
-}
-
-// Code block skeleton component
-function CodeBlockSkeleton() {
-    return (
-        <div className="relative group">
-            <div className='flex justify-between items-center text-sm py-px px-5 bg-noble-600'>
-                <div className="h-4 w-16 bg-noble-500 rounded animate-pulse"></div>
-                <div className="h-4 w-12 bg-noble-500 rounded animate-pulse"></div>
-            </div>
-            <div className="p-8 bg-gray-800 rounded-b-lg">
-                <div className="space-y-2">
-                    <div className="h-4 bg-noble-500 rounded w-3/4 animate-pulse"></div>
-                    <div className="h-4 bg-noble-500 rounded w-1/2 animate-pulse"></div>
-                    <div className="h-4 bg-noble-500 rounded w-5/6 animate-pulse"></div>
-                </div>
-            </div>
-        </div>
-    );
 }
 
 const MemoizedMarkdownBlock = memo(
@@ -136,9 +118,8 @@ const MemoizedMarkdownBlock = memo(
 
 MemoizedMarkdownBlock.displayName = 'MemoizedMarkdownBlock';
 
-export const MemoizedMarkdown = memo(
-    ({ content, id }: { content: string; id: string }) => {
-        const blocks = useMemo(() => parseMarkdownIntoBlocks(content), [content]);
+export const MemoizedMarkdown = memo(({ content, id }: { content: string; id: string }) => {
+        const blocks = useMemo(() => parseMarkdownIntoBlocks(content), [content]);        
 
         return blocks.map((block, index) => (
             <MemoizedMarkdownBlock content={block} key={`${id}-block_${index}`} />

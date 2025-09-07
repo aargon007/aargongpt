@@ -9,7 +9,12 @@ import { TMessage } from '@/types/chat';
 const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; initialMessages: TMessage[]; }) => {
     const [isLoading, setIsLoading] = useState(false);
     const { messages, sendMessage, regenerate } = useChat({
-        messages: initialMessages
+        id: chat_id,
+        experimental_throttle: 50,
+        messages: initialMessages,
+        onFinish() {
+            setIsLoading(false);
+        }
     });
 
     // 👈 Prevent double-sending!
