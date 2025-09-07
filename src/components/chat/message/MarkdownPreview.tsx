@@ -1,25 +1,14 @@
 'use client';
 
-import { memo, useMemo, useState, lazy, Suspense } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { marked } from 'marked';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
-import CodeBlockSkeleton from '@/components/skeleton/CodeBlockSkeleton';
 
-// Lazy load syntax highlighter to improve initial bundle size
-const SyntaxHighlighter = lazy(() =>
-    import('react-syntax-highlighter').then(module => ({
-        default: module.Prism
-    }))
-);
-
-// Lazy load the theme
-const oneDarkTheme = lazy(() =>
-    import('react-syntax-highlighter/dist/esm/styles/prism').then(module => ({
-        default: module.oneDark
-    }))
-);
+// Import syntax highlighter directly for better reliability
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function parseMarkdownIntoBlocks(markdown: string): string[] {
     try {
@@ -69,29 +58,25 @@ const MemoizedMarkdownBlock = memo(
                                             </button>
                                         </div>
 
-                                        <Suspense fallback={<CodeBlockSkeleton />}>
-                                            <Suspense fallback={<CodeBlockSkeleton />}>
-                                                <SyntaxHighlighter
-                                                    language={language}
-                                                    style={oneDarkTheme}
-                                                    PreTag="div"
-                                                    customStyle={{
-                                                        padding: '2rem',
-                                                        borderRadius: 'none',
-                                                        borderBottomRightRadius: '0.5rem',
-                                                        borderBottomLeftRadius: '0.5rem',
-                                                        overflowX: 'auto',
-                                                        backgroundColor: '#1F2937',
-                                                        marginTop: '0',
-                                                    }}
-                                                    showLineNumbers={code.split('\n').length > 10}
-                                                    wrapLines={true}
-                                                    wrapLongLines={true}
-                                                >
-                                                    {code}
-                                                </SyntaxHighlighter>
-                                            </Suspense>
-                                        </Suspense>
+                                        <SyntaxHighlighter
+                                            language={language}
+                                            style={oneDark}
+                                            PreTag="div"
+                                            customStyle={{
+                                                padding: '2rem',
+                                                borderRadius: 'none',
+                                                borderBottomRightRadius: '0.5rem',
+                                                borderBottomLeftRadius: '0.5rem',
+                                                overflowX: 'auto',
+                                                backgroundColor: '#1F2937',
+                                                marginTop: '0',
+                                            }}
+                                            showLineNumbers={code.split('\n').length > 10}
+                                            wrapLines={true}
+                                            wrapLongLines={true}
+                                        >
+                                            {code}
+                                        </SyntaxHighlighter>
                                     </div>
                                 );
                             }
@@ -119,12 +104,12 @@ const MemoizedMarkdownBlock = memo(
 MemoizedMarkdownBlock.displayName = 'MemoizedMarkdownBlock';
 
 export const MemoizedMarkdown = memo(({ content, id }: { content: string; id: string }) => {
-        const blocks = useMemo(() => parseMarkdownIntoBlocks(content), [content]);        
+    const blocks = useMemo(() => parseMarkdownIntoBlocks(content), [content]);
 
-        return blocks.map((block, index) => (
-            <MemoizedMarkdownBlock content={block} key={`${id}-block_${index}`} />
-        ));
-    },
+    return blocks.map((block, index) => (
+        <MemoizedMarkdownBlock content={block} key={`${id}-block_${index}`} />
+    ));
+},
 );
 
 MemoizedMarkdown.displayName = 'MemoizedMarkdown';
