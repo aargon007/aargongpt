@@ -6,6 +6,7 @@ import { LuMic, LuSend } from 'react-icons/lu';
 import { AutoResizeTextarea } from '@/components/ui/AutoResizeTextarea';
 import { saveMessage } from '@/services/chat.service';
 import Spinner from '@/components/ui/Spinner';
+import { useChatStore } from '@/hooks/useChatStore';
 
 type TProps = {
     chat_id: string;
@@ -16,6 +17,7 @@ type TProps = {
 
 const ChatInput = ({ chat_id, append, isLoading, setIsLoading }: TProps) => {
     const [input, setInput] = useState<string>("");
+    const { tempChatId } = useChatStore();
 
     // Listen for prompt selection events from the homepage
     useEffect(() => {
@@ -37,7 +39,7 @@ const ChatInput = ({ chat_id, append, isLoading, setIsLoading }: TProps) => {
 
         setIsLoading(true);
 
-        if (!chat_id) {
+        if (chat_id === tempChatId) {
             // First time -> create new chat
             append(input);
         } else {

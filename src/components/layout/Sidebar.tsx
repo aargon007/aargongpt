@@ -12,9 +12,11 @@ import Button from '@/components/ui/Button';
 import SettingsModal from '../chat/SettingsModal';
 import AddProjectModal from '../projects/AddProjectModal';
 import { cn } from '@/utils/cn';
+import { useChatStore } from '@/hooks/useChatStore';
 
 export default function Sidebar({ user, projects }: { user: User; projects: Project[] }) {
     const { isOpen, close, toggle } = useSidebarStore();
+    const generateChatId = useChatStore((state) => state.generateChatId);
     const { openModal } = useModalStore((state) => state);
     const [isMounted, setIsMounted] = useState(false);
 
@@ -73,7 +75,11 @@ export default function Sidebar({ user, projects }: { user: User; projects: Proj
                         </Link>
                     </div>
 
-                    <Link href="/chat" className="ml-auto rounded-sm bg-[url('/gradient.png')] bg-cover bg-center bg-no-repeat px-3 py-1 text-xs text-noble-30">
+                    <Link
+                        href="/chat"
+                        onClick={() => generateChatId()}
+                        className="ml-auto rounded-sm bg-[url('/gradient.png')] bg-cover bg-center bg-no-repeat px-3 py-1 text-xs text-noble-30"
+                    >
                         <BiEdit
                             size={18}
                             className="text-noble-100"

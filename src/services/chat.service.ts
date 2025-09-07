@@ -5,7 +5,7 @@ import { TResponse } from "@/types/response";
 import { getUser } from "./user.service";
 import { revalidatePath } from "next/cache";
 
-export async function createChat({ firstMessage }: { firstMessage: string }): Promise<TResponse> {
+export async function createChat({ firstMessage, chat_id }: { firstMessage: string; chat_id: string }): Promise<TResponse> {
     try {
         const user = await getUser();
 
@@ -23,6 +23,7 @@ export async function createChat({ firstMessage }: { firstMessage: string }): Pr
         const result = await prisma.$transaction(async (tx) => {
             const chat = await tx.chat.create({
                 data: {
+                    id: chat_id,
                     title,
                     description: firstMessage.length > 60 ? firstMessage.slice(0, 60) + '...' : firstMessage,
                     user_id: user.id,
