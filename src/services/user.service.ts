@@ -136,6 +136,7 @@ export async function loginUser(formData: FormData): Promise<TResponse> {
 export async function getUser(): Promise<User | null> {
     try {
         const payload = await gettoken();
+
         if (!payload?.id) {
             return null;
         }
@@ -153,7 +154,7 @@ export async function getUser(): Promise<User | null> {
             }
         });
 
-        return user;
+        return user as User;
         
     } catch (error) {
         console.error('Error getting user from token:', error);

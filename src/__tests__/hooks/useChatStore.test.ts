@@ -23,6 +23,7 @@ describe('useChatStore', () => {
         const { result } = renderHook(() => useChatStore());
 
         // Mock uuid to return a different value for the second call
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const mockUuid = require('uuid').v4;
         mockUuid.mockReturnValueOnce('new-mocked-uuid-v4');
 
@@ -40,6 +41,7 @@ describe('useChatStore', () => {
         expect(result1.current.tempChatId).toBe(result2.current.tempChatId);
 
         // Mock uuid for the next generation
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const mockUuid = require('uuid').v4;
         mockUuid.mockReturnValueOnce('shared-uuid');
 
@@ -55,6 +57,7 @@ describe('useChatStore', () => {
     it('should generate unique IDs on multiple calls', () => {
         const { result } = renderHook(() => useChatStore());
 
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const mockUuid = require('uuid').v4;
         mockUuid
             .mockReturnValueOnce('uuid-1')

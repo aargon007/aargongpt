@@ -1,24 +1,56 @@
 import { loginUser, createUser, getUser } from '@/services/user.service'
-import prisma from '@/lib/prisma'
-import { compare, hash } from 'bcrypt'
-import { createToken } from '@/lib/jwt'
+
+// TypeScript declarations for global mocks
+declare global {
+  var mockUser: any
+  var mockChat: any
+  var mockMessage: any
+  var mockMessagePart: any
+}
 
 // Mock dependencies
-jest.mock('@/lib/prisma')
-jest.mock('bcrypt')
-jest.mock('@/lib/jwt')
+jest.mock('@/lib/prisma', () => ({
+  __esModule: true,
+  default: {
+    user: {
+      findUnique: jest.fn(),
+      create: jest.fn(),
+    }
+  }
+}))
+
+jest.mock('bcrypt', () => ({
+  compare: jest.fn(),
+  hash: jest.fn(),
+}))
+
+jest.mock('@/lib/jwt', () => ({
+  createToken: jest.fn(),
+}))
+
 jest.mock('next/headers', () => ({
   cookies: jest.fn(() => ({
     set: jest.fn(),
     get: jest.fn(),
   })),
 }))
-jest.mock('@/lib/gettoken')
 
-const mockPrisma = prisma as jest.Mocked<typeof prisma>
-const mockCompare = compare as jest.MockedFunction<typeof compare>
-const mockHash = hash as jest.MockedFunction<typeof hash>
-const mockCreateToken = createToken as jest.MockedFunction<typeof createToken>
+jest.mock('@/lib/gettoken', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}))
+
+// Get the mocked functions
+import prisma from '@/lib/prisma'
+import { compare, hash } from 'bcrypt'
+import { createToken } from '@/lib/jwt'
+import getToken from '@/lib/gettoken'
+
+const mockPrisma = prisma as any
+const mockCompare = compare as jest.MockedFunction<any>
+const mockHash = hash as jest.MockedFunction<any>
+const mockCreateToken = createToken as jest.MockedFunction<any>
+const mockGetToken = getToken as jest.MockedFunction<any>
 
 describe('User Service', () => {
   beforeEach(() => {
@@ -134,7 +166,6 @@ describe('User Service', () => {
 
   describe('getUser', () => {
     it('should get user successfully', async () => {
-      const mockGetToken = require('@/lib/gettoken').default
       mockGetToken.mockResolvedValue({ id: 'test-user-id' })
       mockPrisma.user.findUnique.mockResolvedValue(global.mockUser)
 
@@ -156,7 +187,6 @@ describe('User Service', () => {
     })
 
     it('should return null when no token', async () => {
-      const mockGetToken = require('@/lib/gettoken').default
       mockGetToken.mockResolvedValue(null)
 
       const result = await getUser()

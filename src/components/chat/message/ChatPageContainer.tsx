@@ -32,6 +32,7 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
             setIsLoading(true);
             regenerate();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Scroll to bottom whenever messages change
