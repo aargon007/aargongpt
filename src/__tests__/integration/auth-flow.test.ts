@@ -99,8 +99,9 @@ describe('Authentication Flow Integration', () => {
 
       // Step 3: Create first chat after login
       const firstMessage = 'Hello, this is my first message!'
+      const chat_id = 'chat-123'
       const newChat = {
-        id: 'chat-123',
+        id: chat_id,
         title: 'Hello, this is my first mess...',
         description: 'Hello, this is my first message!',
         user_id: 'user-123',
@@ -108,25 +109,10 @@ describe('Authentication Flow Integration', () => {
         updated_at: new Date(),
       }
 
-      const newMessage = {
-        id: 'message-123',
-        content: firstMessage,
-        role: 'user',
-        chat_id: 'chat-123',
-        createdAt: new Date(),
-      }
+
 
       // Mock transaction for chat creation
-      mockPrisma.$transaction.mockImplementation(async (callback: any) => {
-        return await callback({
-          chat: {
-            create: jest.fn().mockResolvedValue(newChat),
-          },
-          message: {
-            create: jest.fn().mockResolvedValue(newMessage),
-          },
-        } as any)
-      })
+      mockPrisma.$transaction.mockResolvedValue(newChat)
 
       // Mock getUser to return the logged-in user
       const mockGetUser = jest.fn().mockResolvedValue(newUser)
@@ -135,7 +121,7 @@ describe('Authentication Flow Integration', () => {
         getUser: mockGetUser,
       }))
 
-      const chatResult = await createChat({ firstMessage })
+      const chatResult = await createChat({ firstMessage, chat_id })
 
       expect(chatResult.success).toBe(true)
       expect(chatResult.data).toEqual(newChat)

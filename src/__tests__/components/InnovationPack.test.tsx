@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import InnovationPack from '@/components/chat/home/InnovationPack'
 
@@ -13,121 +13,66 @@ describe('InnovationPack', () => {
     jest.clearAllMocks()
   })
 
-  it('renders welcome message and categories', () => {
+  it('renders welcome message and title', () => {
     render(<InnovationPack />)
 
-    expect(screen.getByText('Welcome to')).toBeInTheDocument()
     expect(screen.getByText('AargonGPT')).toBeInTheDocument()
-    expect(screen.getByText(/Supercharge your creativity and productivity/)).toBeInTheDocument()
-
-    // Check categories
-    expect(screen.getByText('All')).toBeInTheDocument()
-    expect(screen.getByText('Creative')).toBeInTheDocument()
-    expect(screen.getByText('Development')).toBeInTheDocument()
-    expect(screen.getByText('Content')).toBeInTheDocument()
-    expect(screen.getByText('Strategy')).toBeInTheDocument()
+    expect(screen.getByText('How can I help you today?')).toBeInTheDocument()
   })
 
-  it('displays all prompt cards by default', () => {
+  it('displays all example prompts', () => {
     render(<InnovationPack />)
 
-    expect(screen.getByText('UI/UX Design Review')).toBeInTheDocument()
-    expect(screen.getByText('Code Architecture Review')).toBeInTheDocument()
-    expect(screen.getByText('Content Strategy')).toBeInTheDocument()
-    expect(screen.getByText('Business Innovation')).toBeInTheDocument()
-    expect(screen.getByText('API Documentation')).toBeInTheDocument()
-    expect(screen.getByText('Marketing Campaign')).toBeInTheDocument()
-    expect(screen.getByText('Brand Identity')).toBeInTheDocument()
-    expect(screen.getByText('Market Analysis')).toBeInTheDocument()
+    expect(screen.getByText('Explain quantum computing like I\'m 5')).toBeInTheDocument()
+    expect(screen.getByText('Write a Python function to sort a list')).toBeInTheDocument()
+    expect(screen.getByText('Help me write a professional email')).toBeInTheDocument()
+    expect(screen.getByText('What are the latest trends in AI?')).toBeInTheDocument()
   })
 
-  it('filters cards by category', async () => {
+  it('dispatches prompt selection event when prompt is clicked', async () => {
     const user = userEvent.setup()
     render(<InnovationPack />)
 
-    // Click on Creative category
-    await user.click(screen.getByText('Creative'))
-
-    // Should show only creative cards
-    expect(screen.getByText('UI/UX Design Review')).toBeInTheDocument()
-    expect(screen.getByText('Brand Identity')).toBeInTheDocument()
-
-    // Should not show development cards
-    expect(screen.queryByText('Code Architecture Review')).not.toBeInTheDocument()
-    expect(screen.queryByText('API Documentation')).not.toBeInTheDocument()
-  })
-
-  it('dispatches prompt selection event when card is clicked', async () => {
-    const user = userEvent.setup()
-    render(<InnovationPack />)
-
-    const designCard = screen.getByText('UI/UX Design Review')
-    await user.click(designCard)
+    const quantumPrompt = screen.getByText('Explain quantum computing like I\'m 5')
+    await user.click(quantumPrompt)
 
     expect(mockDispatchEvent).toHaveBeenCalledWith(
       expect.objectContaining({
         type: 'promptSelected',
         detail: {
-          prompt: expect.stringContaining('Please review this UI/UX design')
+          prompt: 'Explain quantum computing like I\'m 5'
         }
       })
     )
   })
 
-  it('shows active category styling', async () => {
-    const user = userEvent.setup()
+  it('displays correct number of prompt cards', () => {
     render(<InnovationPack />)
 
-    const creativeButton = screen.getByText('Creative')
-    await user.click(creativeButton)
-
-    // Check if the button has active styling (contains gradient classes)
-    expect(creativeButton.closest('button')).toHaveClass('bg-gradient-to-r')
+    const promptButtons = screen.getAllByRole('button')
+    expect(promptButtons).toHaveLength(4)
   })
 
-  it('displays quick start section', () => {
+  it('has proper styling for prompt cards', () => {
     render(<InnovationPack />)
 
-    expect(screen.getByText('Ready to get started?')).toBeInTheDocument()
-    expect(screen.getByText(/Type your message below or click on any prompt above/)).toBeInTheDocument()
-    expect(screen.getByText('Powered by advanced AI technology')).toBeInTheDocument()
-  })
-
-  it('shows correct number of cards for each category', async () => {
-    const user = userEvent.setup()
-    render(<InnovationPack />)
-
-    // Development category should have 2 cards
-    await user.click(screen.getByText('Development'))
-    const developmentCards = screen.getAllByText(/Code Architecture Review|API Documentation/)
-    expect(developmentCards).toHaveLength(2)
-
-    // Strategy category should have 3 cards
-    await user.click(screen.getByText('Strategy'))
-    const strategyCards = screen.getAllByText(/Business Innovation|Marketing Campaign|Market Analysis/)
-    expect(strategyCards).toHaveLength(3)
-  })
-
-  it('handles category switching correctly', async () => {
-    const user = userEvent.setup()
-    render(<InnovationPack />)
-
-    // Start with All (8 cards)
-    let cards = screen.getAllByText(/Review|Strategy|Innovation|Documentation|Campaign|Identity|Analysis/)
-    expect(cards.length).toBeGreaterThanOrEqual(8)
-
-    // Switch to Creative (2 cards)
-    await user.click(screen.getByText('Creative'))
-    await waitFor(() => {
-      expect(screen.getByText('UI/UX Design Review')).toBeInTheDocument()
-      expect(screen.getByText('Brand Identity')).toBeInTheDocument()
+    const promptButtons = screen.getAllByRole('button')
+    promptButtons.forEach(button => {
+      expect(button).toHaveClass('flex', 'items-center', 'gap-3', 'p-4')
+      expect(button).toHaveClass('bg-noble-800', 'hover:bg-noble-700')
+      expect(button).toHaveClass('border', 'border-noble-600', 'hover:border-noble-500')
+      expect(button).toHaveClass('rounded-xl', 'text-left', 'transition-all', 'duration-200')
     })
+  })
 
-    // Switch back to All
-    await user.click(screen.getByText('All'))
-    await waitFor(() => {
-      cards = screen.getAllByText(/Review|Strategy|Innovation|Documentation|Campaign|Identity|Analysis/)
-      expect(cards.length).toBeGreaterThanOrEqual(8)
+  it('renders icons for each prompt', () => {
+    render(<InnovationPack />)
+
+    // Check that each prompt button contains an icon (svg element)
+    const promptButtons = screen.getAllByRole('button')
+    promptButtons.forEach(button => {
+      const icon = button.querySelector('svg')
+      expect(icon).toBeInTheDocument()
     })
   })
 })

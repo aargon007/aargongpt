@@ -43,6 +43,12 @@ jest.mock('@/lib/prisma', () => ({
             update: jest.fn(),
             delete: jest.fn(),
         },
+        messagePart: {
+            create: jest.fn(),
+            findMany: jest.fn(),
+            update: jest.fn(),
+            delete: jest.fn(),
+        },
         $transaction: jest.fn(),
     },
 }));
@@ -150,6 +156,11 @@ jest.mock('next/cache', () => ({
     unstable_cache: jest.fn((fn) => fn),
 }));
 
+// Mock uuid
+jest.mock('uuid', () => ({
+    v4: jest.fn(() => 'test-uuid-v4'),
+}));
+
 // Mock Prisma - will be mocked in individual test files as needed
 
 // Mock environment variables
@@ -188,8 +199,28 @@ global.mockChat = {
 
 global.mockMessage = {
     id: 'test-message-id',
-    content: 'Test message content',
     role: 'user',
     chat_id: 'test-chat-id',
     createdAt: new Date(),
+    parts: [
+        {
+            id: 'test-part-id',
+            type: 'text',
+            text: 'Test message content',
+            message_id: 'test-message-id',
+            createdAt: new Date(),
+        },
+    ],
 };
+
+global.mockMessagePart = {
+    id: 'test-part-id',
+    type: 'text',
+    text: 'Test message content',
+    message_id: 'test-message-id',
+    createdAt: new Date(),
+};
+
+// Helper function to generate UUID-like IDs for testing
+global.generateTestId = () =>
+    `test-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;

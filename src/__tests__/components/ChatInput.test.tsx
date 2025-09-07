@@ -5,6 +5,12 @@ import '@testing-library/jest-dom'
 // Mock dependencies first
 jest.mock('@/services/chat.service')
 jest.mock('@/lib/gettoken')
+jest.mock('@/hooks/useChatStore', () => ({
+  useChatStore: jest.fn(() => ({
+    tempChatId: 'temp-chat-id-123',
+    generateChatId: jest.fn(),
+  })),
+}))
 jest.mock('next/headers', () => ({
   cookies: jest.fn(() => ({
     get: jest.fn(() => ({ value: 'mock-token' })),
@@ -35,14 +41,7 @@ jest.mock('@/components/ui/AutoResizeTextarea', () => {
   }
 })
 
-const mockPush = jest.fn()
 
-// Mock useRouter
-jest.mock('next/navigation', () => ({
-  useRouter: () => ({
-    push: mockPush,
-  }),
-}))
 
 describe('ChatInput', () => {
   const defaultProps = {
@@ -89,10 +88,16 @@ describe('ChatInput', () => {
     expect(submitButton).toBeInTheDocument()
   })
 
-  it('creates new chat when no chat_id provided', async () => {
+  it('calls append when chat_id matches tempChatId', async () => {
     const user = userEvent.setup()
 
-    render(<ChatInput {...defaultProps} />)
+    // Set chat_id to match tempChatId to simulate new chat scenario
+    const propsWithTempId = {
+      ...defaultProps,
+      chat_id: 'temp-chat-id-123'
+    }
+
+    render(<ChatInput {...propsWithTempId} />)
 
     const input = screen.getByPlaceholderText('Enter a message')
     const submitButtons = screen.getAllByRole('button')
@@ -101,10 +106,8 @@ describe('ChatInput', () => {
     await user.type(input, 'Hello, this is a new chat')
     await user.click(submitButton)
 
-    expect(mockCreateChat).toHaveBeenCalledWith({
-      firstMessage: 'Hello, this is a new chat'
-    })
-    expect(mockPush).toHaveBeenCalledWith('/chat/new-chat-id')
+    expect(defaultProps.append).toHaveBeenCalledWith('Hello, this is a new chat')
+    expect(mockCreateChat).not.toHaveBeenCalled()
   })
 
   it('saves message to existing chat', async () => {
@@ -125,25 +128,26 @@ describe('ChatInput', () => {
       content: 'This is a message to existing chat',
       role: 'user'
     })
-    expect(defaultProps.append).toHaveBeenCalledWith({
-      content: 'This is a message to existing chat',
-      role: 'user'
-    })
+    expect(defaultProps.append).toHaveBeenCalledWith('This is a message to existing chat')
   })
 
   it('handles Enter key submission', async () => {
     const user = userEvent.setup()
 
-    render(<ChatInput {...defaultProps} />)
+    // Use tempChatId to simulate new chat scenario
+    const propsWithTempId = {
+      ...defaultProps,
+      chat_id: 'temp-chat-id-123'
+    }
+
+    render(<ChatInput {...propsWithTempId} />)
 
     const input = screen.getByPlaceholderText('Enter a message')
 
     await user.type(input, 'Hello world')
     await user.keyboard('{Enter}')
 
-    expect(mockCreateChat).toHaveBeenCalledWith({
-      firstMessage: 'Hello world'
-    })
+    expect(defaultProps.append).toHaveBeenCalledWith('Hello world')
   })
 
   it('prevents submission with Shift+Enter', async () => {
