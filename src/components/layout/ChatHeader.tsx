@@ -1,8 +1,8 @@
 'use client';
 
-import { useSidebarStore } from '@/hooks/sidebarStore';
 import Link from 'next/link';
 import { LuPenLine } from 'react-icons/lu';
+import { useSidebarStore } from '@/hooks/sidebarStore';
 
 export default function ChatHeader() {
     const toggleSidebar = useSidebarStore((state) => state.toggle);

@@ -39,7 +39,7 @@ export default function InnovationPack() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-[60vh] p-6 max-w-4xl mx-auto">
+        <div className="flex flex-col items-center justify-center min-h-[60vh] h-full p-6 max-w-4xl mx-auto">
             {/* Header */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}

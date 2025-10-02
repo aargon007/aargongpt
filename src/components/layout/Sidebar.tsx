@@ -2,17 +2,17 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { Project, User } from '@prisma/client';
 import { BiEdit, BiPlusCircle } from 'react-icons/bi';
 import { IoChatboxOutline } from "react-icons/io5";
 import { LuCreditCard, LuSettings } from 'react-icons/lu';
 import { useSidebarStore } from '@/hooks/sidebarStore';
 import { useModalStore } from '@/hooks/modalStore';
-import { Project, User } from '@prisma/client';
-import Button from '@/components/ui/Button';
+import { useChatStore } from '@/hooks/useChatStore';
 import SettingsModal from '../chat/SettingsModal';
 import AddProjectModal from '../projects/AddProjectModal';
+import Button from '@/components/ui/Button';
 import { cn } from '@/utils/cn';
-import { useChatStore } from '@/hooks/useChatStore';
 
 export default function Sidebar({ user, projects }: { user: User; projects: Project[] }) {
     const { isOpen, close, toggle } = useSidebarStore();
