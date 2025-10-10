@@ -11,8 +11,12 @@ async function ChatContent({ chat_id }: { chat_id: string }) {
         return (
             <div className="flex-1 flex items-center justify-center">
                 <div className="text-center">
-                    <h2 className="text-xl font-semibold text-white mb-2">Chat not found</h2>
-                    <p className="text-noble-300">The chat you're looking for doesn't exist or has been deleted.</p>
+                    <h2 className="text-xl font-semibold text-white mb-2">
+                        Chat not found
+                    </h2>
+                    <p className="text-noble-300">
+                        The chat you're looking for doesn't exist or has been deleted.
+                    </p>
                 </div>
             </div>
         );
@@ -32,11 +36,13 @@ const ChatPage = async ({ params, }: { params: Promise<{ chat_id: string }> }) =
     return (
         <>
             <ChatHeader />
-            <Suspense fallback={
-                <div className="flex-1 flex items-center justify-center">
-                    <LoadingSpinner size="lg" text="Loading chat..." />
-                </div>
-            }>
+            <Suspense
+                fallback={
+                    <div className="flex-1 flex items-center justify-center">
+                        <LoadingSpinner size="lg" text="Loading chat..." />
+                    </div>
+                }
+            >
                 <ChatContent chat_id={chat_id} />
             </Suspense>
         </>
