@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { useParams } from "next/navigation";
 import ChatPageContainer from "@/components/chat/message/ChatPageContainer";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { TMessage } from "@/types/chat";
 // Remove server-side import
 
-const ChatPageClient = () => {
+const ChatPageClient = memo(() => {
     const params = useParams();
     const chat_id = params.chat_id as string;
 
@@ -86,6 +86,8 @@ const ChatPageClient = () => {
             initialMessages={messages}
         />
     );
-};
+});
+
+ChatPageClient.displayName = 'ChatPageClient';
 
 export default ChatPageClient;

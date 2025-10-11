@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { LuCode, LuFileText, LuLightbulb, LuMessageSquare } from 'react-icons/lu';
+import { memo, useCallback } from 'react';
 
 interface ExamplePrompt {
     id: string;
@@ -9,7 +10,7 @@ interface ExamplePrompt {
     icon: React.ReactNode;
 }
 
-export default function InnovationPack() {
+const InnovationPack = memo(() => {
     const examplePrompts: ExamplePrompt[] = [
         {
             id: '1',
@@ -33,10 +34,10 @@ export default function InnovationPack() {
         },
     ];
 
-    const handlePromptClick = (prompt: string) => {
+    const handlePromptClick = useCallback((prompt: string) => {
         const event = new CustomEvent('promptSelected', { detail: { prompt } });
         window.dispatchEvent(event);
-    };
+    }, []);
 
     return (
         <div className="flex flex-col items-center justify-center min-h-[60vh] h-full p-6 max-w-4xl mx-auto">
@@ -86,4 +87,8 @@ export default function InnovationPack() {
             </motion.div>
         </div>
     );
-}
+});
+
+InnovationPack.displayName = 'InnovationPack';
+
+export default InnovationPack;

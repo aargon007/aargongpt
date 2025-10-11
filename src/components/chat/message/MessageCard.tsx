@@ -1,13 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { memo } from 'react';
 import { LuCopy } from 'react-icons/lu';
 import { formatDistanceToNow } from 'date-fns';
 import { MemoizedMarkdown } from './MarkdownPreview';
 import { TMessage } from '@/types/chat';
 import { renderMessagePart } from '@/utils/chat/renderMessagePart';
 
-const MessageCard = ({ message }: { message: TMessage; streaming?: boolean }) => {
+const MessageCard = memo(({ message }: { message: TMessage; streaming?: boolean }) => {
     const { role, createdAt, parts } = message;
     const timeAgo = createdAt ? formatDistanceToNow(new Date(createdAt), { addSuffix: true }) : '';
 
@@ -65,6 +65,8 @@ const MessageCard = ({ message }: { message: TMessage; streaming?: boolean }) =>
             </div>
         </div>
     );
-};
+});
+
+MessageCard.displayName = 'MessageCard';
 
 export default MessageCard;

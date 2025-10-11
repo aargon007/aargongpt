@@ -1,4 +1,6 @@
-export default function Spinner() {
+import { memo } from 'react';
+
+const Spinner = memo(() => {
     return (
         <svg
             className="h-6 w-6 animate-spin"
@@ -21,4 +23,8 @@ export default function Spinner() {
             ></path>
         </svg>
     );
-}
+});
+
+Spinner.displayName = 'Spinner';
+
+export default Spinner;

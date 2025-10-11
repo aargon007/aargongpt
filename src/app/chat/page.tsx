@@ -20,6 +20,8 @@ const ChatHome = () => {
         experimental_throttle: 50,
         id: tempChatId,
         onFinish() {
+            console.log('onFinish triggered, messages:', messages);
+            console.log('onFinish messages length:', messages.length);
             setIsLoading(false);
             setShouldNavigate(true);
         }
@@ -29,12 +31,18 @@ const ChatHome = () => {
     useEffect(() => {
         if (shouldNavigate && messages.length > 0) {
             console.log('Storing messages:', messages);
-            // Store messages in session storage before navigation
-            if (typeof window !== 'undefined') {
-                sessionStorage.setItem(`chat_${tempChatId}`, JSON.stringify(messages));
-            }
-            router.push(`/chat/${tempChatId}`);
-            setShouldNavigate(false);
+            console.log('Messages length:', messages.length);
+            console.log('First message:', messages[0]);
+            console.log('Last message:', messages[messages.length - 1]);
+            // Add a small delay to ensure messages are fully processed
+            setTimeout(() => {
+                // Store messages in session storage before navigation
+                if (typeof window !== 'undefined') {
+                    sessionStorage.setItem(`chat_${tempChatId}`, JSON.stringify(messages));
+                }
+                router.push(`/chat/${tempChatId}`);
+                setShouldNavigate(false);
+            }, 100);
         }
     }, [shouldNavigate, messages, tempChatId, router]);
 

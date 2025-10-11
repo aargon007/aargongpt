@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/utils/cn';
-import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { forwardRef, memo, type ButtonHTMLAttributes, type ReactNode } from 'react';
 
 export interface GlassButtonProps
     extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -14,7 +14,7 @@ export interface GlassButtonProps
     glassIntensity?: 'light' | 'medium' | 'heavy';
 }
 
-const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
+const GlassButton = memo(forwardRef<HTMLButtonElement, GlassButtonProps>(
     (
         {
             children,
@@ -100,7 +100,7 @@ const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
             </button>
         );
     },
-);
+));
 
 GlassButton.displayName = 'GlassButton';
 

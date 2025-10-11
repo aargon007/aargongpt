@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, memo } from 'react';
 import { LuMic, LuSend } from 'react-icons/lu';
 import { AutoResizeTextarea } from '@/components/ui/AutoResizeTextarea';
 import { saveMessage } from '@/services/chat.service';
@@ -15,7 +15,7 @@ type TProps = {
     setIsLoading: (isLoading: boolean) => void;
 }
 
-const ChatInput = ({ chat_id, append, isLoading, setIsLoading }: TProps) => {
+const ChatInput = memo(({ chat_id, append, isLoading, setIsLoading }: TProps) => {
     const [input, setInput] = useState<string>("");
     const { tempChatId } = useChatStore();
 
@@ -96,6 +96,8 @@ const ChatInput = ({ chat_id, append, isLoading, setIsLoading }: TProps) => {
             </form>
         </div>
     );
-}
+});
+
+ChatInput.displayName = 'ChatInput';
 
 export default ChatInput

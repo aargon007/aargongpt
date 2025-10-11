@@ -2,7 +2,7 @@
 
 import { cn } from '@/utils/cn';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 
 type ButtonProps = {
     height?: string;
@@ -13,7 +13,7 @@ type ButtonProps = {
     isActive?: boolean;
 };
 
-const Button = ({
+const Button = memo(({
     height = '48px',
     onClick,
     children,
@@ -23,14 +23,14 @@ const Button = ({
 }: ButtonProps) => {
     const navigate = useRouter();
 
-    const handleClick = () => {
+    const handleClick = useCallback(() => {
         if (onClick) {
             onClick();
         }
         if (href) {
             navigate.push(href);
         }
-    };
+    }, [onClick, href, navigate]);
 
     return (
         <button
@@ -38,7 +38,7 @@ const Button = ({
                 "flex w-full items-center justify-center gap-4 rounded-[8px] bg-cover bg-center bg-no-repeat px-4 text-sm font-semibold text-noble-100 hover:bg-[url('/gradient.png')]",
                 className,
                 isActive &&
-                    "bg-[url('/gradient.png')] bg-cover bg-center bg-no-repeat",
+                "bg-[url('/gradient.png')] bg-cover bg-center bg-no-repeat",
             )}
             style={{
                 height,
@@ -51,6 +51,8 @@ const Button = ({
             {children}
         </button>
     );
-};
+});
+
+Button.displayName = 'Button';
 
 export default Button;

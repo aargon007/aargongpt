@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, memo, useCallback } from 'react';
 import { useChat } from '@ai-sdk/react';
 import ChatInput from '../../layout/ChatInput';
 import MessageCard from './MessageCard';
 import { TMessage } from '@/types/chat';
 
-const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; initialMessages: TMessage[]; }) => {
+const ChatPageContainer = memo(({ chat_id, initialMessages }: { chat_id: string; initialMessages: TMessage[]; }) => {
     const [isLoading, setIsLoading] = useState(false);
     const { messages, sendMessage, regenerate } = useChat({
         id: chat_id,
@@ -32,7 +32,7 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
             setIsLoading(true);
             regenerate();
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Scroll to bottom whenever messages change
@@ -45,12 +45,12 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
         }
     }, []);
 
-    const handleAppend = (message: string) => {
+    const handleAppend = useCallback((message: string) => {
         sendMessage({
             role: 'user',
             parts: [{ type: 'text', text: message }]
         });
-    };
+    }, [sendMessage]);
 
     return (
         <>
@@ -75,6 +75,8 @@ const ChatPageContainer = ({ chat_id, initialMessages }: { chat_id: string; init
             />
         </>
     );
-};
+});
+
+ChatPageContainer.displayName = 'ChatPageContainer';
 
 export default ChatPageContainer;

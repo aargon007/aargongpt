@@ -1,6 +1,6 @@
 'use client';
 
-import { type InputHTMLAttributes, forwardRef } from 'react';
+import { type InputHTMLAttributes, forwardRef, memo } from 'react';
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
@@ -8,7 +8,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
     icon?: React.ReactNode;
 }
 
-const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
+const InputField = memo(forwardRef<HTMLInputElement, InputFieldProps>(
     ({ label, error, icon, className, ...props }, ref) => {
         return (
             <div className="space-y-3">
@@ -34,7 +34,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             </div>
         );
     },
-);
+));
 
 InputField.displayName = 'InputField';
 

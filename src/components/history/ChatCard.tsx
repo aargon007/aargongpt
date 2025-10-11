@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, memo } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Chat } from "@prisma/client";
@@ -8,7 +8,7 @@ import { LuPen, LuShare2, LuTrash2 } from "react-icons/lu";
 import { deleteChat } from "@/services/chat.service";
 import { BsThreeDots } from "react-icons/bs";
 
-const ChatCard = ({ chat }: { chat: Chat }) => {
+const ChatCard = memo(({ chat }: { chat: Chat }) => {
     const [isOpen, setIsOpen] = useState(false);
     const popoverRef = useRef<HTMLDivElement | null>(null);
     const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -91,6 +91,8 @@ const ChatCard = ({ chat }: { chat: Chat }) => {
             )}
         </div>
     );
-};
+});
+
+ChatCard.displayName = 'ChatCard';
 
 export default ChatCard;

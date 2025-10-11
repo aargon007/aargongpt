@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import type React from 'react';
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useRef, memo, useCallback, type ReactNode } from 'react';
 import { LuX } from 'react-icons/lu';
 
 interface ModalProps {
@@ -12,25 +12,25 @@ interface ModalProps {
     children: ReactNode;
     description?: string;
     maxWidth?:
-        | 'sm'
-        | 'md'
-        | 'lg'
-        | 'xl'
-        | '2xl'
-        | '3xl'
-        | '4xl'
-        | '5xl'
-        | 'full';
+    | 'sm'
+    | 'md'
+    | 'lg'
+    | 'xl'
+    | '2xl'
+    | '3xl'
+    | '4xl'
+    | '5xl'
+    | 'full';
 }
 
-export default function Modal({
+const Modal = memo(({
     isOpen,
     onClose,
     title,
     children,
     description,
     maxWidth = 'md',
-}: ModalProps) {
+}: ModalProps) => {
     const overlayRef = useRef<HTMLDivElement>(null);
     const modalRef = useRef<HTMLDivElement>(null);
 
@@ -59,11 +59,11 @@ export default function Modal({
     }, [isOpen]);
 
     // Handle click outside to close
-    const handleOverlayClick = (e: React.MouseEvent) => {
+    const handleOverlayClick = useCallback((e: React.MouseEvent) => {
         if (overlayRef.current === e.target) {
             onClose();
         }
-    };
+    }, [onClose]);
 
     const maxWidthClasses = {
         sm: 'max-w-sm',
@@ -133,4 +133,8 @@ export default function Modal({
             )}
         </AnimatePresence>
     );
-}
+});
+
+Modal.displayName = 'Modal';
+
+export default Modal;
