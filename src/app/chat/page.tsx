@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useChat } from '@ai-sdk/react';
 import { useRouter } from 'next/navigation';
 import ChatInput from '@/components/layout/ChatInput';
@@ -12,6 +12,7 @@ import ChatHeader from '@/components/layout/ChatHeader';
 
 const ChatHome = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const [shouldNavigate, setShouldNavigate] = useState(false);
     const { tempChatId } = useChatStore();
     const router = useRouter();
 
@@ -20,10 +21,22 @@ const ChatHome = () => {
         id: tempChatId,
         onFinish() {
             setIsLoading(false);
-            router.push(`/chat/${tempChatId}`);
-            // generate a new chat id for the next message
+            setShouldNavigate(true);
         }
     });
+
+    // Store messages and navigate when we have complete messages and should navigate
+    useEffect(() => {
+        if (shouldNavigate && messages.length > 0) {
+            console.log('Storing messages:', messages);
+            // Store messages in session storage before navigation
+            if (typeof window !== 'undefined') {
+                sessionStorage.setItem(`chat_${tempChatId}`, JSON.stringify(messages));
+            }
+            router.push(`/chat/${tempChatId}`);
+            setShouldNavigate(false);
+        }
+    }, [shouldNavigate, messages, tempChatId, router]);
 
     const handleAppend = async (message: string) => {
         sendMessage({
