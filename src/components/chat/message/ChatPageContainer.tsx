@@ -6,9 +6,16 @@ import ChatInput from '../../layout/ChatInput';
 import MessageCard from './MessageCard';
 import { TMessage } from '@/types/chat';
 
-const ChatPageContainer = memo(({ chat_id, initialMessages }: { chat_id: string; initialMessages: TMessage[]; }) => {
+// ChatPageContainer.tsx
+const ChatPageContainer = memo(({ chat_id, initialMessages }: {
+    chat_id: string;
+    initialMessages: TMessage[];
+}) => {
     const [isLoading, setIsLoading] = useState(false);
-    const { messages, sendMessage, regenerate } = useChat({
+    const chatContainerRef = useRef<HTMLDivElement>(null);
+    const hasInitialized = useRef(false);
+
+    const { messages,sendMessage , setMessages } = useChat({
         id: chat_id,
         experimental_throttle: 50,
         messages: initialMessages,
@@ -17,23 +24,13 @@ const ChatPageContainer = memo(({ chat_id, initialMessages }: { chat_id: string;
         }
     });
 
-    // 👈 Prevent double-sending!
-    const hasContinuedRef = useRef(false);
-    const chatContainerRef = useRef<HTMLDivElement>(null);
-
+    // Set initial messages once
     useEffect(() => {
-        if (messages.length === 0 || hasContinuedRef.current) return;
-
-        const lastMessage = messages[messages.length - 1];
-
-        if (lastMessage.role === 'user') {
-            // Prevent multiple triggers
-            hasContinuedRef.current = true;
-            setIsLoading(true);
-            regenerate();
+        if (!hasInitialized.current && initialMessages.length > 0) {
+            setMessages(initialMessages);
+            hasInitialized.current = true;
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [initialMessages, setMessages]);
 
     // Scroll to bottom whenever messages change
     useEffect(() => {
@@ -43,7 +40,7 @@ const ChatPageContainer = memo(({ chat_id, initialMessages }: { chat_id: string;
                 behavior: 'smooth',
             });
         }
-    }, []);
+    }, [messages.length]);
 
     const handleAppend = useCallback((message: string) => {
         sendMessage({

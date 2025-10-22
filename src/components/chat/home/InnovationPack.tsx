@@ -1,8 +1,8 @@
 'use client';
 
+import { memo, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { LuCode, LuFileText, LuLightbulb, LuMessageSquare } from 'react-icons/lu';
-import { memo, useCallback } from 'react';
 
 interface ExamplePrompt {
     id: string;
@@ -45,11 +45,11 @@ const InnovationPack = memo(() => {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.3 }}
                 className="text-center mb-12"
             >
                 <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                    <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
                         AargonGPT
                     </span>
                 </h1>
@@ -62,7 +62,7 @@ const InnovationPack = memo(() => {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{ duration: 0.3 }}
                 className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl"
             >
                 {examplePrompts.map((prompt, index) => (
@@ -70,7 +70,7 @@ const InnovationPack = memo(() => {
                         key={prompt.id}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.1 * index }}
+                        transition={{ duration: 0.3 }}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => handlePromptClick(prompt.text)}

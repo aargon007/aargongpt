@@ -1,6 +1,8 @@
 // Helper function to render different types of message parts
 export const renderMessagePart = (part: any, index: number) => {
     switch (part.type) {
+        case ('step-start'):
+            return null;
         case 'text':
             return (
                 <div key={index} className="text-part">

@@ -83,10 +83,10 @@ export default function ContactPage() {
                                                     Email
                                                 </h3>
                                                 <Link
-                                                    href="muhaiminul101@protonmail.com"
+                                                    href="mailto:me@muhaiminul.com"
                                                     className="text-noble-300 hover:text-stem-green-500"
                                                 >
-                                                    muhaiminul101@protonmail.com
+                                                    me@muhaiminul.com
                                                 </Link>
                                             </div>
                                         </div>
@@ -103,7 +103,7 @@ export default function ContactPage() {
                                                     Phone
                                                 </h3>
                                                 <Link
-                                                    href="tel:+1234567890"
+                                                    href="tel:+88017711-74424"
                                                     className="text-noble-300 hover:text-stem-green-500"
                                                 >
                                                     +880 17711-74424

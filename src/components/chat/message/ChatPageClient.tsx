@@ -1,61 +1,63 @@
 "use client";
 
-import { useEffect, useState, memo } from "react";
 import { useParams } from "next/navigation";
+import { useEffect, useState, memo } from "react";
 import ChatPageContainer from "@/components/chat/message/ChatPageContainer";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { TMessage } from "@/types/chat";
-// Remove server-side import
 
 const ChatPageClient = memo(() => {
     const params = useParams();
     const chat_id = params.chat_id as string;
 
-    const [messages, setMessages] = useState<TMessage[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    // Check cache synchronously during initial render
+    const getCachedMessages = () => {
+        if (typeof window === 'undefined') return null;
+        const cached = sessionStorage.getItem(`chat_${chat_id}`);
+        if (cached) {
+            try {
+                return JSON.parse(cached);
+            } catch {
+                return null;
+            }
+        }
+        return null;
+    };
+
+    const cachedMessages = getCachedMessages();
+    const [isLoading, setIsLoading] = useState(!cachedMessages); // No loading if cached
+    const [messages, setMessages] = useState<TMessage[]>(cachedMessages || []);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const loadChat = async () => {
-            try {
-                // Check if we have cached messages in session storage first
-                const cached = sessionStorage.getItem(`chat_${chat_id}`);
-                console.log('Retrieved cached data:', cached);
-                if (cached) {
-                    try {
-                        const cachedMessages = JSON.parse(cached);
-                        console.log('Parsed cached messages:', cachedMessages);
-                        setMessages(cachedMessages);
-                        setIsLoading(false);
-                        // Clear the cache after using it to prevent stale data
-                        sessionStorage.removeItem(`chat_${chat_id}`);
-                        return;
-                    } catch (error) {
-                        console.error('Error parsing cached messages:', error);
-                    }
-                }
+            // If we have cached messages, clear cache and skip API call
+            if (cachedMessages) {
+                sessionStorage.removeItem(`chat_${chat_id}`);
+                return;
+            }
 
-                // If no cached data, fetch from server
+            // Otherwise fetch from server
+            try {
                 const response = await fetch(`/api/chat/${chat_id}`);
                 const chat = await response.json();
 
                 if (!chat.success) {
                     setError('Chat not found');
-                    setIsLoading(false);
                     return;
                 }
 
                 setMessages(chat.data);
-                setIsLoading(false);
             } catch (error) {
                 console.error('Error loading chat:', error);
                 setError('Failed to load chat');
+            } finally {
                 setIsLoading(false);
             }
         };
 
         loadChat();
-    }, [chat_id]);
+    }, [chat_id, cachedMessages]);
 
     if (isLoading) {
         return (

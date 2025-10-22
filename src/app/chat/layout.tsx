@@ -9,7 +9,7 @@ import { getUser } from '@/services/user.service';
 import { getProjects } from '@/services/project.service';
 
 export const metadata: Metadata = {
-    title: 'AargonGPT - Chat',
+    title: 'Chat | AargonGPT',
     description: 'AI-powered collaboration platform',
 };
 
