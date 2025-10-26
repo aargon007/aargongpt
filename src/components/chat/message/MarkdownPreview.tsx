@@ -7,8 +7,8 @@ import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 
 // Import syntax highlighter directly for better reliability
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { atomOneDarkReasonable } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 function parseMarkdownIntoBlocks(markdown: string): string[] {
     try {
@@ -60,18 +60,20 @@ const MemoizedMarkdownBlock = memo(
 
                                         <SyntaxHighlighter
                                             language={language}
-                                            style={oneDark}
+                                            style={atomOneDarkReasonable}
                                             PreTag="div"
                                             customStyle={{
-                                                padding: '2rem',
+                                                paddingLeft: '2rem',
+                                                paddingRight: '2rem',
+                                                paddingTop:'1rem',
                                                 borderRadius: 'none',
                                                 borderBottomRightRadius: '0.5rem',
                                                 borderBottomLeftRadius: '0.5rem',
                                                 overflowX: 'auto',
-                                                backgroundColor: '#1F2937',
+                                                backgroundColor: '#191919',
                                                 marginTop: '0',
                                             }}
-                                            showLineNumbers={code.split('\n').length > 10}
+                                            // showLineNumbers={code.split('\n').length > 10}
                                             wrapLines={true}
                                             wrapLongLines={true}
                                         >
