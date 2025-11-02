@@ -1,6 +1,6 @@
 # AargonGPT
 
-A modern, high-performance AI chat application built with Next.js 15, featuring real-time messaging, session storage optimization, and comprehensive performance optimizations.
+A modern, high-performance AI chat application built with Next.js 16, featuring real-time messaging, session storage optimization, and comprehensive performance optimizations.
 
 ## 🚀 Features
 
@@ -24,8 +24,8 @@ A modern, high-performance AI chat application built with Next.js 15, featuring 
 
 ### Frontend
 
-- **Next.js 15** - App Router with Server Components
-- **React 18** - With concurrent features and Suspense
+- **Next.js 16** - App Router with Server Components
+- **React 19.2** - With concurrent features and Suspense
 - **TypeScript** - Full type safety
 - **Tailwind CSS** - Utility-first styling
 - **Framer Motion** - Smooth animations
@@ -77,7 +77,7 @@ A modern, high-performance AI chat application built with Next.js 15, featuring 
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20+
 - PostgreSQL database
 - npm or yarn
 
