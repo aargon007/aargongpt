@@ -93,6 +93,8 @@ export default function SignupPage() {
                     alt="login"
                     width={1200}
                     height={700}
+                    decoding='async'
+                    loading='lazy'
                     className="h-full w-full object-cover"
                 />
             </div>

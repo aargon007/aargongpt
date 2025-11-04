@@ -69,7 +69,7 @@ export default function LoginPage() {
                         <div className="mt-6 grid gap-3 md:grid-cols-2">
                             <button
                                 type="button"
-                                className="inline-flex w-full items-center justify-center rounded-[12px] bg-noble-600 px-4 py-3 text-sm font-medium text-noble-400 shadow-xs"
+                                className="inline-flex w-full items-center justify-center rounded-xl bg-noble-600 px-4 py-3 text-sm font-medium text-noble-400 shadow-xs"
                             >
                                 <FcGoogle className="h-5 w-5" />
                                 <span className="ml-2">Google Account</span>
@@ -77,7 +77,7 @@ export default function LoginPage() {
 
                             <button
                                 type="button"
-                                className="inline-flex w-full items-center justify-center rounded-[12px] bg-noble-600 px-4 py-3 text-sm font-medium text-noble-400 shadow-xs"
+                                className="inline-flex w-full items-center justify-center rounded-xl bg-noble-600 px-4 py-3 text-sm font-medium text-noble-400 shadow-xs"
                             >
                                 <FaApple className="h-5 w-5 text-white" />
                                 <span className="ml-2">Apple Account</span>
@@ -103,6 +103,8 @@ export default function LoginPage() {
                     alt="login"
                     width={1200}
                     height={700}
+                    decoding='async'
+                    loading='lazy'
                     className="h-full w-full object-cover"
                 />
             </div>

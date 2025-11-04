@@ -78,10 +78,10 @@ export default function PricingPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-noble-700 via-noble-800 to-noble-700">
+        <div className="min-h-screen bg-linear-to-br from-noble-700 via-noble-800 to-noble-700">
             {/* Pricing Hero Section */}
             <section className="relative py-20 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-day-blue-900/20 to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-b from-day-blue-900/20 to-transparent"></div>
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="max-w-4xl mx-auto text-center">
                         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
@@ -91,10 +91,10 @@ export default function PricingPage() {
                             Choose the plan that best fits your project, from individual developers to large enterprises.
                         </p>
                         <div className="flex flex-col sm:flex-row justify-center gap-4">
-                            <Link href="/pricing" className="primaryButton items-center gap-x-2">
+                            <Link href="/pricing#features" className="primaryButton items-center gap-x-2">
                                 View Features
                             </Link>
-                            <Link href="/contact" className="flex w-full justify-center rounded-[12px] border border-noble-500 bg-noble-700 px-4 py-2.5 font-semibold text-white shadow-xs hover:bg-noble-600 focus:outline-hidden">
+                            <Link href="/contact" className="flex w-full justify-center rounded-xl border border-noble-500 bg-noble-700 px-4 py-2.5 font-semibold text-white shadow-xs hover:bg-noble-600 focus:outline-hidden">
                                 Contact Sales
                             </Link>
                         </div>
@@ -103,10 +103,10 @@ export default function PricingPage() {
             </section>
 
             {/* Pricing Tiers Section */}
-            <section className="py-20 relative">
-                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-full max-w-6xl h-64 bg-gradient-to-t from-heisenberg-blue-700/20 to-transparent blur-3xl rounded-full"></div>
+            <section className="py-20 relative" id="features">
+                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-full max-w-6xl h-64 bg-linear-to-t from-heisenberg-blue-700/20 to-transparent blur-3xl rounded-full"></div>
 
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8" >
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
                         {pricingTiers.map((tier) => (
                             <div
@@ -127,13 +127,13 @@ export default function PricingPage() {
                                 <ul className="space-y-3 mb-8 flex-1">
                                     {tier.features.map((feature, index) => (
                                         <li key={index} className="flex items-center text-noble-300">
-                                            <LuCheck size={18} className="text-stem-green-500 mr-2 flex-shrink-0" />
+                                            <LuCheck size={18} className="text-stem-green-500 mr-2 shrink-0" />
                                             <span>{feature}</span>
                                         </li>
                                     ))}
                                 </ul>
                                 <button
-                                    className={`w-full justify-center rounded-[12px] px-4 py-2.5 font-semibold shadow-xs focus:outline-hidden ${tier.buttonVariant === "primary"
+                                    className={`w-full justify-center rounded-xl px-4 py-2.5 font-semibold shadow-xs focus:outline-hidden ${tier.buttonVariant === "primary"
                                         ? "bg-stem-green-600 text-day-blue-900 hover:bg-stem-green-700"
                                         : "border border-noble-500 bg-noble-700 text-white hover:bg-noble-600"
                                         }`}
@@ -165,7 +165,7 @@ export default function PricingPage() {
 
             {/* CTA Section */}
             <section className="py-20 relative">
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-full max-w-6xl h-64 bg-gradient-to-t from-stem-green-500/20 to-transparent blur-3xl rounded-full"></div>
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-full max-w-6xl h-64 bg-linear-to-t from-stem-green-500/20 to-transparent blur-3xl rounded-full"></div>
 
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="max-w-4xl mx-auto bg-noble-600/40 backdrop-blur-md border border-noble-500 rounded-2xl p-8 sm:p-12">
@@ -178,7 +178,7 @@ export default function PricingPage() {
                                 <Link href="/signup" className="primaryButton">
                                     Get Started Free
                                 </Link>
-                                <button className="flex w-full justify-center rounded-[12px] border border-noble-500 bg-noble-700 px-4 py-2.5 font-semibold text-white shadow-xs hover:bg-noble-600 focus:outline-hidden">
+                                <button className="flex w-full justify-center rounded-xl border border-noble-500 bg-noble-700 px-4 py-2.5 font-semibold text-white shadow-xs hover:bg-noble-600 focus:outline-hidden">
                                     Talk to Sales
                                 </button>
                             </div>
